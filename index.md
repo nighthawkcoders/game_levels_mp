@@ -1,6 +1,6 @@
 ---
 layout: base
-title: Course Outlines
+title: Game Project
 image: /images/mario_animation.png
 hide: true
 ---
