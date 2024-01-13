@@ -1,9 +1,9 @@
-title: Teacher 2.0
-description: "August 2023 to June 2024"
-owner_name: John Mortensen
+title: Game Levels MP 2.1 
+description: "Jan-Feb 2024"
+owner_name: Nighthawkcoders
 github_username: nighthawkcoders
-github_repo: "teacher_portfolio"
-baseurl: "/teacher_portfolio"
+github_repo: "game_levels_mp"
+baseurl: "/game_levels_mp"
 future: true
 remote_theme: jekyll/minima
 minima:
