@@ -27,6 +27,8 @@ image: /images/platformer/backgrounds/hills.png
     <div id="gameOver" hidden>
         <button id="restartGame">Restart</button>
     </div>
+    <div>
+    </div>
 </div>
 
 
