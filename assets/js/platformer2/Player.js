@@ -1,5 +1,6 @@
 import GameEnv from './GameEnv.js';
 import Character from './Character.js';
+import GameControl from './GameControl.js';
 
 /**
  * @class Player class
@@ -105,7 +106,7 @@ export class Player extends Character{
         //Update the Player Position Variables to match the position of the player
         GameEnv.PlayerPosition.playerX = this.x;
         GameEnv.PlayerPosition.playerY = this.y;
-        
+
         // Player moving right 
         if (this.isActiveAnimation("a")) {
             if (this.movement.left) this.x -= this.speed;  // Move to left
@@ -183,17 +184,17 @@ export class Player extends Character{
             this.movement.left = true;
             this.movement.right = true;
         }
-        // Gomba left/right collision
-        if (this.collisionData.touchPoints.other.id === "goomba"|| this.collisionData.touchPoints.other.id === "flyingGoomba") {
+        // Goomba left/right collision
+        if (this.collisionData.touchPoints.other.id === "goomba" || this.collisionData.touchPoints.other.id === "flyingGoomba") {
             // Collision with the left side of the Enemy
             if (this.collisionData.touchPoints.other.left) {
-                // Game over
-                this.x = GameEnv.innerWidth + 1;
+                //Reset Player to Beginning
+                GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
             }
             // Collision with the right side of the Enemy
             if (this.collisionData.touchPoints.other.right) {
-                // Game over
-                this.x = GameEnv.innerWidth + 1;
+                //Reset Player to Beginning
+                GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
             }
         }
         // Jump platform collision
