@@ -6,4 +6,4 @@
 4. Trystan
 
 ### other group
-1. **Person from that group**
+**Ryan**
