@@ -227,6 +227,7 @@ const GameSetup = {
           height: 452,
           scaleSize: 60,
           speedRatio: 0.7,
+          xPercentage: 0.6,
         }
       }
     },
@@ -277,7 +278,9 @@ const GameSetup = {
         { name: 'hills', id: 'background', class: BackgroundHills, data: this.assets.backgrounds.hills },
         { name: 'grass', id: 'platform', class: Platform, data: this.assets.platforms.grass },
         { name: 'bricks', id: 'jumpPlatform', class: JumpPlatform, data: this.assets.platforms.bricks },
-        { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba },
+        { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage: 0.3, minPosition: 0.05},
+        { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage:  0.5, minPosition: 0.3 },
+        { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage:  0.75, minPosition: 0.5 },
         { name: 'mario', id: 'player', class: Player, data: this.assets.players.mario },
         { name: 'tube', id: 'tube', class: Tube, data: this.assets.obstacles.tube },
         ];
@@ -289,7 +292,8 @@ const GameSetup = {
         // GameObject(s), the order is important to z-index...
         { name: 'avenida', id: 'background', class: Background, data: this.assets.backgrounds.avenida },
         { name: 'grass', id: 'platform', class: Platform, data: this.assets.platforms.grass },
-        { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba },
+        { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage:  0.6 },
+        { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage:  0.9 },
         { name: 'lopez', id: 'player', class: Player, data: this.assets.players.lopez },
         ];
         // Avenida Game Level added to the GameEnv ...

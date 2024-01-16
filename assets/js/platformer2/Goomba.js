@@ -3,18 +3,23 @@ import GameEnv from './GameEnv.js';
 
 export class Goomba extends Character {
     // constructors sets up Character object 
-    constructor(canvas, image, data){
+    constructor(canvas, image, data, xPercentage, minPosition){
         super(canvas, image, data );
 
         //Initial Position of Goomba
-        this.x = .6 * GameEnv.innerWidth;
+        this.x = xPercentage * GameEnv.innerWidth;
+
+        //Access in which a Goomba can travel
+        this.minPosition = minPosition * GameEnv.innerWidth;
+        this.maxPosition = this.x + xPercentage * GameEnv.innerWidth;
+
     }
 
     update() {
         super.update();
         
         // Check for boundaries
-        if (this.x <= 0 || (this.x + this.canvasWidth >= GameEnv.innerWidth) ) {
+        if (this.x <= this.minPosition || (this.x + this.canvasWidth >= this.maxPosition)) {
             this.speed = -this.speed;
         }
 
@@ -24,7 +29,7 @@ export class Goomba extends Character {
         }
 
         // Move the enemy
-        this.x += this.speed;
+        this.x -= this.speed;
     }
 
     // Player action on collisions
