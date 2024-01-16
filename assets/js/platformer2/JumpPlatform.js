@@ -2,8 +2,9 @@ import GameEnv from './GameEnv.js';
 import GameObject from './GameObject.js';
 
 export class JumpPlatform extends GameObject {
-    constructor(canvas, image, data) {
+    constructor(canvas, image, data, xPercentage) {
         super(canvas, image, data);
+        this.platformX = xPercentage * GameEnv.innerWidth;
     }
 
     // Required, but no update action
@@ -20,7 +21,7 @@ export class JumpPlatform extends GameObject {
         // Formula for Height should be on constant ratio, using a proportion of 832
         const scaledHeight = GameEnv.innerHeight * (30/832);
         const scaledWidth = GameEnv.innerHeight * .1;  // width of jump platform is 1/10 of height
-        const platformX = GameEnv.innerWidth * .2;
+        const platformX = this.platformX;
         const platformY = (GameEnv.bottom - scaledHeight)  * .8;
 
         // set variables used in Display and Collision algorithms
