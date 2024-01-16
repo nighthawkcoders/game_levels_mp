@@ -13,6 +13,7 @@ export class Goomba extends Character {
         this.minPosition = minPosition * GameEnv.innerWidth;
         this.maxPosition = this.x + xPercentage * GameEnv.innerWidth;
 
+        this.immune = 0;
     }
 
     update() {
@@ -28,6 +29,12 @@ export class Goomba extends Character {
             this.speed = Math.random() < 0.5 ? -this.speed : this.speed;
         }
 
+        // 1 / 100,000 Chance To Become Immune to Player
+        if (Math.random() < 0.00001) {
+            this.canvas.style.filter = 'brightness(1000%)';
+            this.immune = 1;
+        }
+
         // Move the enemy
         this.x -= this.speed;
     }
@@ -41,8 +48,8 @@ export class Goomba extends Character {
         }
         if (this.collisionData.touchPoints.other.id === "player") {
             // Collision: Top of Goomba with Bottom of Player
-            if (this.collisionData.touchPoints.other.bottom) {
-                console.log("Bye Bye Goomba");
+            if (this.collisionData.touchPoints.other.bottom && this.immune === 0) {
+                // console.log("Bye Bye Goomba");
                 this.x = GameEnv.innerWidth + 1;
                 this.destroy();
             }
