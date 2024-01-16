@@ -237,6 +237,12 @@ export class Player extends Character{
             } else if (this.isKeyActionRight(key)) {
                 GameEnv.backgroundHillsSpeed = 0.4;
                 GameEnv.backgroundMountainsSpeed = 0.1;
+            } else if (this.isKeyActionDash(key) && this.directionKey === "a") {
+                GameEnv.backgroundHillsSpeed = -0.4;
+                GameEnv.backgroundMountainsSpeed = -0.1;
+            } else if (this.isKeyActionDash(key) && this.directionKey === "d") {
+                GameEnv.backgroundHillsSpeed = 0.4;
+                GameEnv.backgroundMountainsSpeed = 0.1;
             }
         }
     }
@@ -261,7 +267,7 @@ export class Player extends Character{
                 this.canvas.style.filter = 'invert(0)';
             } 
             // parallax background speed halts on key up
-            if (this.isKeyActionLeft(key) || this.isKeyActionRight(key)) {
+            if (this.isKeyActionLeft(key) || this.isKeyActionRight(key) || this.isKeyActionDash(key)) {
                 GameEnv.backgroundHillsSpeed = 0;
                 GameEnv.backgroundMountainsSpeed = 0;
             }
