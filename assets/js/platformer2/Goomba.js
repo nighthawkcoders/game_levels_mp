@@ -50,8 +50,12 @@ export class Goomba extends Character {
             // Collision: Top of Goomba with Bottom of Player
             if (this.collisionData.touchPoints.other.bottom && this.immune === 0) {
                 // console.log("Bye Bye Goomba");
-                this.x = GameEnv.innerWidth + 1;
                 this.destroy();
+            }
+        }
+        if (this.collisionData.touchPoints.other.id === "goomba") {
+            if (this.collisionData.touchPoints.other.left || this.collisionData.touchPoints.other.right) {
+                this.speed = -this.speed;            
             }
         }    
     }

@@ -1,6 +1,7 @@
 import GameEnv from './GameEnv.js';
 import Character from './Character.js';
 import GameControl from './GameControl.js';
+import Tube from './Tube.js';
 
 /**
  * @class Player class
@@ -127,6 +128,12 @@ export class Player extends Character{
             } else if (this.movement.down===false) {
                 this.y -= (this.bottom * .30);  // platform jump height
             }
+        }
+
+        //Prevent Player from Dashing Through Tube
+        let tubeX = (.80 * GameEnv.innerWidth)
+        if (this.x >= tubeX && this.x <= GameEnv.innerWidth) {
+            this.x = tubeX - 1;
         }
 
         // Perform super update actions
