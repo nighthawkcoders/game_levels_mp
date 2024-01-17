@@ -1,14 +1,16 @@
 import Character from './Character.js';
 import GameEnv from './GameEnv.js';
 
-export class Goomba extends Character {
+export class FlyingGoomba extends Character {
+  
     // constructors sets up Character object 
     constructor(canvas, image, data, xPercentage, minPosition){
-        super(canvas, image, data );
+        super(canvas, image, data);
 
         //Initial Position of Goomba
         this.x = xPercentage * GameEnv.innerWidth;
-
+        this.y = 0.4 * GameEnv.innerHeight;
+        
         //Access in which a Goomba can travel
         this.minPosition = minPosition * GameEnv.innerWidth;
         this.maxPosition = this.x + xPercentage * GameEnv.innerWidth;
@@ -16,20 +18,34 @@ export class Goomba extends Character {
         this.immune = 0;
     }
 
+    dropGoomba() {
+      let playerX = GameEnv.PlayerPosition.playerX;
+      let playerY = GameEnv.PlayerPosition.playerY;
+
+      // Drop the Goomba on the Player when relatively close
+      if (Math.abs(this.x - playerX) < 150 && this.y !== playerY) {
+        //Move Goomba towards Player
+        this.y = lerp(this.y, playerY, 0.03);
+      } else {
+        //Move Goomba towards Sky
+        this.y = lerp(this.y, 0.4 * GameEnv.innerHeight, 0.02);
+      }
+    }
+
     update() {
         super.update();
-        
-        // Check for boundaries
-        if (this.x <= this.minPosition || (this.x + this.canvasWidth >= this.maxPosition)) {
+
+        if (this.x <= this.minPosition || (this.x + this.canvasWidth >= this.maxPosition) || this.x > (GameEnv.innerWidth - 100) ) {
             this.speed = -this.speed;
         }
+
+        this.dropGoomba();
 
         // Every so often change direction
         if (Math.random() < 0.005) {
             this.speed = Math.random() < 0.5 ? -this.speed : this.speed;
         }
 
-        // 1 / 100,000 Chance To Become Immune to Player
         if (Math.random() < 0.00001) {
             this.canvas.style.filter = 'brightness(1000%)';
             this.immune = 1;
@@ -55,7 +71,15 @@ export class Goomba extends Character {
             }
         }    
     }
-
 }
 
-export default Goomba;
+/* Linear interpolation function
+  min: start value
+  max: end value
+  t: normalization factor (0 - 1)
+*/
+function lerp(min, max, t) {
+  return (max - min) * t + min;
+}
+
+export default FlyingGoomba;
