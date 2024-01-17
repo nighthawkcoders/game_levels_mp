@@ -188,7 +188,7 @@ const GameSetup = {
           wa: { row: 11, frames: 15 },
           wd: { row: 10, frames: 15 },
           a: { row: 3, frames: 7, idleFrame: { column: 7, frames: 0 } },
-          s: {  },
+          s: { row: 12, frames: 15 },
           d: { row: 2, frames: 7, idleFrame: { column: 7, frames: 0 } }
         },
         monkey: {
@@ -210,12 +210,12 @@ const GameSetup = {
           height: 52.5,
           scaleSize: 60,
           speedRatio: 0.7,
-          w: {row: 1, frames: 4},
-          wa: {row: 1, frames: 4},
-          wd: {row: 2, frames: 4},
+          w: {row: 1, frames: 3},
+          wa: {row: 1, frames: 3},
+          wd: {row: 2, frames: 3},
           idle: { row: 6, frames: 1, idleFrame: {column: 1, frames: 0} },
           a: { row: 1, frames: 4, idleFrame: { column: 1, frames: 0 } }, // Right Movement
-          s: {}, // Stop the movement 
+          s: {row: 1, frames: 2}, // Stop the movement 
           d: { row: 2, frames: 4, idleFrame: { column: 1, frames: 0 } }, // Left Movement 
           runningLeft: { row: 5, frames: 4, idleFrame: {column: 1, frames: 0} },
           runningRight: { row: 4, frames: 4, idleFrame: {column: 1, frames: 0} },
