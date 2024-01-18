@@ -190,11 +190,13 @@ export class Player extends Character{
             if (this.collisionData.touchPoints.other.left) {
                 //Reset Player to Beginning
                 GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
+                GameControl.startTimer();
             }
             // Collision with the right side of the Enemy
             if (this.collisionData.touchPoints.other.right) {
                 //Reset Player to Beginning
                 GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
+                GameControl.startTimer();
             }
         }
         // Jump platform collision
