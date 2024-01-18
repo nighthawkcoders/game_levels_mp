@@ -25,14 +25,25 @@ export class Goomba extends Character {
         }
 
         // Every so often change direction
-        if (Math.random() < 0.005) {
-            this.speed = Math.random() < 0.5 ? -this.speed : this.speed;
+        if (GameEnv.difficulty === "normal") {
+            if (Math.random() < 0.005) {
+                this.speed = -this.speed
+            }
+        } else if (GameEnv.difficulty === "hard") {
+            if (Math.random() < 0.01) {
+                this.speed = -this.speed
+            }
         }
 
-        // 1 / 100,000 Chance To Become Immune to Player
-        if (Math.random() < 0.00001) {
-            this.canvas.style.filter = 'brightness(1000%)';
-            this.immune = 1;
+        //Chance To Become Immune to Player
+        if (GameEnv.difficulty === "normal") {
+            if (Math.random() < 0.00001) {
+                this.canvas.style.filter = 'brightness(1000%)';
+                this.immune = 1;
+            }
+        } else if (GameEnv.difficulty === "hard") {
+                this.canvas.style.filter = 'brightness(1000%)';
+                this.immune = 1;
         }
 
         // Move the enemy

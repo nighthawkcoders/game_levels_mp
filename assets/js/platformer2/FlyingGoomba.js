@@ -46,9 +46,15 @@ export class FlyingGoomba extends Character {
             this.speed = Math.random() < 0.5 ? -this.speed : this.speed;
         }
 
-        if (Math.random() < 0.00001) {
-            this.canvas.style.filter = 'brightness(1000%)';
-            this.immune = 1;
+        //Chance To Become Immune to Player
+        if (GameEnv.difficulty === "normal") {
+            if (Math.random() < 0.00001) {
+                this.canvas.style.filter = 'brightness(1000%)';
+                this.immune = 1;
+            }
+        } else if (GameEnv.difficulty === "hard") {
+                this.canvas.style.filter = 'brightness(1000%)';
+                this.immune = 1;
         }
 
         // Move the enemy
