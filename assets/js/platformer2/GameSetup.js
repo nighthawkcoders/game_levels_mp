@@ -11,6 +11,7 @@ import Player from './Player.js';
 import Tube from './Tube.js';
 import Goomba from './Goomba.js';
 import FlyingGoomba from './FlyingGoomba.js';
+import BlockPlatform from './BlockPlatform.js'
 
 /* Coding Style Notes
  *
@@ -167,6 +168,7 @@ const GameSetup = {
         grass: { src: "/images/platformer/platforms/grass.png" },
         alien: { src: "/images/platformer/platforms/alien.png" },
         bricks: { src: "/images/platformer/platforms/brick_wall.png" },
+        block: { src: "/images/platformer/platforms/brick_block.png" }
       },
       backgrounds: {
         start: { src: "/images/platformer/backgrounds/home.png" },
@@ -287,6 +289,7 @@ const GameSetup = {
         { name: 'grass', id: 'platform', class: Platform, data: this.assets.platforms.grass },
         { name: 'bricks', id: 'jumpPlatform', class: JumpPlatform, data: this.assets.platforms.bricks, xPercentage: 0.2 },
         { name: 'bricks', id: 'jumpPlatform', class: JumpPlatform, data: this.assets.platforms.bricks, xPercentage: 0.5 },
+        { name: 'blocks', id: 'blockPlatform', class: BlockPlatform, data: this.assets.platforms.block, xPercentage: 0.5, yPercentage: 0.7 },
         { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage: 0.3, minPosition: 0.05},
         { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage:  0.5, minPosition: 0.3 },
         { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage:  0.75, minPosition: 0.5 },
