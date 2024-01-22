@@ -14,6 +14,13 @@ export class Goomba extends Character {
         this.maxPosition = this.x + xPercentage * GameEnv.innerWidth;
 
         this.immune = 0;
+
+        //Define Speed of Enemy
+        if (GameEnv.difficulty === "normal" || GameEnv.difficulty === "easy") {
+            this.speed = this.speed;
+        } else {
+            this.speed = this.speed * 3;
+        }
     }
 
     update() {

@@ -6,6 +6,7 @@ class GameObject {
      set appropriate properites here */
     }
     update() {
+      mesage = 0;
         /* ADD STUFF HERE
      draw this object on the canvas*/
     }

@@ -45,6 +45,15 @@ export class SettingsControl extends LocalStorage{
         super(keys); //creates this.keys
     }
 
+    reloadGame() {
+        // Add code to reload or restart your game here
+        // You may want to perform actions like resetting the game state, restarting the level, etc.
+        // Example:
+        window.location.reload(); // Reload the entire page (this might not be suitable for all scenarios)
+        // Alternatively, you may have a custom function to handle game restart logic.
+    }
+    
+
     /**
      * Note. Separated from constructor so that class can be created before levels are addeda
      * 
@@ -57,6 +66,18 @@ export class SettingsControl extends LocalStorage{
     initialize(){ 
         // Load all keys from local storage
         this.loadAll();
+
+        window.addEventListener("difficulty", (e) => {
+            // Update the difficulty value when a difficulty event is fired
+            this[this.keys.difficulty] = e.detail.difficulty();
+            // Update the difficulty value in the game environment
+            GameEnv.difficulty = parseFloat(this[this.keys.difficulty]);
+            // Save the difficulty value to local storage
+            this.save(this.keys.difficulty);
+    
+            // Reload the game to apply the new difficulty settings
+            this.reloadGame();
+        });
 
         /**
          * Handles a key by checking if it exists in local storage and parsing its value.
