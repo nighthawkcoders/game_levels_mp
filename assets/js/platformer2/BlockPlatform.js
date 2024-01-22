@@ -21,7 +21,7 @@ export class BlockPlatform extends GameObject {
     // Set platform position
     size() {
         // Formula for Height should be on constant ratio, using a proportion of 832
-        const scaledHeight = GameEnv.innerHeight * (1/15);
+        const scaledHeight = GameEnv.innerWidth * (1/27);
         const scaledWidth = scaledHeight;  // width of jump platform is 1/10 of height
         const platformX = this.platformX;
         const platformY = (GameEnv.bottom - scaledHeight) * this.platformY;

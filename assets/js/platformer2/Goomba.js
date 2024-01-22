@@ -3,11 +3,12 @@ import GameEnv from './GameEnv.js';
 
 export class Goomba extends Character {
     // constructors sets up Character object 
-    constructor(canvas, image, data, xPercentage, minPosition){
+    constructor(canvas, image, data, xPercentage, yPercentage, minPosition){
         super(canvas, image, data );
 
         //Initial Position of Goomba
         this.x = xPercentage * GameEnv.innerWidth;
+        this.y = yPercentage
 
         //Access in which a Goomba can travel
         this.minPosition = minPosition * GameEnv.innerWidth;
