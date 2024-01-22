@@ -200,13 +200,21 @@ export class Player extends Character{
         if (this.collisionData.touchPoints.other.id === "goomba" || this.collisionData.touchPoints.other.id === "flyingGoomba") {
             // Collision with the left side of the Enemy
             if (this.collisionData.touchPoints.other.left) {
-                //Reset Player to Beginning
-                GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
+                if ((GameEnv.difficulty === "normal" || GameEnv.difficulty === "hard")) {
+                    //Reset Player to Beginning
+                    GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
+                } else if (GameEnv.difficulty === "easy")  {
+                    this.x -= 10;
+                }
             }
             // Collision with the right side of the Enemy
             if (this.collisionData.touchPoints.other.right) {
-                //Reset Player to Beginning
-                GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
+                if (GameEnv.difficulty === "normal" || GameEnv.difficulty === "hard") {
+                    //Reset Player to Beginning
+                    GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
+                } else if (GameEnv.difficulty === "easy") {
+                    this.x += 10;
+                }
             }
         }
         // Jump platform collision

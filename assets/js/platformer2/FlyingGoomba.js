@@ -16,6 +16,13 @@ export class FlyingGoomba extends Character {
         this.maxPosition = this.x + xPercentage * GameEnv.innerWidth;
 
         this.immune = 0;
+
+        //Define Speed of Enemy
+        if (GameEnv.difficulty === "normal") {
+            this.speed = this.speed;
+        } else {
+            this.speed = this.speed * 2;
+        }
     }
 
     dropGoomba() {
