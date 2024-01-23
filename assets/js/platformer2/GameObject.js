@@ -138,7 +138,7 @@ class GameObject {
         // Calculate hitbox constants
         var widthPercentage = 0.5;
         var heightPercentage = 0.5; 
-        if (this.canvas.id === "player" && other.canvas.id === "jumpPlatform") {
+        if (this.canvas.id === "player" && other.canvas.id === "wallObsticle") {
             heightPercentage = 0.0;
         }
         if (this.canvas.id === "goomba" && other.canvas.id === "player") {
