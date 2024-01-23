@@ -3,16 +3,66 @@ const { v4: uuidv4 } = require('uuid');
 
 const io = new Server({ cors: { origin: "*" } });
 
+class Group{
+  leader;
+  ids = [];
+  constructor(){
+    this.name = uuidv4();// assign group an id
+  };
+}
+
+var groups = [new Group];
+var maxUsers = 5; //maximum users per group
+
+function assignGroup(){
+  console.log(groups)
+  for(let i = 0; i<groups.length;i++) {
+    if (groups[i].ids.length < maxUsers){
+      return groups[i];
+    }
+  }
+  var group = new Group;
+  groups.push(group);
+  return group;
+}
+
+function connectionFunc(id,userState,g){
+  if(userState == true){//user connecting
+    var group = assignGroup();
+    group.ids.push(id);
+    if(group.leader==undefined){
+      group.leader = id;
+    }
+    return group;
+  } 
+  else { //player disconnecting
+    g.ids.splice(g.ids.indexOf(id),1);
+    if(id == g.leader){
+      g.leader = g.ids[0];
+    }
+  }
+}
+
 io.on("connection", (socket) => {
-  const id = uuidv4()
-  socket.emit("id", id)
+  const id = uuidv4();
+  socket.emit("id", id);
+  var g = connectionFunc(id,true);
+  socket.join(g.name);
+  console.log("a player joined with id: "+id+" and added to group: "+g.name);
+
   socket.on("update", (data) => {
-    console.log(data)
-    io.emit("stateUpdate", data)
+      io.to(g.name).emit("stateUpdate", data); //send update to all in group
+  })
+
+  socket.on("event_name_here", (id)=>{ //setup for multiplayer events
+      if (id == g.leader){
+        io.to(g.name).emit("event_nameStart","")
+      }
   })
 
   socket.on("disconnect", () => {
-    io.emit("disconnection", id)
+    connectionFunc(id,false,g);
+    io.emit("disconnection", id);
   })
 });
 

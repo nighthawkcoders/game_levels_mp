@@ -130,10 +130,22 @@ export class Player extends Character{
         // Player jumping
         if (this.isActiveGravityAnimation("w")) {
             if (this.gravityEnabled) {
-                this.y -= (this.bottom * .50);  // bottom jump height
+                if (GameEnv.difficulty === "easy") {
+                    this.y -= (this.bottom * .50);  // bottom jump height
+                } else if (GameEnv.difficulty === "normal") {
+                    this.y -= (this.bottom * .40);
+                } else {
+                    this.y -= (this.bottom * .30);
+                }
             } else if (this.movement.down===false) {
-                this.y -= (this.bottom * .30);  // platform jump height
+                this.y -= (this.bottom * .15);  // platform jump height
             }
+        }
+
+        //Prevent Player from Dashing Through Tube
+        let tubeX = (.80 * GameEnv.innerWidth)
+        if (this.x >= tubeX && this.x <= GameEnv.innerWidth) {
+            this.x = tubeX - 1;
         }
 
         // Perform super update actions
@@ -179,12 +191,12 @@ export class Player extends Character{
                 this.x = this.collisionData.touchPoints.other.x;
                 this.gravityEnabled = false; // stop gravity
                 // Pause for two seconds
-                setTimeout(() => {   // animation in tube for 2 seconds
+                setTimeout(() => {   // animation in tube for 1 seconds
                     this.gravityEnabled = true;
                     setTimeout(() => { // move to end of screen for end of game detection
                         this.x = GameEnv.innerWidth + 1;
                     }, 1000);
-                }, 2000);
+                }, 1000);
             }
         } else {
             // Reset movement flags if not colliding with a tube
@@ -195,6 +207,7 @@ export class Player extends Character{
         if (this.collisionData.touchPoints.other.id === "goomba" || this.collisionData.touchPoints.other.id === "flyingGoomba") {
             // Collision with the left side of the Enemy
             if (this.collisionData.touchPoints.other.left) {
+
                 //Reset Player to Beginning
                 GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
                 // Play death sound
@@ -207,6 +220,27 @@ export class Player extends Character{
                 GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
                 // Play death sound
                 this.playDeathSound();
+
+                if ((GameEnv.difficulty === "normal" || GameEnv.difficulty === "hard")) {
+                    //Reset Player to Beginning
+                    GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
+                    // Play death sound
+                    this.playDeathSound();
+                } else if (GameEnv.difficulty === "easy")  {
+                    this.x -= 10;
+                }
+            }
+            // Collision with the right side of the Enemy
+            if (this.collisionData.touchPoints.other.right) {
+                if (GameEnv.difficulty === "normal" || GameEnv.difficulty === "hard") {
+                    //Reset Player to Beginning
+                    GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
+                    // Play death sound
+                    this.playDeathSound();
+                } else if (GameEnv.difficulty === "easy") {
+                    this.x += 10;
+                }
+ main
             }
         }
         
