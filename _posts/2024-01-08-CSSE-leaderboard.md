@@ -7,23 +7,18 @@ courses: { csse: {week: 18} }
 image: /images/platformer/backgrounds/hills.png
 ---
 
-<style>
-    #addRow, #backToGame {
-        position: relative;
-        z-index: 2; /*Ensure the controls are on top*/
-    }
-</style>
-
 <div>
     <div id="addRow">
         <button onclick="addRow()" id="addRow">Add Row</button>
     </div>
     <div id="backToGame">
-        <button>Back To Game</button>
+        <a href="http://127.0.0.1:4100/game_levels_mp/2024/01/08/CSSE-oop-game-levels2.html">
+            <button>Back To Game</button>
+        </a>
     </div>
 </div>
 <div>
-    <table id="leaderboard">
+    <table id="leaderboardTable">
         <thead>
             <tr>
                 <th>Name</th>
@@ -31,6 +26,14 @@ image: /images/platformer/backgrounds/hills.png
             </tr>
         </thead>
         <tbody>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
         </tbody>
     </table>
 </div>
