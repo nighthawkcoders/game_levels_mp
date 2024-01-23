@@ -205,6 +205,12 @@ export class Player extends Character{
                 this.gravityEnabled = false;
                 this.setAnimation(this.directionKey); // set animation to direction
             }
+            if (this.collisionData.touchPoints.this.right) {
+                this.movement.right = false;
+            }
+            if (this.collisionData.touchPoints.this.left){
+                this.movement.left = false;
+            }
         }
         // Fall Off edge of Jump platform
         else if (this.movement.down === false) {
