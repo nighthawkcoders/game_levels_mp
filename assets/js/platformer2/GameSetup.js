@@ -212,7 +212,7 @@ const GameSetup = {
           w: {row: 1, frames: 4},
           wa: {row: 1, frames: 4},
           wd: {row: 2, frames: 4},
-          idle: { row: 6, frames: 1, idleFrame: {column: 1, frames: 0} },
+          idle: { row: 6, frames: 3, idleFrame: {column: 1, frames: 0} },
           a: { row: 1, frames: 4, idleFrame: { column: 1, frames: 0 } }, // Right Movement
           s: {}, // Stop the movement 
           d: { row: 2, frames: 4, idleFrame: { column: 1, frames: 0 } }, // Left Movement 
@@ -261,6 +261,34 @@ const GameSetup = {
             this.assets[category][item]['file'] = path + this.assets[category][item].src;
             });
         });
+
+        let cutStory = document.getElementById('cut-story');
+        let messages = ["Hi! My name is Mario, and I wish...", 
+        "I wish I could be just as cool as this guy, Mr. Lopez.", "Help me get to the next level to become him!"];
+        console.log("Message length: " + messages.length);
+    
+        function showMessage(){
+            var x = cutStory;
+            x.className = 'show'; // change class name to show
+            console.log("class name before: "+x.className);
+            console.log("inner HTML: "+x.innerText);
+            //only want to last 3 secs
+            setTimeout(function(){x.className = x.className.replace('show',' ');}, 2000); //replace show with an empty string
+             setTimeout(function(){x.className = x.className.replace(' ','hide');}, 2000);
+            console.log("class name after: "+x.className);
+        }
+        
+        let i = 0;
+        let interval = setInterval(() => 
+        {
+          cutStory.innerText = messages[i]; 
+          showMessage();
+          i++;
+          if(i == messages.length)
+          {
+            clearInterval(interval);
+          }
+        }, 3000);
 
         // Home screen added to the GameEnv ...
         new GameLevel( {tag: "start", callback: this.startGameCallback } );

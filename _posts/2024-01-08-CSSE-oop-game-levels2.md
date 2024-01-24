@@ -37,6 +37,8 @@ image: /images/platformer/backgrounds/hills.png
   <!-- JavaScript-generated canvas items are inserted here -->
 </div>
 
+<footer id="cut-story"></footer>
+
 <script type="module">
     // Imports to drive game
     import GameSetup from '{{site.baseurl}}/assets/js/platformer2/GameSetup.js';
