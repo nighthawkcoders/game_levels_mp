@@ -175,6 +175,7 @@ const GameSetup = {
         mountains: { src: "/images/platformer/backgrounds/mountains.jpg" },
         planet: { src: "/images/platformer/backgrounds/planet.jpg" },
         castles: { src: "/images/platformer/backgrounds/castles.png" },
+        loading: { src: "/images/platformer/backgrounds/loading.jpg" },
         end: { src: "/images/platformer/backgrounds/game_over.png" }
       },
       players: {
@@ -282,6 +283,7 @@ const GameSetup = {
         // Hills Game Level defintion...
         const hillsGameObjects = [
         // GameObject(s), the order is important to z-index...
+        { name: 'loading', id: 'background', class: BackgroundTransitions,  data: this.assets.backgrounds.transitions },
         { name: 'mountains', id: 'background', class: BackgroundMountains,  data: this.assets.backgrounds.mountains },
         { name: 'hills', id: 'background', class: BackgroundHills, data: this.assets.backgrounds.hills },
         { name: 'grass', id: 'platform', class: Platform, data: this.assets.platforms.grass },

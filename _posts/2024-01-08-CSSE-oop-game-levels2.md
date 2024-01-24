@@ -43,7 +43,6 @@ image: /images/platformer/backgrounds/hills.png
     import GameControl from '{{site.baseurl}}/assets/js/platformer2/GameControl.js';
     import SettingsControl from '{{site.baseurl}}/assets/js/platformer2/SettingsControl.js';
     import GameEnv from '{{site.baseurl}}/assets/js/platformer2/GameEnv.js';
-
     /* 
      * ==========================================
      * ========== Game Setup ====================
