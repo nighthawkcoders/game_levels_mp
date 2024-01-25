@@ -14,6 +14,9 @@ image: /images/platformer/backgrounds/hills.png
   <a href="javascript:void(0)" id="sidebar-header">&times; Settings</a>
 </div>
 
+<!--Audio for Death of Goomba -->
+<audio id="goombaDeath" src="{{site.baseurl}}/assets/audio/goomba-death.mp3" preload="auto"></audio>
+
 <!-- Wrap both the controls and gameplay in a container div -->
 <div id="canvasContainer">
   <div class="submenu">
@@ -43,6 +46,7 @@ image: /images/platformer/backgrounds/hills.png
     import GameControl from '{{site.baseurl}}/assets/js/platformer2/GameControl.js';
     import SettingsControl from '{{site.baseurl}}/assets/js/platformer2/SettingsControl.js';
     import GameEnv from '{{site.baseurl}}/assets/js/platformer2/GameEnv.js';
+    import Audio from '{{site.baseurl}}/assets/js/platformer2/Audio.js';
 
     /* 
      * ==========================================
