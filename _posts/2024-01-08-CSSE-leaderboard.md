@@ -6,7 +6,7 @@ type: devops
 courses: { csse: {week: 18} }
 image: /images/platformer/backgrounds/hills.png
 ---
-
+    
 <div>
     <div id="addRow">
         <button onclick="addRow()" id="addRow">Add Row</button>
@@ -18,8 +18,8 @@ image: /images/platformer/backgrounds/hills.png
     </div>
 </div>
 <div>
-    <table id="leaderboardTable">
-        <thead>
+    <table id = leaderboard>
+        <thead id="leaderboardHead">
             <tr>
                 <th>Name</th>
                 <th>Score</th>
@@ -27,12 +27,6 @@ image: /images/platformer/backgrounds/hills.png
         </thead>
         <tbody>
             <tr>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
             </tr>
         </tbody>
     </table>

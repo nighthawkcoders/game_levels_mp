@@ -38,9 +38,15 @@
   margin-right: $spacing-unit;
 }
 
-#leaderboardTable * {
-  background-color: #55ebff !important;
+$tableBackground: #006bbd;
+#leaderboardHead * {
+  background-color: $tableBackground !important;
 }
+
+#leaderboardBody {
+  background-color: mix($tableBackground, white, 75%) !important;
+}
+
 
 /// Color mixin 
 /// @description This mixin is defined to share colors with classes in this stylesheet.
