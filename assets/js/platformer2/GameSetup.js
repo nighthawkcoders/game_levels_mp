@@ -168,7 +168,17 @@ const GameSetup = {
         grass: { src: "/images/platformer/platforms/grass.png" },
         alien: { src: "/images/platformer/platforms/alien.png" },
         bricks: { src: "/images/platformer/platforms/brick_wall.png" },
-        block: { src: "/images/platformer/platforms/brick_block.png" },
+        block: { src: "/images/platformer/platforms/brick_block.png" }, //MAY need 3 new variables: sizeRatio, widthRatio, and heightRatio
+        itemBlock: {
+          src: "/images/platformer/platforms/mario_block_spritesheet_v2.png",
+          sizeRatio: 83.2,
+          widthRatio: 0.5,
+          heightRatio: 1.0,
+          width: 204,
+          height: 204,
+          scaleSize: 80,
+          speedRatio: 0.7,
+        }
       },
       backgrounds: {
         start: { src: "/images/platformer/backgrounds/home.png" },
@@ -290,6 +300,7 @@ const GameSetup = {
         { name: 'blocks', id: 'blockPlatform', class: BlockPlatform, data: this.assets.platforms.block, xPercentage: 0.2, yPercentage: 0.85 },
         { name: 'blocks', id: 'blockPlatform', class: BlockPlatform, data: this.assets.platforms.block, xPercentage: 0.2368, yPercentage: 0.85 },
         { name: 'blocks', id: 'blockPlatform', class: BlockPlatform, data: this.assets.platforms.block, xPercentage: 0.2736, yPercentage: 0.85 },
+        { name: 'itemBlock', id: 'jumpPlatform', class: JumpPlatform, data: this.assets.platforms.itemBlock, xPercentage: 0.4, yPercentage: 0.65 }, //item block is a platform
         { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage: 0.3, yPercentage: 1, minPosition: 0.05},
         { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage:  0.5, yPercentage: 1, minPosition: 0.3 },
         { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage:  0.75, yPercentage: 1, minPosition: 0.5 },
