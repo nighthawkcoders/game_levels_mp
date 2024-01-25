@@ -27,6 +27,8 @@ image: /images/platformer/backgrounds/hills.png
     <div id="gameOver" hidden>
         <button id="restartGame">Restart</button>
     </div>
+    <div>
+    </div>
 </div>
 
 
@@ -53,7 +55,7 @@ image: /images/platformer/backgrounds/hills.png
       },
       backgrounds: {
         start: { src: "/images/platformer/backgrounds/home.png" },
-        hills: { src: "/images/platformer/backgrounds/hills.png" },
+        hills: { src: "/images/platformer/backgrounds/springfield.png" },
         planet: { src: "/images/platformer/backgrounds/planet.jpg" },
         castles: { src: "/images/platformer/backgrounds/castles.png" },
         end: { src: "/images/platformer/backgrounds/game_over.png" }
