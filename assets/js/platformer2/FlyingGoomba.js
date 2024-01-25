@@ -2,15 +2,16 @@ import Character from './Character.js';
 import GameEnv from './GameEnv.js';
 import playGoombaDeath from './Audio.js';
 
-export class Goomba extends Character {
+export class FlyingGoomba extends Character {
+  
     // constructors sets up Character object 
-    constructor(canvas, image, data, xPercentage, yPercentage, minPosition){
-        super(canvas, image, data );
+    constructor(canvas, image, data, xPercentage, minPosition){
+        super(canvas, image, data);
 
         //Initial Position of Goomba
         this.x = xPercentage * GameEnv.innerWidth;
-        this.y = yPercentage
-
+        this.y = 0.4 * GameEnv.innerHeight;
+        
         //Access in which a Goomba can travel
         this.minPosition = minPosition * GameEnv.innerWidth;
         this.maxPosition = this.x + xPercentage * GameEnv.innerWidth;
@@ -18,30 +19,39 @@ export class Goomba extends Character {
         this.immune = 0;
 
         //Define Speed of Enemy
-        if (GameEnv.difficulty === "normal" || GameEnv.difficulty === "easy") {
+        if (GameEnv.difficulty === "normal") {
             this.speed = this.speed;
         } else {
-            this.speed = this.speed * 3;
+            this.speed = this.speed * 2;
         }
+    }
+
+    dropGoomba() {
+      let playerX = GameEnv.PlayerPosition.playerX;
+      let playerY = GameEnv.PlayerPosition.playerY;
+
+      // Drop the Goomba on the Player when relatively close
+      if (Math.abs(this.x - playerX) < 150 && this.y !== playerY) {
+        //Move Goomba towards Player
+        this.y = lerp(this.y, playerY, 0.03);
+      } else {
+        //Move Goomba towards Sky
+        this.y = lerp(this.y, 0.4 * GameEnv.innerHeight, 0.02);
+      }
     }
 
     update() {
         super.update();
-        
-        // Check for boundaries
-        if (this.x <= this.minPosition || (this.x + this.canvasWidth >= this.maxPosition)) {
+
+        if (this.x <= this.minPosition || (this.x + this.canvasWidth >= this.maxPosition) || this.x > (GameEnv.innerWidth - 100) ) {
             this.speed = -this.speed;
         }
 
+        this.dropGoomba();
+
         // Every so often change direction
-        if (GameEnv.difficulty === "normal") {
-            if (Math.random() < 0.005) {
-                this.speed = -this.speed
-            }
-        } else if (GameEnv.difficulty === "hard") {
-            if (Math.random() < 0.01) {
-                this.speed = -this.speed
-            }
+        if (Math.random() < 0.005) {
+            this.speed = Math.random() < 0.5 ? -this.speed : this.speed;
         }
 
         //Chance To Become Immune to Player
@@ -69,17 +79,21 @@ export class Goomba extends Character {
         if (this.collisionData.touchPoints.other.id === "player") {
             // Collision: Top of Goomba with Bottom of Player
             if (this.collisionData.touchPoints.other.bottom && this.immune === 0) {
-                this.destroy();
+                this.x = GameEnv.innerWidth + 1;
                 playGoombaDeath();
-            }
-        }
-        if (this.collisionData.touchPoints.other.id === "goomba") {
-            if (this.collisionData.touchPoints.other.left || this.collisionData.touchPoints.other.right) {
-                this.speed = -this.speed;            
+                this.destroy();
             }
         }    
     }
-
 }
 
-export default Goomba;
+/* Linear interpolation function
+  min: start value
+  max: end value
+  t: normalization factor (0 - 1)
+*/
+function lerp(min, max, t) {
+  return (max - min) * t + min;
+}
+
+export default FlyingGoomba;

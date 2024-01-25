@@ -34,6 +34,17 @@
   z-index: 2; // z-index position ensures these buttons are on top.
 }
 
+#addRow, #backToGame {
+  position: relative;
+  z-index: 2; // z-index position ensures these buttons are on top.
+  display: inline-block;
+  margin-right: $spacing-unit;
+}
+
+#leaderboardTable * {
+  background-color: #55ebff !important;
+}
+
 /// Color mixin 
 /// @description This mixin is defined to share colors with classes in this stylesheet.
 @mixin dark-mode-color {

@@ -1,12 +1,13 @@
 import GameEnv from './GameEnv.js';
 import Character from './Character.js';
+import GameControl from './GameControl.js';
 
 /**
  * @class Player class
  * @description Player.js key objective is to eent the user-controlled character in the game.   
  * 
  * The Player class extends the Character class, which in turn extends the GameObject class.
- * Animations and events are activiated by key presses, collisions, and gravity.
+ * Animations and events are activated by key presses, collisions, and gravity.
  * WASD keys are used by user to control The Player object.  
  * 
  * @extends Character
@@ -102,6 +103,10 @@ export class Player extends Character{
      * @override
      */
     update() {
+        //Update the Player Position Variables to match the position of the player
+        GameEnv.PlayerPosition.playerX = this.x;
+        GameEnv.PlayerPosition.playerY = this.y;
+
         // Player moving right 
         if (this.isActiveAnimation("a")) {
             if (this.movement.left) this.x -= this.speed;  // Move to left
@@ -118,10 +123,22 @@ export class Player extends Character{
         // Player jumping
         if (this.isActiveGravityAnimation("w")) {
             if (this.gravityEnabled) {
-                this.y -= (this.bottom * .50);  // bottom jump height
+                if (GameEnv.difficulty === "easy") {
+                    this.y -= (this.bottom * .50);  // bottom jump height
+                } else if (GameEnv.difficulty === "normal") {
+                    this.y -= (this.bottom * .40);
+                } else {
+                    this.y -= (this.bottom * .30);
+                }
             } else if (this.movement.down===false) {
-                this.y -= (this.bottom * .30);  // platform jump height
+                this.y -= (this.bottom * .15);  // platform jump height
             }
+        }
+
+        //Prevent Player from Dashing Through Tube
+        let tubeX = (.80 * GameEnv.innerWidth)
+        if (this.x >= tubeX && this.x <= GameEnv.innerWidth) {
+            this.x = tubeX - 1;
         }
 
         // Perform super update actions
@@ -129,7 +146,7 @@ export class Player extends Character{
     }
 
     /**
-     * gameloop:  respoonds to level change and game over destroy player object
+     * gameloop:  responds to level change and game over destroy player object
      * This method is used to remove the event listeners for keydown and keyup events.
      * After removing the event listeners, it calls the parent class's destroy player object. 
      * This method overrides GameObject.destroy.
@@ -167,33 +184,41 @@ export class Player extends Character{
                 this.x = this.collisionData.touchPoints.other.x;
                 this.gravityEnabled = false; // stop gravity
                 // Pause for two seconds
-                setTimeout(() => {   // animation in tube for 2 seconds
+                setTimeout(() => {   // animation in tube for 1 seconds
                     this.gravityEnabled = true;
                     setTimeout(() => { // move to end of screen for end of game detection
                         this.x = GameEnv.innerWidth + 1;
                     }, 1000);
-                }, 2000);
+                }, 1000);
             }
         } else {
             // Reset movement flags if not colliding with a tube
             this.movement.left = true;
             this.movement.right = true;
         }
-        // Gomba left/right collision
-        if (this.collisionData.touchPoints.other.id === "goomba") {
+        // Goomba left/right collision
+        if (["goomba", "flyingGoomba"].includes(this.collisionData.touchPoints.other.id)) {
             // Collision with the left side of the Enemy
             if (this.collisionData.touchPoints.other.left) {
-                // Game over
-                this.x = GameEnv.innerWidth + 1;
+                if (["normal","hard"].includes(GameEnv.difficulty)) {
+                    //Reset Player to Beginning
+                    GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
+                } else {
+                    this.x -= 10;
+                }
             }
             // Collision with the right side of the Enemy
             if (this.collisionData.touchPoints.other.right) {
-                // Game over
-                this.x = GameEnv.innerWidth + 1;
+                if (["normal", "hard"].includes(GameEnv.difficulty)) {
+                    //Reset Player to Beginning
+                    GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
+                } else {
+                    this.x += 10;
+                }
             }
         }
         // Jump platform collision
-        if (this.collisionData.touchPoints.other.id === "jumpPlatform") {
+        if (this.collisionData.touchPoints.other.id === "blockPlatform") {
             // Player is on top of the Jump platform
             if (this.collisionData.touchPoints.this.top) {
                 this.movement.down = false; // enable movement down without gravity
@@ -237,6 +262,12 @@ export class Player extends Character{
             } else if (this.isKeyActionRight(key)) {
                 GameEnv.backgroundHillsSpeed = 0.4;
                 GameEnv.backgroundMountainsSpeed = 0.1;
+            } else if (this.isKeyActionDash(key) && this.directionKey === "a") {
+                GameEnv.backgroundHillsSpeed = -0.4;
+                GameEnv.backgroundMountainsSpeed = -0.1;
+            } else if (this.isKeyActionDash(key) && this.directionKey === "d") {
+                GameEnv.backgroundHillsSpeed = 0.4;
+                GameEnv.backgroundMountainsSpeed = 0.1;
             }
         }
     }
@@ -261,7 +292,7 @@ export class Player extends Character{
                 this.canvas.style.filter = 'invert(0)';
             } 
             // parallax background speed halts on key up
-            if (this.isKeyActionLeft(key) || this.isKeyActionRight(key)) {
+            if (this.isKeyActionLeft(key) || this.isKeyActionRight(key) || this.isKeyActionDash(key)) {
                 GameEnv.backgroundHillsSpeed = 0;
                 GameEnv.backgroundMountainsSpeed = 0;
             }

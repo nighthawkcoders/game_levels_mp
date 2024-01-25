@@ -36,6 +36,7 @@ export class GameEnv {
      * @property {number} backgroundHillsSpeed - used by background objects
      * @property {number} backgroundMountainsSpeed - used by background objects
      * @property {number} gravity - localstorage key, used by platformer objects
+     * @property {Object} difficulty - localstorage key, used by GameControl
      * @property {number} innerWidth - used by platformer objects
      * @property {number} prevInnerWidth - used by platformer objects
      * @property {number} innerHeight - used by platformer objects
@@ -55,6 +56,7 @@ export class GameEnv {
     static backgroundHillsSpeed = 0;
     static backgroundMountainsSpeed = 0;
     static gravity = 3;
+    static difficulty = "normal";
     static innerWidth;
     static prevInnerWidth;
     static innerHeight;
@@ -66,7 +68,7 @@ export class GameEnv {
     constructor() {
         throw new Error('GameEnv is a static class and cannot be instantiated.');
     }
-
+  
      /**
      * Setter for Top position, called by initialize in GameEnv
      * @static
@@ -78,7 +80,7 @@ export class GameEnv {
             this.top = header.offsetHeight;
         }
     }
-
+  
     /**
      * Setter for Bottom position, called by resize in GameEnv
      * @static
@@ -88,7 +90,7 @@ export class GameEnv {
         this.bottom =
         this.top + this.backgroundHeight;
     }
-
+  
     /**
      * Setup for Game Environment, called by transitionToLevel in GameControl
      * @static
@@ -104,20 +106,20 @@ export class GameEnv {
         this.setTop();
         //this.setBottom(); // must be called in platformer objects
     }
-
+  
     /**
      * Resize game objects, called by resize in GameControl
      * @static
      */    
     static resize() {
         GameEnv.initialize();  // Update GameEnv dimensions
-
+  
         // Call the sizing method on all game objects
         for (var gameObject of GameEnv.gameObjects){
             gameObject.size();
         }
     }
-
+  
     /**
      * Update, serialize, and draw game objects, called by update in GameControl
      * @static
@@ -130,7 +132,7 @@ export class GameEnv {
             gameObject.draw();
         }
     }
-
+  
     /**
      * Destroy game objects, called by destroy in GameControl
      * @static
@@ -143,7 +145,7 @@ export class GameEnv {
         }
         GameEnv.gameObjects = [];
     }
-
+  
     /**
      * Set "canvas filter property" between inverted and normal, called by setInvert in GameControl
      * @static
@@ -159,6 +161,11 @@ export class GameEnv {
             }
         }
     }
-}
-
-export default GameEnv;
+  
+    static PlayerPosition() {
+      let playerX = 0;
+      let playerY = 0;
+    }
+  }
+  
+  export default GameEnv;

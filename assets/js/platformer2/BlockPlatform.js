@@ -1,28 +1,30 @@
 import GameEnv from './GameEnv.js';
 import GameObject from './GameObject.js';
 
-export class JumpPlatform extends GameObject {
-    constructor(canvas, image, data, xPercentage) {
+export class BlockPlatform extends GameObject {
+    constructor(canvas, image, data, xPercentage, yPercentage) {
         super(canvas, image, data);
         this.platformX = xPercentage * GameEnv.innerWidth;
+        this.platformY = yPercentage;
     }
 
     // Required, but no update action
     update() {
+        console.log(this.platformY)
     }
 
     // Draw position is always 0,0
     draw() {
-        this.ctx.drawImage(this.image, 0, 0);
+        this.ctx.drawImage(this.image, 0, 0, this.canvas.width, this.canvas.height);
     }
 
     // Set platform position
     size() {
         // Formula for Height should be on constant ratio, using a proportion of 832
-        const scaledHeight = GameEnv.innerHeight * (30/832);
-        const scaledWidth = GameEnv.innerHeight * .1;  // width of jump platform is 1/10 of height
+        const scaledHeight = GameEnv.innerWidth * (1/27);
+        const scaledWidth = scaledHeight;  // width of jump platform is 1/10 of height
         const platformX = this.platformX;
-        const platformY = (GameEnv.bottom - scaledHeight)  * .8;
+        const platformY = (GameEnv.bottom - scaledHeight) * this.platformY;
 
         // set variables used in Display and Collision algorithms
         this.bottom = platformY;
@@ -40,4 +42,4 @@ export class JumpPlatform extends GameObject {
     }
 }
 
-export default JumpPlatform;
+export default BlockPlatform;
