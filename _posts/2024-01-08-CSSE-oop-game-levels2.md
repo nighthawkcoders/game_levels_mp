@@ -31,7 +31,9 @@ image: /images/platformer/backgrounds/hills.png
         <button id="settings-button">Settings</button>
     </div>
     <div id="leaderboard"> <!-- Controls -->
-      <button id="leaderboard-button">Leaderboard</button>
+      <a href="http://127.0.0.1:4100/game_levels_mp/2024/01/08/CSSE-leaderboard.html">
+        <button id="leaderboard-button">Leaderboard</button>
+        </a>
     </div>
   </div>
   <!-- JavaScript-generated canvas items are inserted here -->
