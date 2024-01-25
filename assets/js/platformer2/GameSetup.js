@@ -12,6 +12,7 @@ import Player from './Player.js';
 import Tube from './Tube.js';
 import Goomba from './Goomba.js';
 import FlyingGoomba from './FlyingGoomba.js';
+import BlockPlatform from './BlockPlatform.js'
 
 /* Coding Style Notes
  *
@@ -168,6 +169,7 @@ const GameSetup = {
         grass: { src: "/images/platformer/platforms/grass.png" },
         alien: { src: "/images/platformer/platforms/alien.png" },
         bricks: { src: "/images/platformer/platforms/brick_wall.png" },
+        block: { src: "/images/platformer/platforms/brick_block.png" },
       },
       backgrounds: {
         start: { src: "/images/platformer/backgrounds/home.png" },
@@ -190,7 +192,7 @@ const GameSetup = {
           wa: { row: 11, frames: 15 },
           wd: { row: 10, frames: 15 },
           a: { row: 3, frames: 7, idleFrame: { column: 7, frames: 0 } },
-          s: {  },
+          s: { row: 12, frames: 15 },
           d: { row: 2, frames: 7, idleFrame: { column: 7, frames: 0 } }
         },
         monkey: {
@@ -212,15 +214,15 @@ const GameSetup = {
           height: 52.5,
           scaleSize: 60,
           speedRatio: 0.7,
-          w: {row: 1, frames: 4},
-          wa: {row: 1, frames: 4},
-          wd: {row: 2, frames: 4},
+          w: {row: 1, frames: 3},
+          wa: {row: 1, frames: 3},
+          wd: {row: 2, frames: 3},
           idle: { row: 6, frames: 1, idleFrame: {column: 1, frames: 0} },
-          a: { row: 1, frames: 4, idleFrame: { column: 1, frames: 0 } }, // Right Movement
-          s: {}, // Stop the movement 
-          d: { row: 2, frames: 4, idleFrame: { column: 1, frames: 0 } }, // Left Movement 
-          runningLeft: { row: 5, frames: 4, idleFrame: {column: 1, frames: 0} },
-          runningRight: { row: 4, frames: 4, idleFrame: {column: 1, frames: 0} },
+          a: { row: 1, frames: 3, idleFrame: { column: 1, frames: 0 } }, // Right Movement
+          s: {row: 1, frames: 3}, // Stop the movement 
+          d: { row: 2, frames: 3, idleFrame: { column: 1, frames: 0 } }, // Left Movement 
+          runningLeft: { row: 5, frames: 3, idleFrame: {column: 1, frames: 0} },
+          runningRight: { row: 4, frames: 3, idleFrame: {column: 1, frames: 0} },
         }
       },
       enemies: {
@@ -273,6 +275,34 @@ const GameSetup = {
             });
         });
 
+        let cutStory = document.getElementById('cut-story');
+        let messages = ["Hi! My name is Mario, and I wish...", 
+        "I wish I could be just as cool as this guy, Mr. Lopez.", "Help me get to the next level to become him!"];
+        console.log("Message length: " + messages.length);
+    
+        function showMessage(){
+            var x = cutStory;
+            x.className = 'show'; // change class name to show
+            console.log("class name before: "+x.className);
+            console.log("inner HTML: "+x.innerText);
+            //only want to last 3 secs
+            setTimeout(function(){x.className = x.className.replace('show',' ');}, 2000); //replace show with an empty string
+             setTimeout(function(){x.className = x.className.replace(' ','hide');}, 2000);
+            console.log("class name after: "+x.className);
+        }
+        
+        let i = 0;
+        let interval = setInterval(() => 
+        {
+          cutStory.innerText = messages[i]; 
+          showMessage();
+          i++;
+          if(i == messages.length)
+          {
+            clearInterval(interval);
+          }
+        }, 3000);
+
         // Home screen added to the GameEnv ...
         new GameLevel( {tag: "start", callback: this.startGameCallback } );
         const homeGameObjects = [
@@ -287,11 +317,12 @@ const GameSetup = {
         { name: 'mountains', id: 'background', class: BackgroundMountains,  data: this.assets.backgrounds.mountains },
         { name: 'hills', id: 'background', class: BackgroundHills, data: this.assets.backgrounds.hills },
         { name: 'grass', id: 'platform', class: Platform, data: this.assets.platforms.grass },
-        { name: 'bricks', id: 'jumpPlatform', class: JumpPlatform, data: this.assets.platforms.bricks, xPercentage: 0.2 },
-        { name: 'bricks', id: 'jumpPlatform', class: JumpPlatform, data: this.assets.platforms.bricks, xPercentage: 0.5 },
-        { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage: 0.3, minPosition: 0.05},
-        { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage:  0.5, minPosition: 0.3 },
-        { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage:  0.75, minPosition: 0.5 },
+        { name: 'blocks', id: 'blockPlatform', class: BlockPlatform, data: this.assets.platforms.block, xPercentage: 0.2, yPercentage: 0.85 },
+        { name: 'blocks', id: 'blockPlatform', class: BlockPlatform, data: this.assets.platforms.block, xPercentage: 0.2368, yPercentage: 0.85 },
+        { name: 'blocks', id: 'blockPlatform', class: BlockPlatform, data: this.assets.platforms.block, xPercentage: 0.2736, yPercentage: 0.85 },
+        { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage: 0.3, yPercentage: 1, minPosition: 0.05},
+        { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage:  0.5, yPercentage: 1, minPosition: 0.3 },
+        { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage:  0.75, yPercentage: 1, minPosition: 0.5 },
         { name: 'mario', id: 'player', class: Player, data: this.assets.players.mario },
         { name: 'tube', id: 'tube', class: Tube, data: this.assets.obstacles.tube },
         { name: 'loading', id: 'background', class: BackgroundTransitions,  data: this.assets.backgrounds.loading },

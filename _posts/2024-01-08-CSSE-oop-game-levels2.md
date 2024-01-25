@@ -14,6 +14,9 @@ image: /images/platformer/backgrounds/hills.png
   <a href="javascript:void(0)" id="sidebar-header">&times; Settings</a>
 </div>
 
+<!--Audio for Death of Goomba -->
+<audio id="goombaDeath" src="{{site.baseurl}}/assets/audio/goomba-death.mp3" preload="auto"></audio>
+
 <!-- Wrap both the controls and gameplay in a container div -->
 <div id="canvasContainer">
   <div class="submenu">
@@ -31,11 +34,15 @@ image: /images/platformer/backgrounds/hills.png
         <button id="settings-button">Settings</button>
     </div>
     <div id="leaderboard"> <!-- Controls -->
-      <button id="leaderboard-button">Leaderboard</button>
+      <a href="http://127.0.0.1:4100/game_levels_mp/2024/01/08/CSSE-leaderboard.html">
+        <button id="leaderboard-button">Leaderboard</button>
+        </a>
     </div>
   </div>
   <!-- JavaScript-generated canvas items are inserted here -->
 </div>
+
+<footer id="cut-story"></footer>
 
 <script type="module">
     // Imports to drive game
@@ -43,6 +50,9 @@ image: /images/platformer/backgrounds/hills.png
     import GameControl from '{{site.baseurl}}/assets/js/platformer2/GameControl.js';
     import SettingsControl from '{{site.baseurl}}/assets/js/platformer2/SettingsControl.js';
     import GameEnv from '{{site.baseurl}}/assets/js/platformer2/GameEnv.js';
+
+    import Audio from '{{site.baseurl}}/assets/js/platformer2/Audio.js';
+
     /* 
      * ==========================================
      * ========== Game Setup ====================
