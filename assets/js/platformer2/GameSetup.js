@@ -176,7 +176,7 @@ const GameSetup = {
         mountains: { src: "/images/platformer/backgrounds/mountains.jpg" },
         planet: { src: "/images/platformer/backgrounds/planet.jpg" },
         castles: { src: "/images/platformer/backgrounds/castles.png" },
-        loading: { src: "/images/platformer/backgrounds/loading.jpg" },
+        loading: { src: "/images/platformer/backgrounds/loading.png" },
         end: { src: "/images/platformer/backgrounds/game_over.png" }
       },
       players: {
