@@ -2,8 +2,6 @@ import GameEnv from './GameEnv.js';
 import Character from './Character.js';
 import GameControl from './GameControl.js';
 
-const audio = new Audio('/game_levels_mp/audio/2024-01-21-MarioJump.mp3');
-
 /**
  * @class Player class
  * @description Player.js key objective is to eent the user-controlled character in the game.   
@@ -36,7 +34,6 @@ export class Player extends Character{
         document.addEventListener('keyup', this.keyupListener);
 
         GameEnv.player = this;
-        
     }
 
     /**
@@ -45,10 +42,6 @@ export class Player extends Character{
      */
 
     // helper: player facing left
-    // Add this method to your Player class
-    isKeyActionJump(key) {
-    return key === "w";
-    }   
     isFaceLeft() { return this.directionKey === "a"; }
     // helper: left action key is pressed
     isKeyActionLeft(key) { return key === "a"; }
@@ -207,25 +200,9 @@ export class Player extends Character{
         if (this.collisionData.touchPoints.other.id === "goomba" || this.collisionData.touchPoints.other.id === "flyingGoomba") {
             // Collision with the left side of the Enemy
             if (this.collisionData.touchPoints.other.left) {
-
-                //Reset Player to Beginning
-                GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
-                // Play death sound
-                this.playDeathSound();
-            
-            }
-            // Collision with the right side of the Enemy
-            if (this.collisionData.touchPoints.other.right) {
-                //Reset Player to Beginning
-                GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
-                // Play death sound
-                this.playDeathSound();
-
                 if ((GameEnv.difficulty === "normal" || GameEnv.difficulty === "hard")) {
                     //Reset Player to Beginning
                     GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
-                    // Play death sound
-                    this.playDeathSound();
                 } else if (GameEnv.difficulty === "easy")  {
                     this.x -= 10;
                 }
@@ -235,15 +212,11 @@ export class Player extends Character{
                 if (GameEnv.difficulty === "normal" || GameEnv.difficulty === "hard") {
                     //Reset Player to Beginning
                     GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
-                    // Play death sound
-                    this.playDeathSound();
                 } else if (GameEnv.difficulty === "easy") {
                     this.x += 10;
                 }
- main
             }
         }
-        
         // Jump platform collision
         if (this.collisionData.touchPoints.other.id === "jumpPlatform") {
             // Player is on top of the Jump platform
@@ -277,11 +250,6 @@ export class Player extends Character{
                 this.setAnimation(key);
                 // player active
                 this.isIdle = false;
-                // Check if the pressed key is "w"
-                 if (this.isKeyActionJump(key)) {
-                // Play the jump sound
-                this.playJumpSound();
-                }
             }
             // dash action on
             if (this.isKeyActionDash(key)) {
@@ -302,17 +270,6 @@ export class Player extends Character{
                 GameEnv.backgroundMountainsSpeed = 0.1;
             }
         }
-    }
-
-    // Add a new helper method to play the jump sound
-    playJumpSound() {
-    const audio = new Audio('/game_levels_mp/audio/2024-01-21-MarioJump.mp3');
-    audio.play();
-    }
-
-    playDeathSound() {
-        const deathAudio = new Audio('/game_levels_mp/audio/MarioDeath.mp3');
-        deathAudio.play();
     }
 
     /**
