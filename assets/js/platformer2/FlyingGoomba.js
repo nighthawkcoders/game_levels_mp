@@ -1,5 +1,6 @@
 import Character from './Character.js';
 import GameEnv from './GameEnv.js';
+import playGoombaDeath from './Audio.js';
 
 export class FlyingGoomba extends Character {
   
@@ -78,8 +79,8 @@ export class FlyingGoomba extends Character {
         if (this.collisionData.touchPoints.other.id === "player") {
             // Collision: Top of Goomba with Bottom of Player
             if (this.collisionData.touchPoints.other.bottom && this.immune === 0) {
-                // console.log("Bye Bye Goomba");
                 this.x = GameEnv.innerWidth + 1;
+                playGoombaDeath();
                 this.destroy();
             }
         }    
