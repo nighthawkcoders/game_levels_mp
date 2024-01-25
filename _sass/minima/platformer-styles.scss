@@ -43,8 +43,13 @@ $tableBackground: #006bbd;
   background-color: $tableBackground !important;
 }
 
-#leaderboardBody {
+#leaderboard * {
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}  
+
+#tableBody * {
   background-color: mix($tableBackground, white, 75%) !important;
+  text-align: center;
 }
 
 
