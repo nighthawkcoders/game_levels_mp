@@ -5,6 +5,7 @@ import GameLevel from './GameLevel.js';
 import Background from './Background.js'
 import BackgroundHills from './BackgroundHills.js';
 import BackgroundMountains from './BackgroundMountains.js';
+import BackgroundTransitions from './BackgroundTransitions.js';
 import Platform from './Platform.js';
 import JumpPlatform from './JumpPlatform.js';
 import Player from './Player.js';
@@ -283,7 +284,6 @@ const GameSetup = {
         // Hills Game Level defintion...
         const hillsGameObjects = [
         // GameObject(s), the order is important to z-index...
-        { name: 'loading', id: 'background', class: BackgroundTransitions,  data: this.assets.backgrounds.transitions },
         { name: 'mountains', id: 'background', class: BackgroundMountains,  data: this.assets.backgrounds.mountains },
         { name: 'hills', id: 'background', class: BackgroundHills, data: this.assets.backgrounds.hills },
         { name: 'grass', id: 'platform', class: Platform, data: this.assets.platforms.grass },
@@ -294,6 +294,7 @@ const GameSetup = {
         { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage:  0.75, minPosition: 0.5 },
         { name: 'mario', id: 'player', class: Player, data: this.assets.players.mario },
         { name: 'tube', id: 'tube', class: Tube, data: this.assets.obstacles.tube },
+        { name: 'loading', id: 'background', class: BackgroundTransitions,  data: this.assets.backgrounds.loading },
         ];
         // Hills Game Level added to the GameEnv ...
         new GameLevel( {tag: "hills", callback: this.playerOffScreenCallBack, objects: hillsGameObjects } );

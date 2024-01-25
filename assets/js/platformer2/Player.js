@@ -34,6 +34,7 @@ export class Player extends Character{
         document.addEventListener('keyup', this.keyupListener);
 
         GameEnv.player = this;
+        this.transitionHide = false;
     }
 
     /**
@@ -230,6 +231,7 @@ export class Player extends Character{
                 this.setAnimation(key);
                 // player active
                 this.isIdle = false;
+                GameEnv.transitionHide = true;
             }
             // dash action on
             if (this.isKeyActionDash(key)) {
