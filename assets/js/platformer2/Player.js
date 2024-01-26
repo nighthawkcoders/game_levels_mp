@@ -1,13 +1,14 @@
 import GameEnv from './GameEnv.js';
 import Character from './Character.js';
 import GameControl from './GameControl.js';
+import Socket from './Multiplayer.js';
 
 /**
  * @class Player class
  * @description Player.js key objective is to eent the user-controlled character in the game.   
  * 
  * The Player class extends the Character class, which in turn extends the GameObject class.
- * Animations and events are activiated by key presses, collisions, and gravity.
+ * Animations and events are activated by key presses, collisions, and gravity.
  * WASD keys are used by user to control The Player object.  
  * 
  * @extends Character
@@ -34,6 +35,8 @@ export class Player extends Character{
         document.addEventListener('keyup', this.keyupListener);
 
         GameEnv.player = this;
+        this.transitionHide = false;
+        this.shouldBeSynced = true;
     }
 
     /**
@@ -146,7 +149,7 @@ export class Player extends Character{
     }
 
     /**
-     * gameloop:  respoonds to level change and game over destroy player object
+     * gameloop:  responds to level change and game over destroy player object
      * This method is used to remove the event listeners for keydown and keyup events.
      * After removing the event listeners, it calls the parent class's destroy player object. 
      * This method overrides GameObject.destroy.
@@ -197,28 +200,28 @@ export class Player extends Character{
             this.movement.right = true;
         }
         // Goomba left/right collision
-        if (this.collisionData.touchPoints.other.id === "goomba" || this.collisionData.touchPoints.other.id === "flyingGoomba") {
+        if (["goomba", "flyingGoomba"].includes(this.collisionData.touchPoints.other.id)) {
             // Collision with the left side of the Enemy
             if (this.collisionData.touchPoints.other.left) {
-                if ((GameEnv.difficulty === "normal" || GameEnv.difficulty === "hard")) {
+                if (["normal","hard"].includes(GameEnv.difficulty)) {
                     //Reset Player to Beginning
                     GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
-                } else if (GameEnv.difficulty === "easy")  {
+                } else {
                     this.x -= 10;
                 }
             }
             // Collision with the right side of the Enemy
             if (this.collisionData.touchPoints.other.right) {
-                if (GameEnv.difficulty === "normal" || GameEnv.difficulty === "hard") {
+                if (["normal", "hard"].includes(GameEnv.difficulty)) {
                     //Reset Player to Beginning
                     GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
-                } else if (GameEnv.difficulty === "easy") {
+                } else {
                     this.x += 10;
                 }
             }
         }
         // Jump platform collision
-        if (this.collisionData.touchPoints.other.id === "jumpPlatform") {
+        if (this.collisionData.touchPoints.other.id === "blockPlatform") {
             // Player is on top of the Jump platform
             if (this.collisionData.touchPoints.this.top) {
                 this.movement.down = false; // enable movement down without gravity
@@ -250,6 +253,7 @@ export class Player extends Character{
                 this.setAnimation(key);
                 // player active
                 this.isIdle = false;
+                GameEnv.transitionHide = true;
             }
             // dash action on
             if (this.isKeyActionDash(key)) {

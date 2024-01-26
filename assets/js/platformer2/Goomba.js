@@ -1,13 +1,15 @@
 import Character from './Character.js';
 import GameEnv from './GameEnv.js';
+import playGoombaDeath from './Audio.js';
 
 export class Goomba extends Character {
     // constructors sets up Character object 
-    constructor(canvas, image, data, xPercentage, minPosition){
+    constructor(canvas, image, data, xPercentage, yPercentage, minPosition){
         super(canvas, image, data );
 
         //Initial Position of Goomba
         this.x = xPercentage * GameEnv.innerWidth;
+        this.y = yPercentage
 
         //Access in which a Goomba can travel
         this.minPosition = minPosition * GameEnv.innerWidth;
@@ -67,8 +69,8 @@ export class Goomba extends Character {
         if (this.collisionData.touchPoints.other.id === "player") {
             // Collision: Top of Goomba with Bottom of Player
             if (this.collisionData.touchPoints.other.bottom && this.immune === 0) {
-                // console.log("Bye Bye Goomba");
                 this.destroy();
+                playGoombaDeath();
             }
         }
         if (this.collisionData.touchPoints.other.id === "goomba") {
