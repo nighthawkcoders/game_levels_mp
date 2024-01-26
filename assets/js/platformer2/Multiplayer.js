@@ -1,4 +1,3 @@
-import GameEnv from "./GameEnv"
 /**
  * io is for the node js module: socket.io
  * this is used to create the socket listener for the client side of the multiplayer
@@ -15,8 +14,8 @@ export class Socket{
  */
 
     static shouldBeSynced = true;
-    static socket = io("wss://platformer.nighthawkcodingsociety.com"); //aws server
-    //static socket = io(`ws://${window.location.host.split(":")[0]}:3000`); //local server
+    //static socket = io("wss://platformer.nighthawkcodingsociety.com"); //aws server
+    static socket = io(`ws://${window.location.host.split(":")[0]}:3000`); //local server
     static socketId;
     static {
         this.socket.on("id",(id)=>{this.socketId = id});
@@ -25,19 +24,20 @@ export class Socket{
     constructor(){throw new Error('Socket is a static class and cannot be instantiated.');}
 
     static sendData(key,value) {
-        if (shouldBeSynced == false){return "offline"};
-        if (typeof key == "string"){return "key is not a string"};
-        socket.emit(key,value);
+        if (this.shouldBeSynced == false){return "offline"};
+        if (typeof key != "string"){return "key is not a string"};
+        this.socket.emit(key,value);
     }
 
     static createListener(key, func){
-        if (shouldBeSynced == false){return "offline"};
-        if (typeof key == "string"){return "key is not a string"};
-        socket.on(key,func);
+        if (this.shouldBeSynced == false){return "offline"};
+        if (typeof key != "string"){return "key is not a string"};
+        this.socket.on(key,func);
     }
 
     static removeListener(key){
         if (typeof key == "string"){return "key is not a string"};
-        socket.off(key)
+        this.socket.off(key)
     }
 }
+export default Socket;

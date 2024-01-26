@@ -1,4 +1,5 @@
 import GameEnv from './GameEnv.js';
+import Socket from './Multiplayer.js';
 
 class GameObject {
     // container for all game objects in game
@@ -19,6 +20,7 @@ class GameObject {
         this.invert = true;
         this.collisionData = {};
         this.jsonifiedElement = '';
+        this.shouldBeSynced = false; //if the object should be synced with the server
         // Add this object to the game object array so collision can be detected
         // among other things
         GameEnv.gameObjects.push(this); 
@@ -35,6 +37,9 @@ class GameObject {
         if (jsonifiedElement !== this.jsonifiedElement) {
             //console.log(jsonifiedElement);
             this.jsonifiedElement = jsonifiedElement;
+            if (this.shouldBeSynced && !GameEnv.inTransition) {
+                Socket.sendData("update",this.jsonifiedElement);
+            }
         }
     }
 
@@ -73,6 +78,16 @@ class GameObject {
 
     setY(y) {
         this.y = y;
+    }
+
+    updateInfo(json) {
+        var element = this.canvas;
+        if (json.id === element.id) {
+            this.canvas.width = json.width;
+            this.canvas.height = json.height;
+            this.canvas.style.filter = json.filter;
+        }
+        return json.id === element.id
     }
 
     /* Destroy Game Object

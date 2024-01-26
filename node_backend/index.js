@@ -20,6 +20,8 @@ class Group {
    * Create a group with a unique ID.
    * @constructor
    */
+  leader;
+  ids = [];
   constructor() {
     /**
      * The unique ID of the group.
@@ -104,7 +106,9 @@ io.on("connection", (socket) => {
    * @param {any} data - The update data.
    */
   socket.on("update", (data) => {
-    io.to(g.name).emit("stateUpdate", data);
+    console.log("fired for:" +id);
+    data.id = id;
+    socket.to(g.name).emit("stateUpdate", data);
   });
 
   /**

@@ -1,6 +1,7 @@
 import GameEnv from './GameEnv.js';
 import Character from './Character.js';
 import GameControl from './GameControl.js';
+import Socket from './Multiplayer.js';
 
 /**
  * @class Player class
@@ -35,6 +36,7 @@ export class Player extends Character{
 
         GameEnv.player = this;
         this.transitionHide = false;
+        this.shouldBeSynced = true;
     }
 
     /**
