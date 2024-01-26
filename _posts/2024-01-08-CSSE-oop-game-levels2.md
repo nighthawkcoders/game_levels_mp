@@ -13,6 +13,9 @@ image: /images/platformer/backgrounds/hills.png
 <div id="sidebar" class="sidebar">
   <a href="javascript:void(0)" id="sidebar-header">&times; Settings</a>
 </div>
+<div id="leaderboard" class="leaderboard">
+  <a href="javascript:void(0)" id="leaderboard-header">&times; Leaderboard</a>
+</div>
 
 <!--Audio for Death of Goomba -->
 <audio id="goombaDeath" src="{{site.baseurl}}/assets/audio/goomba-death.mp3" preload="auto"></audio>
@@ -34,9 +37,7 @@ image: /images/platformer/backgrounds/hills.png
         <button id="settings-button">Settings</button>
     </div>
     <div id="leaderboard"> <!-- Controls -->
-      <a href="http://127.0.0.1:4100/game_levels_mp/2024/01/08/CSSE-leaderboard.html">
         <button id="leaderboard-button">Leaderboard</button>
-        </a>
     </div>
   </div>
   <!-- JavaScript-generated canvas items are inserted here -->
@@ -50,6 +51,7 @@ image: /images/platformer/backgrounds/hills.png
     import GameControl from '{{site.baseurl}}/assets/js/platformer2/GameControl.js';
     import SettingsControl from '{{site.baseurl}}/assets/js/platformer2/SettingsControl.js';
     import GameEnv from '{{site.baseurl}}/assets/js/platformer2/GameEnv.js';
+    import Leaderboard from '{{site.baseurl}}/assets/js/platformer2/Leaderboard.js';
 
     import Audio from '{{site.baseurl}}/assets/js/platformer2/Audio.js';
 
@@ -99,6 +101,8 @@ image: /images/platformer/backgrounds/hills.png
 
     // Construct settings sidebar, MVC variable paradigm, and async events to trigger user interaction
     SettingsControl.sidebar();
+
+    Leaderboard.leaderboard();
 
     /* 
      * ==========================================
