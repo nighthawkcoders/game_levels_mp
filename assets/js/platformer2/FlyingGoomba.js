@@ -5,8 +5,12 @@ import playGoombaDeath from './Audio.js';
 export class FlyingGoomba extends Character {
   
     // constructors sets up Character object 
-    constructor(canvas, image, data, xPercentage, minPosition){
+    constructor(canvas, image, data, xPercentage, yPercentage, name, minPosition){
         super(canvas, image, data);
+
+        //Unused but must be defined
+        this.name = name;
+        this.yPercentage = yPercentage;
 
         //Initial Position of Goomba
         this.x = xPercentage * GameEnv.innerWidth;
@@ -54,14 +58,18 @@ export class FlyingGoomba extends Character {
             this.speed = Math.random() < 0.5 ? -this.speed : this.speed;
         }
 
-        //Chance To Become Immune to Player
-        if (GameEnv.difficulty === "normal") {
+        //Chance for Goomba to turn Gold
+        if (["normal","hard"].includes(GameEnv.difficulty)) {
             if (Math.random() < 0.00001) {
                 this.canvas.style.filter = 'brightness(1000%)';
                 this.immune = 1;
             }
-        } else if (GameEnv.difficulty === "hard") {
-                this.canvas.style.filter = 'brightness(1000%)';
+        }
+        
+        //Immunize Goomba & Texture It
+        if (GameEnv.difficulty === "hard") {
+                this.canvas.style.filter = "invert(100%)";
+                this.canvas.style.scale = 1.25;
                 this.immune = 1;
         }
 

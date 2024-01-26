@@ -6,11 +6,13 @@ export class Goomba extends Character {
     // constructors sets up Character object 
     constructor(canvas, image, data, xPercentage, yPercentage, name, minPosition){
         super(canvas, image, data );
+
+        //Unused but must be defined
         this.name = name;
+        this.y = yPercentage
 
         //Initial Position of Goomba
         this.x = xPercentage * GameEnv.innerWidth;
-        this.y = yPercentage
 
         //Access in which a Goomba can travel    
         this.minPosition = minPosition * GameEnv.innerWidth;
@@ -19,10 +21,10 @@ export class Goomba extends Character {
         this.immune = 0;
 
         //Define Speed of Enemy
-        if (GameEnv.difficulty === "normal" || GameEnv.difficulty === "easy") {
-            this.speed = this.speed;
+        if (["easy", "normal"].includes(GameEnv.difficulty)) {
+            this.speed = this.speed * Math.floor(Math.random() * 1.5 + 1);
         } else {
-            this.speed = this.speed * 3;
+            this.speed = this.speed * Math.floor(Math.random() * 3 + 2);
         }
     }
 
@@ -45,14 +47,18 @@ export class Goomba extends Character {
             }
         }
 
-        //Chance To Become Immune to Player
-        if (GameEnv.difficulty === "normal") {
+         //Chance for Goomba to turn Gold
+         if (["normal","hard"].includes(GameEnv.difficulty)) {
             if (Math.random() < 0.00001) {
                 this.canvas.style.filter = 'brightness(1000%)';
                 this.immune = 1;
             }
-        } else if (GameEnv.difficulty === "hard") {
-                this.canvas.style.filter = 'brightness(1000%)';
+        }
+        
+        //Immunize Goomba & Texture It
+        if (GameEnv.difficulty === "hard") {
+                this.canvas.style.filter = "invert(100%)";
+                this.canvas.style.scale = 1.25;
                 this.immune = 1;
         }
 
@@ -76,7 +82,7 @@ export class Goomba extends Character {
         }
         if (this.collisionData.touchPoints.other.id === "goomba") {
             if (this.collisionData.touchPoints.other.left || this.collisionData.touchPoints.other.right) {
-                this.speed = -this.speed;            
+                this.speed = -this.speed;      
             }
         }    
     }
