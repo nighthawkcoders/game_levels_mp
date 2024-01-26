@@ -4,7 +4,7 @@ import GameEnv from './GameEnv.js';
 export class Goomba extends Character {
     // constructors sets up Character object 
     constructor(canvas, image, data, xPercentage, yPercentage, minPosition){
-        super(canvas, image, data );
+        super(canvas, image, data, 0.0, 0.2);
 
         //Initial Position of Goomba
         this.x = xPercentage * GameEnv.innerWidth;
