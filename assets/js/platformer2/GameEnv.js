@@ -65,6 +65,8 @@ export class GameEnv {
     static top;
     static bottom;
     static prevBottom;
+
+
     
     // Make the constructor throws an error, or effectively make it a private constructor.
     constructor() {
