@@ -1,3 +1,4 @@
+import GameControl from './GameControl.js';
 import GameEnv from './GameEnv.js';
 import GameObject from './GameObject.js';
 
@@ -24,6 +25,10 @@ export class JumpPlatform extends GameObject {
         //collision only detects mario and it only applies to the item block
         if (this.collisionData.touchPoints.other.id === "player" && this.name === "itemBlock") {
             if (this.relativeX === 0 || this.relativeX === this.canvas.width) {
+                if (this.relativeX === 0) {
+                    GameControl.startRandomEvent();
+                    console.log("randomEventtriggered", GameControl.randomEventId);
+                };
                 this.relativeX = -1 * this.canvas.width;
             } else if (this.relativeX === "") {
                 this.relativeX = 0;
