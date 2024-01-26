@@ -3,7 +3,7 @@ import GameObject from './GameObject.js';
 
 export class BlockPlatform extends GameObject {
     constructor(canvas, image, data, xPercentage, yPercentage) {
-        super(canvas, image, data);
+        super(canvas, image, data, 0.0, 0.0);
         this.platformX = xPercentage * GameEnv.innerWidth;
         this.platformY = yPercentage;
     }
