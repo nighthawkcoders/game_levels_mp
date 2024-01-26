@@ -47,7 +47,7 @@ export class Goomba extends Character {
         //Chance To Become Immune to Player
         if (GameEnv.difficulty === "normal") {
             if (Math.random() < 0.00001) {
-                this.canvas.style.filter = 'brightness(1000%)';
+                this.canvas.style.ilter = 'brightness(1000%)';
                 this.immune = 1;
             }
         } else if (GameEnv.difficulty === "hard") {

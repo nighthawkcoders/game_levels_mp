@@ -14,8 +14,8 @@ export class Socket{
  */
 
     static shouldBeSynced = true;
-    //static socket = io("wss://platformer.nighthawkcodingsociety.com"); //aws server
-    static socket = io(`ws://${window.location.host.split(":")[0]}:3000`); //local server
+    static socket = io("wss://platformer.nighthawkcodingsociety.com"); //aws server
+    //static socket = io(`ws://${window.location.host.split(":")[0]}:3000`); //local server
     static socketId;
     static {
         this.socket.on("id",(id)=>{this.socketId = id});

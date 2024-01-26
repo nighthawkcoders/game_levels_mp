@@ -157,7 +157,6 @@ const GameControl = {
 
     handleStateUpdates(data){ //listen for stateupdates and update characters if needed
         let updated = false
-        console.log(GameEnv.currentLevel.tag)
         if (data.tag === GameEnv.currentLevel.tag) {
             for (var gameObj of GameEnv.gameObjects) {
                 updated = updated || gameObj.updateInfo(data);
@@ -170,21 +169,20 @@ const GameControl = {
                         obj = object;
                     }
                 });
-                obj.class = Character; //set to character class (doesn't update with inputs)
                  // Load the image for the game object.
                 const image = new Image();
                 image.src = obj.data.file;
-                obj.image = image;
                  // Create a new canvas for the game object.
                  const canvas = document.createElement("canvas");
                  canvas.id = data.id;
-                 obj.id = data.id;
                  document.querySelector("#canvasContainer").appendChild(canvas);
                  console.log(canvas);
                  // Create a new instance of the game object.
-                obj =  new obj.class(canvas, obj.image, obj.data, obj.xPercentage, obj.yPercentage, obj.minPosition);
-                    
-                obj.updateInfo(data);
+                var obj1 =  new Character(canvas, image, obj.data, obj.xPercentage, obj.yPercentage, obj.minPosition);
+                
+                obj1.updateInfo(data);
+                obj1.size();
+                console.log(obj1.canvasWidth)
             }
         }
     },
