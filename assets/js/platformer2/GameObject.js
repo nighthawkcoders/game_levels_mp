@@ -141,6 +141,9 @@ class GameObject {
         if (this.canvas.id === "player" && other.canvas.id === "jumpPlatform") {
             heightPercentage = 0.0;
         }
+        if (this.canvas.id === "player" && other.canvas.id === "wallObs") {
+            heightPercentage = 0.0;
+        }
         if (this.canvas.id === "goomba" && other.canvas.id === "player") {
             heightPercentage = 0.2;
         }
