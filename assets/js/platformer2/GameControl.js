@@ -156,8 +156,8 @@ const GameControl = {
 
 
     handleStateUpdates(data){ //listen for stateupdates and update characters if needed
-        console.log("update", data)
         let updated = false
+        console.log(GameEnv.currentLevel.tag)
         if (data.tag === GameEnv.currentLevel.tag) {
             for (var gameObj of GameEnv.gameObjects) {
                 updated = updated || gameObj.updateInfo(data);
@@ -165,13 +165,12 @@ const GameControl = {
             if (!updated) {
                 var obj;
                 //find the current type of player in game
-                Object.keys(GameEnv.currentLevel).forEach(object,()=>{
+                GameEnv.currentLevel.gameObjects.forEach(object=>{
                     if (object.id == "player"){
                         obj = object;
                     }
                 });
                 obj.class = Character; //set to character class (doesn't update with inputs)
-
                  // Load the image for the game object.
                 const image = new Image();
                 image.src = obj.data.file;
@@ -179,9 +178,11 @@ const GameControl = {
                  // Create a new canvas for the game object.
                  const canvas = document.createElement("canvas");
                  canvas.id = data.id;
+                 obj.id = data.id;
                  document.querySelector("#canvasContainer").appendChild(canvas);
+                 console.log(canvas);
                  // Create a new instance of the game object.
-                 new obj.class(canvas, obj.image, obj.data, obj.xPercentage, obj.yPercentage, obj.minPosition);
+                obj =  new obj.class(canvas, obj.image, obj.data, obj.xPercentage, obj.yPercentage, obj.minPosition);
                     
                 obj.updateInfo(data);
             }

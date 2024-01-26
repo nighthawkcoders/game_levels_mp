@@ -48,7 +48,7 @@ class GameObject {
         var element = this.canvas;
         if (element && element.id) {
             // Convert the relevant properties of the element to a string for comparison
-            return JSON.stringify({
+            return {
                 id: element.id,
                 width: element.width,
                 height: element.height,
@@ -57,8 +57,12 @@ class GameObject {
                     left: element.style.left,
                     top: element.style.top
                 },
-                filter: element.style.filter
-            });
+                filter: element.style.filter,
+                tag: GameEnv.currentLevel.tag,
+                x: this.x / GameEnv.innerWidth,
+                y: (this.y - GameEnv.top) / (this.bottom - GameEnv.top),
+                frameY: this.frameY
+            };
         }
     }
 
@@ -86,6 +90,10 @@ class GameObject {
             this.canvas.width = json.width;
             this.canvas.height = json.height;
             this.canvas.style.filter = json.filter;
+            var element = this.canvas;
+            this.x = json.x * GameEnv.innerWidth;
+            this.y = (json.y * (this.bottom - GameEnv.top)) + GameEnv.top;
+            this.frameY = json.frameY
         }
         return json.id === element.id
     }
