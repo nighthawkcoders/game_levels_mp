@@ -13,7 +13,7 @@ image: /images/platformer/backgrounds/hills.png
 <div id="sidebar" class="sidebar">
   <a href="javascript:void(0)" id="sidebar-header">&times; Settings</a>
 </div>
-<div id="sideBar" class="sideBar">
+<div id="leaderboard" class="leaderboard">
   <a href="javascript:void(0)" id="leaderboard-header">&times; Leaderboard</a>
 </div>
 
@@ -101,6 +101,8 @@ image: /images/platformer/backgrounds/hills.png
 
     // Construct settings sidebar, MVC variable paradigm, and async events to trigger user interaction
     SettingsControl.sidebar();
+
+    Leaderboard.leaderboard();
 
     /* 
      * ==========================================
