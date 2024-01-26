@@ -141,6 +141,11 @@ export class Player extends Character{
             this.x = tubeX - 1;
         }
 
+        //Prevent Player from Leaving from Screen
+        if (this.x < 0) {
+            this.x += 5;
+        }
+
         // Perform super update actions
         super.update();
     }
