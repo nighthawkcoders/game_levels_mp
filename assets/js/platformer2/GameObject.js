@@ -165,15 +165,6 @@ class GameObject {
             heightPercentage = 0;
             widthPercentage = 0.4;
         }
-        if (this.canvas.id === "player" && other.canvas.id === "jumpPlatform") {
-            heightPercentage = 0;
-            widthPercentage = 0.4;
-        }
-        if(this.canvas.id === "jumpPlatform" && other.canvas.id === "player") { 
-            heightPercentage = -0.2;
-            //hitbox for activation is slightly larger than the block to ensure
-            //that there is enough room for mario to collide without getting stopped by the platform
-        }
         if (this.canvas.id === "goomba" && other.canvas.id === "player") {
             heightPercentage = 0.2;
         }

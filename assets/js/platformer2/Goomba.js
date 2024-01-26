@@ -4,15 +4,14 @@ import playGoombaDeath from './Audio.js';
 
 export class Goomba extends Character {
     // constructors sets up Character object 
-    constructor(canvas, image, data, xPercentage, yPercentage, name, minPosition){
+    constructor(canvas, image, data, xPercentage, yPercentage, minPosition){
         super(canvas, image, data );
-        this.name = name;
 
         //Initial Position of Goomba
         this.x = xPercentage * GameEnv.innerWidth;
         this.y = yPercentage
 
-        //Access in which a Goomba can travel    
+        //Access in which a Goomba can travel
         this.minPosition = minPosition * GameEnv.innerWidth;
         this.maxPosition = this.x + xPercentage * GameEnv.innerWidth;
 

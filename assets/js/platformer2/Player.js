@@ -234,19 +234,6 @@ export class Player extends Character{
             this.movement.down = true;          
             this.gravityEnabled = true;
         }
-        if (this.collisionData.touchPoints.other.id === "jumpPlatform") {
-            // Player is on top of the Jump platform
-            if (this.collisionData.touchPoints.this.top) {
-                this.movement.down = false; // enable movement down without gravity
-                this.gravityEnabled = false;
-                this.setAnimation(this.directionKey); // set animation to direction
-            }
-        }
-        // Fall Off edge of Jump platform
-        else if (this.movement.down === false) {
-            this.movement.down = true;          
-            this.gravityEnabled = true;
-        }
     }
     
     /**
