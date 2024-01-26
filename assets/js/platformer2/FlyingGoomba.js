@@ -1,5 +1,6 @@
 import Character from './Character.js';
 import GameEnv from './GameEnv.js';
+import playGoombaDeath from './Audio.js';
 
 export class FlyingGoomba extends Character {
   
@@ -16,6 +17,13 @@ export class FlyingGoomba extends Character {
         this.maxPosition = this.x + xPercentage * GameEnv.innerWidth;
 
         this.immune = 0;
+
+        //Define Speed of Enemy
+        if (GameEnv.difficulty === "normal") {
+            this.speed = this.speed;
+        } else {
+            this.speed = this.speed * 2;
+        }
     }
 
     dropGoomba() {
@@ -46,9 +54,15 @@ export class FlyingGoomba extends Character {
             this.speed = Math.random() < 0.5 ? -this.speed : this.speed;
         }
 
-        if (Math.random() < 0.00001) {
-            this.canvas.style.filter = 'brightness(1000%)';
-            this.immune = 1;
+        //Chance To Become Immune to Player
+        if (GameEnv.difficulty === "normal") {
+            if (Math.random() < 0.00001) {
+                this.canvas.style.filter = 'brightness(1000%)';
+                this.immune = 1;
+            }
+        } else if (GameEnv.difficulty === "hard") {
+                this.canvas.style.filter = 'brightness(1000%)';
+                this.immune = 1;
         }
 
         // Move the enemy
@@ -65,8 +79,8 @@ export class FlyingGoomba extends Character {
         if (this.collisionData.touchPoints.other.id === "player") {
             // Collision: Top of Goomba with Bottom of Player
             if (this.collisionData.touchPoints.other.bottom && this.immune === 0) {
-                // console.log("Bye Bye Goomba");
                 this.x = GameEnv.innerWidth + 1;
+                playGoombaDeath();
                 this.destroy();
             }
         }    
