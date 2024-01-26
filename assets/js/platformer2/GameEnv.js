@@ -1,9 +1,4 @@
 /**
- * io is for the node js module: socket.io
- * this is used to create the socket listener for the client side of the multiplayer
- */
-import { io } from "https://cdn.socket.io/4.7.2/socket.io.esm.min.js";
-/**
  * GameEnv.js key purpose is to manage shared game environment data and methods.
  * 
  * @class
@@ -51,8 +46,6 @@ export class GameEnv {
      * @property {number} prevBottom - used by platformer objects
      * @property {number} time - Initialize time variable, used by timer objects
      * @property {number} timerInterval - Variable to hold the interval reference, used by timer objects
-     * @property {Object} socket - used by Multiplayer, creates socket for the client
-     * @property {string} socketID - id given by the websocket server when a player connects
      */
     static userID = "Guest";
     static player = null;
@@ -72,12 +65,7 @@ export class GameEnv {
     static top;
     static bottom;
     static prevBottom;
-    static socket = io("wss://platformer.nighthawkcodingsociety.com"); //aws server
-    //static socket = io(`ws://${window.location.host.split(":")[0]}:3000`); //local server
-    static socketId;
-    static {
-        this.socket.on("id",(id)=>{this.socketId = id});
-    }
+
 
     
     // Make the constructor throws an error, or effectively make it a private constructor.
