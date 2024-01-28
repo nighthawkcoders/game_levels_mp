@@ -37,10 +37,10 @@ export class FlyingGoomba extends Character {
       // Drop the Goomba on the Player when relatively close
       if (Math.abs(this.x - playerX) < 150 && this.y !== playerY) {
         //Move Goomba towards Player
-        this.y = lerp(this.y, playerY, 0.03);
+        this.y = followPlayer(this.y, playerY, 0.03);
       } else {
         //Move Goomba towards Sky
-        this.y = lerp(this.y, 0.4 * GameEnv.innerHeight, 0.02);
+        this.y = followPlayer(this.y, 0.4 * GameEnv.innerHeight, 0.02);
       }
     }
 
@@ -71,6 +71,9 @@ export class FlyingGoomba extends Character {
                 this.canvas.style.filter = "invert(100%)";
                 this.canvas.style.scale = 1.25;
                 this.immune = 1;
+        } else if (GameEnv.difficulty === "impossible") {
+                this.canvas.style.filter = 'brightness(1000%)';
+                this.immune = 1;
         }
 
         // Move the enemy
@@ -95,12 +98,19 @@ export class FlyingGoomba extends Character {
     }
 }
 
-/* Linear interpolation function
-  min: start value
-  max: end value
-  t: normalization factor (0 - 1)
-*/
-function lerp(min, max, t) {
+
+/**
+ * followPlayer Purpose:
+ * Allows for smooth movement &
+ * Dynamically changes based off player Y
+ * 
+ * @param {number} min Start Point
+ * @param {number} max Destination
+ * @param {number} t Rate of Change
+ * @returns 
+ * 
+ */
+function followPlayer(min, max, t) {
   return (max - min) * t + min;
 }
 

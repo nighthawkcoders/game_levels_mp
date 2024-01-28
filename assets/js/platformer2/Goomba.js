@@ -7,9 +7,9 @@ export class Goomba extends Character {
     constructor(canvas, image, data, xPercentage, yPercentage, name, minPosition){
         super(canvas, image, data );
 
-        //Unused but must be defined
+        //Unused but must be Defined
         this.name = name;
-        this.y = yPercentage
+        this.y = yPercentage;
 
         //Initial Position of Goomba
         this.x = xPercentage * GameEnv.innerWidth;
@@ -22,9 +22,11 @@ export class Goomba extends Character {
 
         //Define Speed of Enemy
         if (["easy", "normal"].includes(GameEnv.difficulty)) {
-            this.speed = this.speed * Math.floor(Math.random() * 1.5 + 1);
+            this.speed = this.speed * Math.floor(Math.random() * 1.5 + 2);
+        } else if (GameEnv.difficulty === "hard") {
+            this.speed = this.speed * Math.floor(Math.random() * 3 + 3);
         } else {
-            this.speed = this.speed * Math.floor(Math.random() * 3 + 2);
+            this.speed = this.speed * 5
         }
     }
 
@@ -37,14 +39,16 @@ export class Goomba extends Character {
         }
 
         // Every so often change direction
-        if (GameEnv.difficulty === "normal") {
-            if (Math.random() < 0.005) {
-                this.speed = -this.speed
-            }
-        } else if (GameEnv.difficulty === "hard") {
-            if (Math.random() < 0.01) {
-                this.speed = -this.speed
-            }
+        switch(GameEnv.difficulty) {
+            case "normal":
+                if (Math.random() < 0.005) this.speed = -this.speed;
+                break;
+            case "hard":
+                if (Math.random() < 0.01) this.speed = -this.speed;
+                break;
+            case "impossible":
+                if (Math.random() < 0.02) this.speed = -this.speed;
+                break;
         }
 
          //Chance for Goomba to turn Gold
@@ -60,6 +64,9 @@ export class Goomba extends Character {
                 this.canvas.style.filter = "invert(100%)";
                 this.canvas.style.scale = 1.25;
                 this.immune = 1;
+        } else if (GameEnv.difficulty === "impossible") {
+            this.canvas.style.filter = 'brightness(1000%)';
+            this.immune = 1;
         }
 
         // Move the enemy
@@ -81,12 +88,11 @@ export class Goomba extends Character {
             }
         }
         if (this.collisionData.touchPoints.other.id === "goomba") {
-            if (this.collisionData.touchPoints.other.left || this.collisionData.touchPoints.other.right) {
+            if (GameEnv.difficulty !== "impossible" && (this.collisionData.touchPoints.other.left || this.collisionData.touchPoints.other.right)) {
                 this.speed = -this.speed;      
             }
         }    
     }
-
 }
 
 export default Goomba;

@@ -130,7 +130,7 @@ export class Player extends Character{
                 } else {
                     this.y -= (this.bottom * .30);
                 }
-            } else if (this.movement.down===false) {
+            } else if (this.movement.down === false) {
                 this.y -= (this.bottom * .15);  // platform jump height
             }
         }
@@ -205,20 +205,20 @@ export class Player extends Character{
         if (["goomba", "flyingGoomba"].includes(this.collisionData.touchPoints.other.id)) {
             // Collision with the left side of the Enemy
             if (this.collisionData.touchPoints.other.left) {
-                if (["normal","hard"].includes(GameEnv.difficulty)) {
+                if (GameEnv.difficulty === "easy") {
+                    this.x -= 10;
+                } else {
                     //Reset Player to Beginning
                     GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
-                } else {
-                    this.x -= 10;
                 }
             }
             // Collision with the right side of the Enemy
             if (this.collisionData.touchPoints.other.right) {
-                if (["normal", "hard"].includes(GameEnv.difficulty)) {
+                if (GameEnv.difficulty === "easy") {
+                    this.x += 10;
+                } else {
                     //Reset Player to Beginning
                     GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
-                } else {
-                    this.x += 10;
                 }
             }
         }
