@@ -86,6 +86,15 @@ const GameControl = {
         clearInterval(this.timerInterval); // Clear the interval to stop the timer
     },
 
+    randomEventId: null, //Variable to determine which random event will activate.
+
+    startRandomEvent() {
+        this.randomEventId = Math.floor(Math.random() * 3) + 1
+        /**Random Event Key
+         * 1: Inverts the Color of the Background
+        */
+    },
+
     /**
      * Transitions to a new level. Destroys the current level and loads the new level.
      * @param {Object} newLevel - The new level to transition to.
