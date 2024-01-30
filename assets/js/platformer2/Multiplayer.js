@@ -39,5 +39,9 @@ export class Socket{
         if (typeof key == "string"){return "key is not a string"};
         this.socket.off(key)
     }
+
+    static removeAllListeners(){
+        this.socket.removeAllListeners();
+    }
 }
 export default Socket;
