@@ -2,6 +2,7 @@ import GameEnv from './GameEnv.js';
 import Character from './Character.js';
 import GameControl from './GameControl.js';
 import playJump from './Audio1.js';
+import playPlayerDeath from './Audio2.js';
 import Socket from './Multiplayer.js';
 
 /**
@@ -217,6 +218,7 @@ export class Player extends Character{
                     this.x -= 10;
                 } else {
                     //Reset Player to Beginning
+                    playPlayerDeath();
                     GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
                 }
             }
@@ -226,6 +228,7 @@ export class Player extends Character{
                     this.x += 10;
                 } else {
                     //Reset Player to Beginning
+                    playPlayerDeath();
                     GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
                 }
             }
