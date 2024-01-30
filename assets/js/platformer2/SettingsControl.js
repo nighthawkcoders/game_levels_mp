@@ -347,7 +347,7 @@ export class SettingsControl extends LocalStorage{
         div.innerHTML = "Difficulty: "; // label
     
         const difficulty = document.createElement("select"); // dropdown for difficulty
-        const options = ["Easy", "Normal", "Hard"];
+        const options = ["Easy", "Normal", "Hard", "Impossible"];
     
         options.forEach(option => {
             const opt = document.createElement("option");
