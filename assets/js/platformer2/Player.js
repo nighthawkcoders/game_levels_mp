@@ -220,8 +220,7 @@ export class Player extends Character{
                 }
             }
         }
-        // Jump platform collision
-        if (this.collisionData.touchPoints.other.id === "blockPlatform") {
+        if (this.collisionData.touchPoints.other.id === "jumpPlatform") {
             // Player is on top of the Jump platform
             if (this.collisionData.touchPoints.this.top) {
                 this.movement.down = false; // enable movement down without gravity
