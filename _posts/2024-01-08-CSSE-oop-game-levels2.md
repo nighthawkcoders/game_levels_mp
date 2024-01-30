@@ -21,7 +21,7 @@ image: /images/platformer/backgrounds/hills.png
 <audio id="goombaDeath" src="{{site.baseurl}}/assets/audio/goomba-death.mp3" preload="auto"></audio>
 
 <!--Audio for Jump oF player -->
-<audio id ="goombaDeath" src="{{site.baseurl}}/assets/audio/2024-01-21-MarioJump.mp3" preload="auto"></audio>
+<audio id ="PlayerJump" src="{{site.baseurl}}/assets/audio/mario-jump.mp3" preload="auto"></audio>
 
 <!-- Wrap both the controls and gameplay in a container div -->
 <div id="canvasContainer">

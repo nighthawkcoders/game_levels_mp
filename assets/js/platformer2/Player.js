@@ -1,6 +1,7 @@
 import GameEnv from './GameEnv.js';
 import Character from './Character.js';
 import GameControl from './GameControl.js';
+import playJump from './Audio1.js';
 import Socket from './Multiplayer.js';
 
 /**
@@ -125,6 +126,7 @@ export class Player extends Character{
         }
         // Player jumping
         if (this.isActiveGravityAnimation("w")) {
+            playJump();
             if (this.gravityEnabled) {
                 if (GameEnv.difficulty === "easy") {
                     this.y -= (this.bottom * .50);  // bottom jump height

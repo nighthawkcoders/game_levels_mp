@@ -1,7 +1,7 @@
-//Audio for jump
-function playPlayerJump() {
-  const playerJumpSound = document.getElementById("playerJump");
-  playerJumpSound.play();
+//Audio when jumping
+function playJump() {
+  const PlayerJumpSound = document.getElementById("PlayerJump");
+  PlayerJumpSound.play();
 }
 
 /*To Add Other Audio Functions:
@@ -13,4 +13,4 @@ function playPlayerJump() {
 
 
 //Export Sound
-export default playPlayerJump
+export default playJump
