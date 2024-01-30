@@ -23,6 +23,9 @@ image: /images/platformer/backgrounds/hills.png
 <!--Audio for Jump oF player -->
 <audio id ="PlayerJump" src="{{site.baseurl}}/assets/audio/mario-jump.mp3" preload="auto"></audio>
 
+<!--Audio for death of player -->
+<audio id ="PlayerDeath" src="{{site.baseurl}}/assets/audio/MarioDeath.mp3" preload="auto"></audio>
+
 <!-- Wrap both the controls and gameplay in a container div -->
 <div id="canvasContainer">
   <div class="submenu">
@@ -55,8 +58,8 @@ image: /images/platformer/backgrounds/hills.png
     import SettingsControl from '{{site.baseurl}}/assets/js/platformer2/SettingsControl.js';
     import GameEnv from '{{site.baseurl}}/assets/js/platformer2/GameEnv.js';
     import Leaderboard from '{{site.baseurl}}/assets/js/platformer2/Leaderboard.js';
-
     import Audio from '{{site.baseurl}}/assets/js/platformer2/Audio.js';
+    import Audio1 from '{{site.baseurl}}/assets/js/platformer2/Audio1.js';
 
     /* 
      * ==========================================
