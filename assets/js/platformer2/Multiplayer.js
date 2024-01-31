@@ -2,7 +2,10 @@
  * io is for the node js module: socket.io
  * this is used to create the socket listener for the client side of the multiplayer
  */
+import GameControl from "./GameControl.js";
+import GameEnv from "./GameEnv.js";
 import { io } from "https://cdn.socket.io/4.7.2/socket.io.esm.min.js";
+
 
 // Setup a variable
 
@@ -42,6 +45,18 @@ export class Socket{
 
     static removeAllListeners(){
         this.socket.removeAllListeners();
+    }
+
+    static changeStatus(){
+        this.shouldBeSynced = !this.shouldBeSynced;
+        if(this.shouldBeSynced){
+            this.removeAllListeners();
+
+            GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
+        } else{
+            GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
+        }
+        return this.shouldBeSynced;
     }
 }
 export default Socket;
