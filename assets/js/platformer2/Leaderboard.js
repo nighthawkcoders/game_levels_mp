@@ -85,5 +85,5 @@ export class Leaderboard extends LocalStorage {
         });
     }
 }
-
+    
 export default Leaderboard;
