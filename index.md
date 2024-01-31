@@ -1,8 +1,4 @@
 ---
-layout: base
-title: Game Project
-image: /images/mario_animation.png
-hide: true
+layout: home
+search_exclude: true
 ---
-
-New Home Page for Game Levels MP 2.1
