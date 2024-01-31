@@ -48,7 +48,7 @@ class GameLevel {
                     canvas.id = obj.id;
                     document.querySelector("#canvasContainer").appendChild(canvas);
                     // Create a new instance of the game object.
-                    new obj.class(canvas, obj.image, obj.data, obj.xPercentage, obj.yPercentage, obj.name, obj.minPosition,);
+                    new obj.class(canvas, obj.image, obj.data, obj.xPercentage, obj.yPercentage, obj.name, obj.minPosition);
                 }
             }
         } catch (error) {

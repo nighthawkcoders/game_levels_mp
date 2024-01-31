@@ -1,6 +1,8 @@
 import GameEnv from './GameEnv.js';
 import Character from './Character.js';
 import GameControl from './GameControl.js';
+import playJump from './Audio1.js';
+import playPlayerDeath from './Audio2.js';
 import Socket from './Multiplayer.js';
 
 /**
@@ -125,6 +127,7 @@ export class Player extends Character{
         }
         // Player jumping
         if (this.isActiveGravityAnimation("w")) {
+            playJump();
             if (this.gravityEnabled) {
                 if (GameEnv.difficulty === "easy") {
                     this.y -= (this.bottom * .50);  // bottom jump height
@@ -133,7 +136,7 @@ export class Player extends Character{
                 } else {
                     this.y -= (this.bottom * .30);
                 }
-            } else if (this.movement.down===false) {
+            } else if (this.movement.down === false) {
                 this.y -= (this.bottom * .15);  // platform jump height
             }
         }
@@ -142,6 +145,14 @@ export class Player extends Character{
         let tubeX = (.80 * GameEnv.innerWidth)
         if (this.x >= tubeX && this.x <= GameEnv.innerWidth) {
             this.x = tubeX - 1;
+        }
+
+        //Prevent Player from Leaving from Screen
+        if (this.x < 0) {
+            this.x = 1;
+
+            GameEnv.backgroundHillsSpeed = 0;
+            GameEnv.backgroundMountainsSpeed = 0;
         }
 
         // Perform super update actions
@@ -203,20 +214,22 @@ export class Player extends Character{
         if (["goomba", "flyingGoomba"].includes(this.collisionData.touchPoints.other.id)) {
             // Collision with the left side of the Enemy
             if (this.collisionData.touchPoints.other.left) {
-                if (["normal","hard"].includes(GameEnv.difficulty)) {
-                    //Reset Player to Beginning
-                    GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
-                } else {
+                if (GameEnv.difficulty === "easy") {
                     this.x -= 10;
+                } else {
+                    //Reset Player to Beginning
+                    playPlayerDeath();
+                    GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
                 }
             }
             // Collision with the right side of the Enemy
             if (this.collisionData.touchPoints.other.right) {
-                if (["normal", "hard"].includes(GameEnv.difficulty)) {
-                    //Reset Player to Beginning
-                    GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
-                } else {
+                if (GameEnv.difficulty === "easy") {
                     this.x += 10;
+                } else {
+                    //Reset Player to Beginning
+                    playPlayerDeath();
+                    GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
                 }
             }
         }
@@ -259,13 +272,13 @@ export class Player extends Character{
                 this.canvas.style.filter = 'invert(1)';
             }
             // parallax background speed starts on player movement
-            if (this.isKeyActionLeft(key)) {
+            if (this.isKeyActionLeft(key) && this.x > 2) {
                 GameEnv.backgroundHillsSpeed = -0.4;
                 GameEnv.backgroundMountainsSpeed = -0.1;
             } else if (this.isKeyActionRight(key)) {
                 GameEnv.backgroundHillsSpeed = 0.4;
                 GameEnv.backgroundMountainsSpeed = 0.1;
-            } else if (this.isKeyActionDash(key) && this.directionKey === "a") {
+            } else if (this.isKeyActionDash(key) && this.directionKey === "a" && this.x > 2) {
                 GameEnv.backgroundHillsSpeed = -0.4;
                 GameEnv.backgroundMountainsSpeed = -0.1;
             } else if (this.isKeyActionDash(key) && this.directionKey === "d") {
