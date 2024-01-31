@@ -12,6 +12,7 @@ import Tube from './Tube.js';
 import Goomba from './Goomba.js';
 import FlyingGoomba from './FlyingGoomba.js';
 import BlockPlatform from './BlockPlatform.js'
+import Coin from './Coin.js';
 
 /* Coding Style Notes
  *
@@ -163,6 +164,7 @@ const GameSetup = {
     assets: {
       obstacles: {
         tube: { src: "/images/platformer/obstacles/tube.png" },
+        coin: { src: "/images/platformer/obstacles/coin.png"}
       },
       platforms: {
         grass: { src: "/images/platformer/platforms/grass.png" },
@@ -306,6 +308,7 @@ const GameSetup = {
         { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage:  0.75, yPercentage: 1, minPosition: 0.5 },
         { name: 'mario', id: 'player', class: Player, data: this.assets.players.mario },
         { name: 'tube', id: 'tube', class: Tube, data: this.assets.obstacles.tube },
+        { name: 'coin', id: 'coin', class: Coin, data: this.assets.obstacles.coin},
         ];
         // Hills Game Level added to the GameEnv ...
         new GameLevel( {tag: "hills", callback: this.playerOffScreenCallBack, objects: hillsGameObjects } );
