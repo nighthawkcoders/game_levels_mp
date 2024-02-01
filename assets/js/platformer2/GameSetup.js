@@ -14,6 +14,7 @@ import Tube from './Tube.js';
 import Goomba from './Goomba.js';
 import FlyingGoomba from './FlyingGoomba.js';
 import BlockPlatform from './BlockPlatform.js'
+import Coin from './Coin.js';
 
 /* Coding Style Notes
  *
@@ -165,6 +166,7 @@ const GameSetup = {
     assets: {
       obstacles: {
         tube: { src: "/images/platformer/obstacles/tube.png" },
+        coin: { src: "/images/platformer/obstacles/coin.png"}
       },
       platforms: {
         grass: { src: "/images/platformer/platforms/grass.png" },
@@ -187,10 +189,10 @@ const GameSetup = {
         hills: { src: "/images/platformer/backgrounds/hills.png" },
         avenida: { src: "/images/platformer/backgrounds/avenida.png" },
         mountains: { src: "/images/platformer/backgrounds/mountains.jpg" },
-        planet: { src: "/images/platformer/backgrounds/planet.jpg" },
+        space: { src: "/images/platformer/backgrounds/planet.jpg" },
         castles: { src: "/images/platformer/backgrounds/castles.png" },
         loading: { src: "/images/platformer/backgrounds/greenscreen.png" },
-        complete: { src: "/images/platformer/backgrounds/levelcomplete.png" },
+        complete: { src: "/images/platformer/backgrounds/bluescreen.png" },
         end: { src: "/images/platformer/backgrounds/game_over.png" }
       },
       players: {
@@ -329,16 +331,15 @@ const GameSetup = {
         { name: 'mountains', id: 'background', class: BackgroundMountains,  data: this.assets.backgrounds.mountains },
         { name: 'hills', id: 'background', class: BackgroundHills, data: this.assets.backgrounds.hills },
         { name: 'grass', id: 'platform', class: Platform, data: this.assets.platforms.grass },
-        { name: 'blocks', id: 'blockPlatform', class: BlockPlatform, data: this.assets.platforms.block, xPercentage: 0.2, yPercentage: 0.85 },
-        { name: 'blocks', id: 'blockPlatform', class: BlockPlatform, data: this.assets.platforms.block, xPercentage: 0.2368, yPercentage: 0.85 },
-        { name: 'blocks', id: 'blockPlatform', class: BlockPlatform, data: this.assets.platforms.block, xPercentage: 0.2736, yPercentage: 0.85 },
+        { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: this.assets.platforms.block, xPercentage: 0.2, yPercentage: 0.85 },
+        { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: this.assets.platforms.block, xPercentage: 0.2368, yPercentage: 0.85 },
+        { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: this.assets.platforms.block, xPercentage: 0.2736, yPercentage: 0.85 },
         { name: 'itemBlock', id: 'jumpPlatform', class: JumpPlatform, data: this.assets.platforms.itemBlock, xPercentage: 0.4, yPercentage: 0.65 }, //item block is a platform
         { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage: 0.3, yPercentage: 1, minPosition: 0.05},
         { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage:  0.5, yPercentage: 1, minPosition: 0.3 },
         { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage:  0.75, yPercentage: 1, minPosition: 0.5 },
         { name: 'mario', id: 'player', class: Player, data: this.assets.players.mario },
         { name: 'tube', id: 'tube', class: Tube, data: this.assets.obstacles.tube },
-        { name: 'loading', id: 'background', class: BackgroundTransitions,  data: this.assets.backgrounds.loading },
         ];
         // Hills Game Level added to the GameEnv ...
         new GameLevel( {tag: "hills", callback: this.playerOffScreenCallBack, objects: hillsGameObjects } );
@@ -361,6 +362,24 @@ const GameSetup = {
         ];
         // Avenida Game Level added to the GameEnv ...
         new GameLevel( {tag: "avenida", callback: this.playerOffScreenCallBack, objects: avenidaGameObjects } );
+
+        // Space Game Level definition...
+        const spaceGameObjects = [
+          // GameObject(s), the order is important to z-index...
+          { name: 'space', id: 'background', class: Background, data: this.assets.backgrounds.space },
+          { name: 'grass', id: 'platform', class: Platform, data: this.assets.platforms.grass },
+          { name: 'bricks', id: 'jumpPlatform', class: JumpPlatform, data: this.assets.platforms.bricks, xPercentage: 0.2 },
+          { name: 'bricks', id: 'jumpPlatform', class: JumpPlatform, data: this.assets.platforms.bricks, xPercentage: 0.5 },
+          { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage: 0.3, minPosition: 0.05},
+          { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage:  0.5, minPosition: 0.3 },
+          { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage:  0.75, minPosition: 0.5 },
+          { name: 'flyingGoomba', id: 'flyingGoomba', class: FlyingGoomba, data: this.assets.enemies.flyingGoomba, xPercentage:  0.5, minPosition:  0.05},
+          { name: 'flyingGoomba', id: 'flyingGoomba', class: FlyingGoomba, data: this.assets.enemies.flyingGoomba, xPercentage:  0.9, minPosition: 0.5},
+          { name: 'lopez', id: 'player', class: Player, data: this.assets.players.lopez },
+          { name: 'tube', id: 'tube', class: Tube, data: this.assets.obstacles.tube },
+        ];
+        // Avenida Game Level added to the GameEnv ...
+        new GameLevel( {tag: "space", callback: this.playerOffScreenCallBack, objects: spaceGameObjects} );
 
         // Game Over Level definition...
         const endGameObjects = [

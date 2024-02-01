@@ -60,7 +60,7 @@ class GameObject {
                 filter: element.style.filter,
                 tag: GameEnv.currentLevel.tag,
                 x: this.x / GameEnv.innerWidth,
-                y: (this.y - GameEnv.top) / (this.bottom - GameEnv.top),
+                y: (this.y - GameEnv.top) / (GameEnv.bottom - GameEnv.top),
                 frameY: this.frameY
             };
         }
@@ -87,12 +87,13 @@ class GameObject {
     updateInfo(json) {
         var element = this.canvas;
         if (json.id === element.id) {
+            console.log("runs", json.width, json.height)
             this.canvas.width = json.width;
             this.canvas.height = json.height;
             this.canvas.style.filter = json.filter;
             var element = this.canvas;
-            this.x = json.x * GameEnv.innerWidth;
-            this.y = (json.y * (this.bottom - GameEnv.top)) + GameEnv.top;
+            //this.x = json.x * GameEnv.innerWidth;
+            //this.y = (json.y * (GameEnv.bottom - GameEnv.top)) + GameEnv.top;
             this.frameY = json.frameY
         }
         return json.id === element.id

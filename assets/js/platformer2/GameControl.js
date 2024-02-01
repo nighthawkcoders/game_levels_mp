@@ -6,7 +6,6 @@
  * - call GameControl.gameLoop() to run the game levels.
  * - call or add listener to GameControl.startTimer() to start the game timer.
  */
-import Character from './Character.js';
 import GameEnv from './GameEnv.js';
 import Socket from './Multiplayer.js';
 
@@ -88,6 +87,15 @@ const GameControl = {
         clearInterval(this.timerInterval); // Clear the interval to stop the timer
     },
 
+    randomEventId: null, //Variable to determine which random event will activate.
+
+    startRandomEvent() {
+        this.randomEventId = Math.floor(Math.random() * 3) + 1
+        /**Random Event Key
+         * 1: Inverts the Color of the Background
+        */
+    },
+
     /**
      * Transitions to a new level. Destroys the current level and loads the new level.
      * @param {Object} newLevel - The new level to transition to.
@@ -98,9 +106,6 @@ const GameControl = {
         // Destroy existing game objects
         GameEnv.destroy();
 
-        Socket.removeListener("stateUpdate")
-        Socket.removeListener("disconnection")
-
         // Load GameLevel objects
         await newLevel.load();
         GameEnv.currentLevel = newLevel;
@@ -110,9 +115,6 @@ const GameControl = {
         
         // Trigger a resize to redraw canvas elements
         window.dispatchEvent(new Event('resize'));
-        
-        Socket.createListener("stateUpdate",this.handleStateUpdates)
-        Socket.createListener("disconnection",this.handleSocketDisconnect)
 
         this.inTransition = false;
     },
@@ -152,49 +154,6 @@ const GameControl = {
 
         // recycle gameLoop, aka recursion
         requestAnimationFrame(this.gameLoop.bind(this));  
-    },
-
-
-    handleStateUpdates(data){ //listen for stateupdates and update characters if needed
-        let updated = false
-        console.log(GameEnv.currentLevel.tag)
-        if (data.tag === GameEnv.currentLevel.tag) {
-            for (var gameObj of GameEnv.gameObjects) {
-                updated = updated || gameObj.updateInfo(data);
-            }
-            if (!updated) {
-                var obj;
-                //find the current type of player in game
-                GameEnv.currentLevel.gameObjects.forEach(object=>{
-                    if (object.id == "player"){
-                        obj = object;
-                    }
-                });
-                obj.class = Character; //set to character class (doesn't update with inputs)
-                 // Load the image for the game object.
-                const image = new Image();
-                image.src = obj.data.file;
-                obj.image = image;
-                 // Create a new canvas for the game object.
-                 const canvas = document.createElement("canvas");
-                 canvas.id = data.id;
-                 obj.id = data.id;
-                 document.querySelector("#canvasContainer").appendChild(canvas);
-                 console.log(canvas);
-                 // Create a new instance of the game object.
-                obj =  new obj.class(canvas, obj.image, obj.data, obj.xPercentage, obj.yPercentage, obj.minPosition);
-                    
-                obj.updateInfo(data);
-            }
-        }
-    },
-
-    handleSocketDisconnect(id) {
-        for (var gameObj of GameEnv.gameObjects) {
-            if (gameObj.canvas.id.includes(id)) {
-                gameObj.destroy();
-            }
-        }
     },
 };
 
