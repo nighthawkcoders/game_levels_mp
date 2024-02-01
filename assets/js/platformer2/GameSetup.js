@@ -5,6 +5,7 @@ import GameLevel from './GameLevel.js';
 import Background from './Background.js'
 import BackgroundHills from './BackgroundHills.js';
 import BackgroundMountains from './BackgroundMountains.js';
+import BackgroundTransitions from './BackgroundTransitions.js';
 import Platform from './Platform.js';
 import JumpPlatform from './JumpPlatform.js';
 import Player from './Player.js';
@@ -189,6 +190,8 @@ const GameSetup = {
         mountains: { src: "/images/platformer/backgrounds/mountains.jpg" },
         space: { src: "/images/platformer/backgrounds/planet.jpg" },
         castles: { src: "/images/platformer/backgrounds/castles.png" },
+        loading: { src: "/images/platformer/backgrounds/greenscreen.png" },
+        complete: { src: "/images/platformer/backgrounds/bluescreen.png" },
         end: { src: "/images/platformer/backgrounds/game_over.png" }
       },
       players: {
@@ -285,6 +288,34 @@ const GameSetup = {
             });
         });
 
+        let cutStory = document.getElementById('cut-story');
+        let messages = ["Hi! My name is Mario, and I wish...", 
+        "I wish I could be just as cool as this guy, Mr. Lopez.", "Help me get to the next level to become him!"];
+        console.log("Message length: " + messages.length);
+    
+        function showMessage(){
+            var x = cutStory;
+            x.className = 'show'; // change class name to show
+            console.log("class name before: "+x.className);
+            console.log("inner HTML: "+x.innerText);
+            //only want to last 3 secs
+            setTimeout(function(){x.className = x.className.replace('show',' ');}, 2000); //replace show with an empty string
+             setTimeout(function(){x.className = x.className.replace(' ','hide');}, 2000);
+            console.log("class name after: "+x.className);
+        }
+        
+        let i = 0;
+        let interval = setInterval(() => 
+        {
+          cutStory.innerText = messages[i]; 
+          showMessage();
+          i++;
+          if(i == messages.length)
+          {
+            clearInterval(interval);
+          }
+        }, 3000);
+
         // Home screen added to the GameEnv ...
         new GameLevel( {tag: "start", callback: this.startGameCallback } );
         const homeGameObjects = [
@@ -308,7 +339,6 @@ const GameSetup = {
         { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage:  0.75, yPercentage: 1, minPosition: 0.5 },
         { name: 'mario', id: 'player', class: Player, data: this.assets.players.mario },
         { name: 'tube', id: 'tube', class: Tube, data: this.assets.obstacles.tube },
-        { name: 'coin', id: 'coin', class: Coin, data: this.assets.obstacles.coin},
         ];
         // Hills Game Level added to the GameEnv ...
         new GameLevel( {tag: "hills", callback: this.playerOffScreenCallBack, objects: hillsGameObjects } );
@@ -327,6 +357,7 @@ const GameSetup = {
         { name: 'flyingGoomba', id: 'flyingGoomba', class: FlyingGoomba, data: this.assets.enemies.flyingGoomba, xPercentage:  0.9, minPosition: 0.5},
         { name: 'lopez', id: 'player', class: Player, data: this.assets.players.lopez },
         { name: 'tube', id: 'tube', class: Tube, data: this.assets.obstacles.tube },
+        { name: 'complete', id: 'background', class: BackgroundTransitions,  data: this.assets.backgrounds.complete },
         ];
         // Avenida Game Level added to the GameEnv ...
         new GameLevel( {tag: "avenida", callback: this.playerOffScreenCallBack, objects: avenidaGameObjects } );

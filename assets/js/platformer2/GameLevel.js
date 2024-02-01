@@ -1,5 +1,7 @@
 // GameLevel.js key objective is to load and intialize GameObject(s) for a level.
 import GameEnv from './GameEnv.js';
+import Socket from './Multiplayer.js';
+import Character from './Character.js';
 
 /**
  * The GameLevel class represents a level in the game.
@@ -32,6 +34,10 @@ class GameLevel {
      * If any image fails to load, an error is logged and the game is halted.
      */
     async load() {
+        Socket.removeAllListeners("stateUpdate") //reset Socket Connections
+        Socket.removeAllListeners("disconnection")
+        Socket.createListener("stateUpdate",this.handleStateUpdates)
+        Socket.createListener("disconnection",this.handleSocketDisconnect)
         try {
             for (const obj of this.gameObjects) {
                 if (obj.data.file) {
@@ -62,6 +68,47 @@ class GameLevel {
             image.onload = () => resolve(image);
             image.onerror = reject;
         });
+    }
+
+
+    handleStateUpdates(data){ //listen for stateupdates and update characters if needed
+        let updated = false
+        if (data.tag === GameEnv.currentLevel.tag) {
+            for (var gameObj of GameEnv.gameObjects) {
+                updated = updated || gameObj.updateInfo(data);
+            }
+            if (!updated) {
+                var obj;
+                //find the current type of player in game
+                GameEnv.currentLevel.gameObjects.forEach(object=>{
+                    if (object.id == "player"){
+                        obj = object;
+                    }
+                });
+                 // Load the image for the game object.
+                const image = new Image();
+                image.src = obj.data.file;
+                 // Create a new canvas for the game object.
+                 const canvas = document.createElement("canvas");
+                 canvas.id = data.id;
+                 document.querySelector("#canvasContainer").appendChild(canvas);
+                 console.log(canvas);
+                 // Create a new instance of the game object.
+                var obj1 =  new Character(canvas, image, obj.data, obj.xPercentage, obj.yPercentage, obj.minPosition);
+                
+                obj1.updateInfo(data);
+                obj1.size();
+                console.log(obj1.canvasWidth)
+            }
+        }
+    }
+
+    handleSocketDisconnect(id) {
+        for (var gameObj of GameEnv.gameObjects) {
+            if (gameObj.canvas.id.includes(id)) {
+                gameObj.destroy();
+            }
+        }
     }
 }
 

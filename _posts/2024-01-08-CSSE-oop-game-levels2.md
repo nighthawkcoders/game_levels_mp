@@ -13,9 +13,18 @@ image: /images/platformer/backgrounds/hills.png
 <div id="sidebar" class="sidebar">
   <a href="javascript:void(0)" id="sidebar-header">&times; Settings</a>
 </div>
+<div id="leaderboard" class="leaderboard">
+  <a href="javascript:void(0)" id="leaderboard-header">&times; Leaderboard</a>
+</div>
 
 <!--Audio for Death of Goomba -->
 <audio id="goombaDeath" src="{{site.baseurl}}/assets/audio/goomba-death.mp3" preload="auto"></audio>
+
+<!--Audio for Jump oF player -->
+<audio id ="PlayerJump" src="{{site.baseurl}}/assets/audio/mario-jump.mp3" preload="auto"></audio>
+
+<!--Audio for death of player -->
+<audio id ="PlayerDeath" src="{{site.baseurl}}/assets/audio/MarioDeath.mp3" preload="auto"></audio>
 
 <!-- Wrap both the controls and gameplay in a container div -->
 <div id="canvasContainer">
@@ -34,11 +43,13 @@ image: /images/platformer/backgrounds/hills.png
         <button id="settings-button">Settings</button>
     </div>
     <div id="leaderboard"> <!-- Controls -->
-      <button id="leaderboard-button">Leaderboard</button>
+        <button id="leaderboard-button">Leaderboard</button>
     </div>
   </div>
   <!-- JavaScript-generated canvas items are inserted here -->
 </div>
+
+<footer id="cut-story"></footer>
 
 <script type="module">
     // Imports to drive game
@@ -46,7 +57,9 @@ image: /images/platformer/backgrounds/hills.png
     import GameControl from '{{site.baseurl}}/assets/js/platformer2/GameControl.js';
     import SettingsControl from '{{site.baseurl}}/assets/js/platformer2/SettingsControl.js';
     import GameEnv from '{{site.baseurl}}/assets/js/platformer2/GameEnv.js';
+    import Leaderboard from '{{site.baseurl}}/assets/js/platformer2/Leaderboard.js';
     import Audio from '{{site.baseurl}}/assets/js/platformer2/Audio.js';
+    import Audio1 from '{{site.baseurl}}/assets/js/platformer2/Audio1.js';
 
     /* 
      * ==========================================
@@ -94,6 +107,8 @@ image: /images/platformer/backgrounds/hills.png
 
     // Construct settings sidebar, MVC variable paradigm, and async events to trigger user interaction
     SettingsControl.sidebar();
+
+    Leaderboard.leaderboard();
 
     /* 
      * ==========================================

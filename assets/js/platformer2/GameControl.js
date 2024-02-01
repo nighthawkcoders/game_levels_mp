@@ -7,6 +7,7 @@
  * - call or add listener to GameControl.startTimer() to start the game timer.
  */
 import GameEnv from './GameEnv.js';
+import Socket from './Multiplayer.js';
 
 /**
  * GameControl is a singleton object that controls the game loop.
@@ -114,7 +115,7 @@ const GameControl = {
         
         // Trigger a resize to redraw canvas elements
         window.dispatchEvent(new Event('resize'));
-        
+
         this.inTransition = false;
     },
 
@@ -154,7 +155,6 @@ const GameControl = {
         // recycle gameLoop, aka recursion
         requestAnimationFrame(this.gameLoop.bind(this));  
     },
-
 };
 
 export default GameControl;

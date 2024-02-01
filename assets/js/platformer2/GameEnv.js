@@ -35,6 +35,7 @@ export class GameEnv {
      * @property {number} gameSpeed - localstorage key, used by platformer objects
      * @property {number} backgroundHillsSpeed - used by background objects
      * @property {number} backgroundMountainsSpeed - used by background objects
+     * @property {boolean} transitionHide - used to hide the transition screen
      * @property {number} gravity - localstorage key, used by platformer objects
      * @property {Object} difficulty - localstorage key, used by GameControl
      * @property {number} innerWidth - used by platformer objects
@@ -55,6 +56,7 @@ export class GameEnv {
     static gameSpeed = 2;
     static backgroundHillsSpeed = 0;
     static backgroundMountainsSpeed = 0;
+    static transitionHide = false;
     static gravity = 3;
     static difficulty = "normal";
     static innerWidth;
@@ -63,6 +65,8 @@ export class GameEnv {
     static top;
     static bottom;
     static prevBottom;
+
+
     
     // Make the constructor throws an error, or effectively make it a private constructor.
     constructor() {

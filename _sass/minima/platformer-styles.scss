@@ -17,6 +17,9 @@
 
 /// Score for the game  
 /// @description This ID is used to style the score for the game, key style is to ensure it is on top of other elements.
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
 #score { 
   position: relative; 
   z-index: 2; // z-index position ensures these buttons are on top.
@@ -30,6 +33,28 @@
   position: relative;
   z-index: 2; // z-index position ensures these buttons are on top.
 }
+
+#addRow, #backToGame {
+  position: relative;
+  z-index: 2; // z-index position ensures these buttons are on top.
+  display: inline-block;
+  margin-right: $spacing-unit;
+}
+
+$tableBackground: #006bbd;
+#leaderboardHead * {
+  background-color: $tableBackground !important;
+}
+
+#leaderboard * {
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}  
+
+#tableBody * {
+  background-color: mix($tableBackground, white, 75%) !important;
+  text-align: center;
+}
+
 
 /// Color mixin 
 /// @description This mixin is defined to share colors with classes in this stylesheet.
@@ -58,6 +83,25 @@
 /// Sidebar class
 /// @description This class styles the sidebar for settings in the game. It has many style elements (e.g. placing sidebar below header).
 .sidebar {
+  @include dark-mode-color; // use the dark mode color scheme
+  border: none; // remove setting as sidebar collapse leaves residue line
+  position: fixed;
+  z-index: 3; // Position on Top of other elements, as well as ID buttons above
+  // left: 0; // set the sidebar to be on the left side of the page
+  top: 0; // calculated to be below the header and submenu 
+  padding-top: 5px; 
+  padding-bottom: 5px;
+  overflow-x: hidden; /* Disable horizontal scroll */
+  transition: 0.5s; /* 0.5-second transition effect to slide in the sidebar */
+  // following are changed by JavaScript
+  width: 0px;
+  padding-left: 0px; 
+  padding-right: 0px; 
+  overflow-y: scroll; //allow scrolling
+  height: 75%;
+}
+
+.leaderboard {
   @include dark-mode-color; // use the dark mode color scheme
   border: none; // remove setting as sidebar collapse leaves residue line
   position: fixed;
@@ -121,3 +165,61 @@
   width: 40px;  // customize width of the input field
   text-align: right; // right-align input for numbers
 }
+
+#toggleCanvasEffect, #background, #platform{
+  animation: fadein 5s;
+}
+
+#startGame, #marioSays{
+  animation: flash 0.5s infinite;
+}
+
+@keyframes flash {
+  50% {
+    opacity: 0;
+  }
+}
+@keyframes fadeout{
+    from {opacity: 1}
+    to {opacity: 0}
+}
+
+@keyframes fadein{
+    from {opacity: 0}
+    to {opacity: 1}
+}
+
+.bottom-matter{
+  position: relative;
+}
+
+#cut-story{
+  visibility: hidden;
+  min-width: 250px;
+  background-color: rgb(255, 93, 12);
+  color: white;
+  font-family: 'Press Start 2P', system-ui;
+  border-radius:4px;
+  position: absolute;
+  text-align: center;
+  justify-content: center;
+  border: 4px solid;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  width: 50%;
+  padding: 10px;
+  bottom: 0px;
+}
+/*creating class with javascript*/
+#cut-story.show{
+  visibility: visible;
+  -webkit-animation: fadein 3s;
+  animation: fadein 3s;
+}
+
+#cut-story.hide{
+  visibility: visible;
+  -webkit-animation: fadeout 0.5s 3s;
+  animation: fadeout 0.5s 3s;
+}
+
