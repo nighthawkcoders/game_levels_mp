@@ -8,6 +8,7 @@ import BackgroundMountains from './BackgroundMountains.js';
 import BackgroundTransitions from './BackgroundTransitions.js';
 import Platform from './Platform.js';
 import JumpPlatform from './JumpPlatform.js';
+import WallObs from './WallObs.js';
 import Player from './Player.js';
 import Tube from './Tube.js';
 import Goomba from './Goomba.js';
@@ -348,8 +349,8 @@ const GameSetup = {
         // GameObject(s), the order is important to z-index...
         { name: 'avenida', id: 'background', class: Background, data: this.assets.backgrounds.avenida },
         { name: 'grass', id: 'platform', class: Platform, data: this.assets.platforms.grass },
-        { name: 'bricks', id: 'jumpPlatform', class: JumpPlatform, data: this.assets.platforms.bricks, xPercentage: 0.2 },
-        { name: 'bricks', id: 'jumpPlatform', class: JumpPlatform, data: this.assets.platforms.bricks, xPercentage: 0.5 },
+        { name: 'bricks', id: 'wallObs', class: WallObs, data: this.assets.platforms.bricks, xPercentage: 0.2 },
+        { name: 'bricks', id: 'wallObs', class: WallObs, data: this.assets.platforms.bricks, xPercentage: 0.5 },
         { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage: 0.3, minPosition: 0.05},
         { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage:  0.5, minPosition: 0.3 },
         { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage:  0.75, minPosition: 0.5 },
