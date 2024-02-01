@@ -51,20 +51,33 @@ const GameControl = {
      */
     updateTimer() {
         const id = document.getElementById("gameOver");
+    
         if (id.hidden == false) {
-            this.stopTimer()
+            this.stopTimer();
         }
-
-        // Calculate elapsed time in seconds
+    
         const elapsedTime = (Date.now() - this.startTime) / 1000;
-
-        // Display the updated time in the span element with id 'timeScore'
+    
         const timeScoreElement = document.getElementById('timeScore');
         if (timeScoreElement) {
-            timeScoreElement.textContent = elapsedTime.toFixed(2); // Update the displayed time
+            // Update the displayed time
+            timeScoreElement.textContent = elapsedTime.toFixed(2);
+    
+            // Retrieve existing time scores from local storage
+            const existingTimeScores = JSON.parse(localStorage.getItem('timeScores')) || [];
+    
+            // Add the new time score to the array
+            const newTimeScore = {
+                time: elapsedTime.toFixed(2),
+                // You can add more properties if needed
+            };
+            existingTimeScores.push(newTimeScore);
+    
+            // Save the updated array to local storage
+            localStorage.setItem('timeScores', JSON.stringify(existingTimeScores));
         }
     },
-
+        
     /**
      * Starts the game timer.
      * @function startTimer
