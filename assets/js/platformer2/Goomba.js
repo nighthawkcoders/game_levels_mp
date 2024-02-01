@@ -76,7 +76,12 @@ export class Goomba extends Character {
             if (this.collisionData.touchPoints.other.left || this.collisionData.touchPoints.other.right) {
                 this.speed = -this.speed;            
             }
-        }    
+        }
+        if (this.collisionData.touchPoints.other.id === "blockPlatform") {
+            if (this.collisionData.touchPoints.other.left || this.collisionData.touchPoints.other.right) {
+                this.speed = -this.speed;            
+            }
+        }
     }
 
 }
