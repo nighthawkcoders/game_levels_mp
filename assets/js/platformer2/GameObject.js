@@ -1,4 +1,5 @@
 import GameEnv from './GameEnv.js';
+import Socket from './Multiplayer.js';
 
 class GameObject {
     // container for all game objects in game
@@ -19,6 +20,7 @@ class GameObject {
         this.invert = true;
         this.collisionData = {};
         this.jsonifiedElement = '';
+        this.shouldBeSynced = false; //if the object should be synced with the server
         // Add this object to the game object array so collision can be detected
         // among other things
         GameEnv.gameObjects.push(this); 
@@ -35,6 +37,9 @@ class GameObject {
         if (jsonifiedElement !== this.jsonifiedElement) {
             //console.log(jsonifiedElement);
             this.jsonifiedElement = jsonifiedElement;
+            if (this.shouldBeSynced && !GameEnv.inTransition) {
+                Socket.sendData("update",this.jsonifiedElement);
+            }
         }
     }
 
@@ -43,7 +48,7 @@ class GameObject {
         var element = this.canvas;
         if (element && element.id) {
             // Convert the relevant properties of the element to a string for comparison
-            return JSON.stringify({
+            return {
                 id: element.id,
                 width: element.width,
                 height: element.height,
@@ -52,8 +57,12 @@ class GameObject {
                     left: element.style.left,
                     top: element.style.top
                 },
-                filter: element.style.filter
-            });
+                filter: element.style.filter,
+                tag: GameEnv.currentLevel.tag,
+                x: this.x / GameEnv.innerWidth,
+                y: (this.y - GameEnv.top) / (GameEnv.bottom - GameEnv.top),
+                frameY: this.frameY
+            };
         }
     }
 
@@ -73,6 +82,21 @@ class GameObject {
 
     setY(y) {
         this.y = y;
+    }
+
+    updateInfo(json) {
+        var element = this.canvas;
+        if (json.id === element.id) {
+            console.log("runs", json.width, json.height)
+            this.canvas.width = json.width;
+            this.canvas.height = json.height;
+            this.canvas.style.filter = json.filter;
+            var element = this.canvas;
+            //this.x = json.x * GameEnv.innerWidth;
+            //this.y = (json.y * (GameEnv.bottom - GameEnv.top)) + GameEnv.top;
+            this.frameY = json.frameY
+        }
+        return json.id === element.id
     }
 
     /* Destroy Game Object

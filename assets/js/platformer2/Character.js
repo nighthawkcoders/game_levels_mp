@@ -54,6 +54,18 @@ class Character extends GameObject {
         this.frameY = frameY;
     }
 
+    updateInfo(json) {
+        super.updateInfo(json)
+        var element = this.canvas;
+        if (json.id === element.id) {
+            this.x = json.x * GameEnv.innerWidth;
+            this.y = (json.y * (GameEnv.bottom - GameEnv.top)) + GameEnv.top;
+            this.frameY = json.frameY
+            console.log(this.x, this.y, json.y)
+        }
+        return json.id === element.id
+    }
+
     /* Draw character object
      * Canvas and Context
     */

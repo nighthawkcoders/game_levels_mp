@@ -5,6 +5,7 @@ import GameLevel from './GameLevel.js';
 import Background from './Background.js'
 import BackgroundHills from './BackgroundHills.js';
 import BackgroundMountains from './BackgroundMountains.js';
+import BackgroundTransitions from './BackgroundTransitions.js';
 import Platform from './Platform.js';
 import JumpPlatform from './JumpPlatform.js';
 import Player from './Player.js';
@@ -12,6 +13,7 @@ import Tube from './Tube.js';
 import Goomba from './Goomba.js';
 import FlyingGoomba from './FlyingGoomba.js';
 import BlockPlatform from './BlockPlatform.js'
+import Coin from './Coin.js';
 
 /* Coding Style Notes
  *
@@ -163,6 +165,7 @@ const GameSetup = {
     assets: {
       obstacles: {
         tube: { src: "/images/platformer/obstacles/tube.png" },
+        coin: { src: "/images/platformer/obstacles/coin.png"}
       },
       platforms: {
         grass: { src: "/images/platformer/platforms/grass.png" },
@@ -185,8 +188,10 @@ const GameSetup = {
         hills: { src: "/images/platformer/backgrounds/hills.png" },
         avenida: { src: "/images/platformer/backgrounds/avenida.png" },
         mountains: { src: "/images/platformer/backgrounds/mountains.jpg" },
-        planet: { src: "/images/platformer/backgrounds/planet.jpg" },
+        space: { src: "/images/platformer/backgrounds/planet.jpg" },
         castles: { src: "/images/platformer/backgrounds/castles.png" },
+        loading: { src: "/images/platformer/backgrounds/greenscreen.png" },
+        complete: { src: "/images/platformer/backgrounds/bluescreen.png" },
         end: { src: "/images/platformer/backgrounds/game_over.png" }
       },
       players: {
@@ -283,6 +288,34 @@ const GameSetup = {
             });
         });
 
+        let cutStory = document.getElementById('cut-story');
+        let messages = ["Hi! My name is Mario, and I wish...", 
+        "I wish I could be just as cool as this guy, Mr. Lopez.", "Help me get to the next level to become him!"];
+        console.log("Message length: " + messages.length);
+    
+        function showMessage(){
+            var x = cutStory;
+            x.className = 'show'; // change class name to show
+            console.log("class name before: "+x.className);
+            console.log("inner HTML: "+x.innerText);
+            //only want to last 3 secs
+            setTimeout(function(){x.className = x.className.replace('show',' ');}, 2000); //replace show with an empty string
+             setTimeout(function(){x.className = x.className.replace(' ','hide');}, 2000);
+            console.log("class name after: "+x.className);
+        }
+        
+        let i = 0;
+        let interval = setInterval(() => 
+        {
+          cutStory.innerText = messages[i]; 
+          showMessage();
+          i++;
+          if(i == messages.length)
+          {
+            clearInterval(interval);
+          }
+        }, 3000);
+
         // Home screen added to the GameEnv ...
         new GameLevel( {tag: "start", callback: this.startGameCallback } );
         const homeGameObjects = [
@@ -324,9 +357,28 @@ const GameSetup = {
         { name: 'flyingGoomba', id: 'flyingGoomba', class: FlyingGoomba, data: this.assets.enemies.flyingGoomba, xPercentage:  0.9, minPosition: 0.5},
         { name: 'lopez', id: 'player', class: Player, data: this.assets.players.lopez },
         { name: 'tube', id: 'tube', class: Tube, data: this.assets.obstacles.tube },
+        { name: 'complete', id: 'background', class: BackgroundTransitions,  data: this.assets.backgrounds.complete },
         ];
         // Avenida Game Level added to the GameEnv ...
         new GameLevel( {tag: "avenida", callback: this.playerOffScreenCallBack, objects: avenidaGameObjects } );
+
+        // Space Game Level definition...
+        const spaceGameObjects = [
+          // GameObject(s), the order is important to z-index...
+          { name: 'space', id: 'background', class: Background, data: this.assets.backgrounds.space },
+          { name: 'grass', id: 'platform', class: Platform, data: this.assets.platforms.grass },
+          { name: 'bricks', id: 'jumpPlatform', class: JumpPlatform, data: this.assets.platforms.bricks, xPercentage: 0.2 },
+          { name: 'bricks', id: 'jumpPlatform', class: JumpPlatform, data: this.assets.platforms.bricks, xPercentage: 0.5 },
+          { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage: 0.3, minPosition: 0.05},
+          { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage:  0.5, minPosition: 0.3 },
+          { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage:  0.75, minPosition: 0.5 },
+          { name: 'flyingGoomba', id: 'flyingGoomba', class: FlyingGoomba, data: this.assets.enemies.flyingGoomba, xPercentage:  0.5, minPosition:  0.05},
+          { name: 'flyingGoomba', id: 'flyingGoomba', class: FlyingGoomba, data: this.assets.enemies.flyingGoomba, xPercentage:  0.9, minPosition: 0.5},
+          { name: 'lopez', id: 'player', class: Player, data: this.assets.players.lopez },
+          { name: 'tube', id: 'tube', class: Tube, data: this.assets.obstacles.tube },
+        ];
+        // Avenida Game Level added to the GameEnv ...
+        new GameLevel( {tag: "space", callback: this.playerOffScreenCallBack, objects: spaceGameObjects} );
 
         // Game Over Level definition...
         const endGameObjects = [

@@ -1,6 +1,9 @@
 import GameEnv from './GameEnv.js';
 import Character from './Character.js';
 import GameControl from './GameControl.js';
+import playJump from './Audio1.js';
+import playPlayerDeath from './Audio2.js';
+import Socket from './Multiplayer.js';
 
 /**
  * @class Player class
@@ -34,6 +37,8 @@ export class Player extends Character{
         document.addEventListener('keyup', this.keyupListener);
 
         GameEnv.player = this;
+        this.transitionHide = false;
+        this.shouldBeSynced = true;
     }
 
     /**
@@ -122,6 +127,7 @@ export class Player extends Character{
         }
         // Player jumping
         if (this.isActiveGravityAnimation("w")) {
+            playJump();
             if (this.gravityEnabled) {
                 if (GameEnv.difficulty === "easy") {
                     this.y -= (this.bottom * .50);  // bottom jump height
@@ -212,6 +218,7 @@ export class Player extends Character{
                     this.x -= 10;
                 } else {
                     //Reset Player to Beginning
+                    playPlayerDeath();
                     GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
                 }
             }
@@ -221,6 +228,7 @@ export class Player extends Character{
                     this.x += 10;
                 } else {
                     //Reset Player to Beginning
+                    playPlayerDeath();
                     GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
                 }
             }
@@ -257,6 +265,7 @@ export class Player extends Character{
                 this.setAnimation(key);
                 // player active
                 this.isIdle = false;
+                GameEnv.transitionHide = true;
             }
             // dash action on
             if (this.isKeyActionDash(key)) {
