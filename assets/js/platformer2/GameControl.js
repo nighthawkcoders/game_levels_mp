@@ -53,11 +53,31 @@ const GameControl = {
     updateTimer() {
         const id = document.getElementById("gameOver");
     
+        const elapsedTime = (Date.now() - this.startTime) / 1000;
+
         if (id.hidden == false) {
             this.stopTimer();
-        }
+            // Get the current user ID from SettingsControl
+            const userID = GameEnv.userID;
     
-        const elapsedTime = (Date.now() - this.startTime) / 1000;
+            // Retrieve existing time scores from local storage
+            const existingTimeScores = JSON.parse(localStorage.getItem('timeScores')) || [];
+        
+            // Add the new time score with user ID to the array
+            const newTimeScore = {
+                userID: userID,
+                time: elapsedTime.toFixed(2),
+                // You can add more properties if needed
+            };
+            existingTimeScores.push(newTimeScore);
+
+            // Log the updated array to the console for debugging
+            console.log(existingTimeScores);
+
+            // Save the updated array to local storage
+            localStorage.setItem('timeScores', JSON.stringify(existingTimeScores));
+        
+        }
     
         const timeScoreElement = document.getElementById('timeScore');
         if (timeScoreElement) {
