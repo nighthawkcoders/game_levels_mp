@@ -7,6 +7,7 @@
  * - call or add listener to GameControl.startTimer() to start the game timer.
  */
 import GameEnv from './GameEnv.js';
+import SettingsControl from "./SettingsControl.js";
 import Socket from './Multiplayer.js';
 
 /**
@@ -63,20 +64,32 @@ const GameControl = {
             // Update the displayed time
             timeScoreElement.textContent = elapsedTime.toFixed(2);
     
+            // Get the current user ID from SettingsControl
+            const userID = SettingsControl.userID;
+    
             // Retrieve existing time scores from local storage
             const existingTimeScores = JSON.parse(localStorage.getItem('timeScore')) || [];
     
-            // Add the new time score to the array
-            const newTimeScore = {
-                time: elapsedTime.toFixed(2),
-                // You can add more properties if needed
-            };
-            existingTimeScores.push(newTimeScore);
+            // Check if there is a recent time score for the current user
+            const recentTimeScore = existingTimeScores.find(score => score.userID === userID);
     
-            // Save the updated array to local storage
-            localStorage.setItem('timeScores', JSON.stringify(existingTimeScores));
+            if (!recentTimeScore) {
+                // Add the new time score with user ID to the array
+                const newTimeScore = {
+                    userID: userID,
+                    time: elapsedTime.toFixed(2),
+                    // You can add more properties if needed
+                };
+                existingTimeScores.push(newTimeScore);
+    
+                // Log the updated array to the console for debugging
+                console.log(existingTimeScores);
+    
+                // Save the updated array to local storage
+                localStorage.setItem('timeScores', JSON.stringify(existingTimeScores));
+            }
         }
-    },
+    },    
         
     /**
      * Starts the game timer.
