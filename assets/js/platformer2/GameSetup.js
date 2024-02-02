@@ -289,37 +289,32 @@ const GameSetup = {
             });
         });
 
-        function generate(){
-          var fun_facts = {
-          //data structure
-          "Fun Fact #1" : "Mario's full name is Mario Mario.", //key and value
-          "Fun Fact #2" : "Mario's least favorite food is shittake mushrooms.", //single quotes to include the double quotes
-          "Fun Fact #3" : "Mario, in human years, is 24-25 years old.",
-          "Fun Fact #4" : "Mario's girlfriend's name is Pauline.",
-          "Fun Fact #5" : "Call or text 929-55-MARIO (929-556-2746) to get a fun suprise!",
-          "Fun Fact #6" : "Mario's original name was Jumpman.",
-          "Fun Fact #7" : "March 10th is known as Mario Day because the abbreviation for March 10th (Mar10) looks like Mario.",
-          "Fun Fact #8" : " Mario was originally a carpenter, not a plumber.",
-          "Fun Fact #9" : " There are actually lyrics to the Mario theme song."
-          }
-          var nums = Object.keys(fun_facts);
-          console.log(nums);
-          var num = nums[Math.floor(Math.random()*nums.length)]
-          var fun_fact = fun_facts[num]; //using dictionary
-          //access ids
-          document.getElementById("fun_fact").innerHTML = fun_fact;
-          document.getElementById("num").innerHTML = num;
-          }
+        let cutStory = document.getElementById('cut-story');
+        let messages = ["Hi! My name is Mario, and I wish...", 
+        "I wish I could be just as cool as this guy, Mr. Lopez.", "Help me get to the next level to become him!"];
+        console.log("Message length: " + messages.length);
     
-        let k = 0;
-        let interval2 = setInterval(() => 
-        {
-        generate();
-        k++;
-        if(k == fun_facts.length)
-        {
-          clearInterval(interval2);
+        function showMessage(){
+            var x = cutStory;
+            x.className = 'show'; // change class name to show
+            console.log("class name before: "+x.className);
+            console.log("inner HTML: "+x.innerText);
+            //only want to last 3 secs
+            setTimeout(function(){x.className = x.className.replace('show',' ');}, 2000); //replace show with an empty string
+             setTimeout(function(){x.className = x.className.replace(' ','hide');}, 2000);
+            console.log("class name after: "+x.className);
         }
+        
+        let i = 0;
+        let interval = setInterval(() => 
+        {
+          cutStory.innerText = messages[i]; 
+          showMessage();
+          i++;
+          if(i == messages.length)
+          {
+            clearInterval(interval);
+          }
         }, 3000);
 
         // Home screen added to the GameEnv ...
