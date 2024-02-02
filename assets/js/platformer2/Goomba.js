@@ -83,8 +83,13 @@ export class Goomba extends Character {
         if (this.collisionData.touchPoints.other.id === "player") {
             // Collision: Top of Goomba with Bottom of Player
             if (this.collisionData.touchPoints.other.bottom && this.immune === 0) {
-                this.destroy();
+                //Animate player death
+                this.speed = false;
+                this.canvas.style.transition = "transform 2s, opacity 1s";
+                this.canvas.style.transform = "rotate(-1080deg) translate(-26px, 0%)";
+                this.canvas.style.opacity = "0";
                 playGoombaDeath();
+  
             }
         }
         if (this.collisionData.touchPoints.other.id === "goomba") {
