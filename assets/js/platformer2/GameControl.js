@@ -88,33 +88,12 @@ const GameControl = {
     },
 
     randomEventId: null, //Variable to determine which random event will activate.
-    randomEventState: null, //Variable to hold the state. Is equal set to 1 when an event is triggered and then back to 0 once the event is completed.
-
-    //HOW TO ADD A RANDOM EVENT
-    //Import GameControl.js into the desired file
-    //Put this code in the update function of any game object
-
-    /**if (GameControl.randomEventId === # && GameControl.randomEventState === 1) {
-        //random event goes here
-        GameControl.endRandomEvent();
-    }*/
-
-    //Next, make sure that the event Id that triggers it is not being used
-    //Make sure that the event id is within the possible numbers that can be picked
-    //Once you are done make sure to add it to the random event key below
 
     startRandomEvent() {
-        this.randomEventState = 1;
-        this.randomEventId = Math.floor(Math.random() * 1) + 3; //The number multiplied by Math.random() is the number of possible events.
+        this.randomEventId = Math.floor(Math.random() * 3) + 1
         /**Random Event Key
          * 1: Inverts the Color of the Background
-         * 2: Time Stops all Goombas
-         * 3: Kills a Random Goomba
         */
-    },
-
-    endRandomEvent() {
-        this.randomEventId = 0;
     },
 
     /**
@@ -164,7 +143,7 @@ const GameControl = {
                     if (currentIndex !== -1 && currentIndex + 1 < GameEnv.levels.length) {
                         // transition to the next level
                         this.transitionToLevel(GameEnv.levels[currentIndex + 1]);
-                    }
+                    } 
                 }
             // currentLevel is null, (ie start or restart game)
             } else {
