@@ -39,6 +39,7 @@ export class Player extends Character{
         GameEnv.player = this;
         this.transitionHide = false;
         this.shouldBeSynced = true;
+        this.isDying = false;
     }
 
     /**
@@ -214,20 +215,52 @@ export class Player extends Character{
         if (["goomba", "flyingGoomba"].includes(this.collisionData.touchPoints.other.id)) {
             // Collision with the left side of the Enemy
             if (this.collisionData.touchPoints.other.left) {
+
+                //Animate player death
+                this.canvas.style.transition = "transform 0.5s";
+                this.canvas.style.transform = "rotate(-90deg) translate(-26px, 0%)";
+
                 if (GameEnv.difficulty === "easy") {
                     this.x -= 10;
                 } else {
                     //Reset Player to Beginning
                     playPlayerDeath();
-                    GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
+                    
+                    if (this.isDying == false) {
+                        this.isDying = true;
+                        setTimeout(async() => {
+                            await GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
+                            console.log("level restart")
+                            this.isDying = false;
+                        }, 700); 
+                    }   
+                    //GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
                 }
+        
             }
             // Collision with the right side of the Enemy
             if (this.collisionData.touchPoints.other.right) {
+            //Animate player death
+                this.canvas.style.transition = "transform 0.5s";
+                this.canvas.style.transform = "rotate(90deg) translate(26px, 0%)";
+
+                if (["normal","hard"].includes(GameEnv.difficulty)) {
                 if (GameEnv.difficulty === "easy") {
                     this.x += 10;
                 } else {
                     //Reset Player to Beginning
+                    // if statement prevents timeout from running multiple times
+                    if (this.isDying == false) {
+                        this.isDying = true;
+                        setTimeout(async() => {
+                            await GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
+                            console.log("level restart")
+                            this.isDying = false;
+                        }, 700); 
+                    }       
+                    //GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
+                }} else {
+                    this.x -= 10;
                     playPlayerDeath();
                     GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
                 }
@@ -324,8 +357,6 @@ export class Player extends Character{
             }
         }
     }
-
-    
 }
 
 
