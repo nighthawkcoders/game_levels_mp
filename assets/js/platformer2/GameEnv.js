@@ -130,10 +130,13 @@ export class GameEnv {
      */
     static update() {
         // Update game state, including all game objects
-        for (const gameObject of GameEnv.gameObjects) {
-            gameObject.update();
-            gameObject.serialize();
-            gameObject.draw();
+        // if statement prevents game from updating upon player death
+        if (GameEnv.player == null || GameEnv.player.isDying == false) {
+            for (const gameObject of GameEnv.gameObjects) {
+                gameObject.update();
+                gameObject.serialize();
+                gameObject.draw();
+            } 
         }
     }
   
