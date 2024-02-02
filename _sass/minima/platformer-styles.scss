@@ -101,7 +101,7 @@ $tableBackground: #006bbd;
   height: 75%;
 }
 
-.leaderboard {
+.leaderboardDropDown {
   @include dark-mode-color; // use the dark mode color scheme
   border: none; // remove setting as sidebar collapse leaves residue line
   position: fixed;
