@@ -64,7 +64,7 @@ const GameControl = {
             timeScoreElement.textContent = elapsedTime.toFixed(2);
     
             // Retrieve existing time scores from local storage
-            const existingTimeScores = JSON.parse(localStorage.getItem('timeScores')) || [];
+            const existingTimeScores = JSON.parse(localStorage.getItem('timeScore')) || [];
     
             // Add the new time score to the array
             const newTimeScore = {
