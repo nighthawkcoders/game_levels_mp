@@ -49,13 +49,6 @@ image: /images/platformer/backgrounds/hills.png
   <!-- JavaScript-generated canvas items are inserted here -->
 </div>
 
-<div id="container">
-    <header class="fun_facts">
-    <p id="num">Fun Fact #0</p>
-    <h3 id="fun_fact">Mario is named after frustrated landlord, Mario Segale, of the Nintendo of America building.</h3> <!-- want to access later so have id-->
-    </header>
-  </div>
-
 <footer id="cut-story"></footer>
 
 <script type="module">
@@ -94,58 +87,13 @@ image: /images/platformer/backgrounds/hills.png
     */
 
     // Start the PRIMARY game loop
-   GameControl.gameLoop();
+    GameControl.gameLoop();
 
     // Create an async event to start the timer when the start game button is pushed
-    var y = document.getElementById("cut-story");
-    y.style.display = "none";
     document.getElementById('startGame').addEventListener('click', () => {
         GameControl.startTimer(); 
-        var x = document.getElementById("container");
-        if (x.style.display === "none") {
-          x.style.display = "block";
-          } 
-        else {
-          x.style.display = "none";
-          }
-        if (y.style.display === "none") {
-          y.style.display = "block";
-          } 
-        else {
-          y.style.display = "none";
-          }
-      
-        let cutStory = document.getElementById('cut-story');
-        let messages = ["Hi! My name is Mario, and I wish...", 
-        "I wish I could be just as cool as this guy, Mr. Lopez.", "Help me get to the next level to become him!", "Do you want a speed boost?   [Y/N]"];
-        console.log("Message length: " + messages.length);
-    
-        function showMessage(){
-            var x = cutStory;
-            x.className = 'show'; // change class name to show
-            console.log("class name before: "+x.className);
-            console.log("inner HTML: "+x.innerText);
-            //only want to last 3 secs
-            setTimeout(function(){x.className = x.className.replace('show',' ');}, 2000); //replace show with an empty string
-             setTimeout(function(){x.className = x.className.replace(' ','hide');}, 2000);
-            console.log("class name after: "+x.className);
-        }
-        
-        let i = 0;
-        let interval = setInterval(() => 
-        {
-          cutStory.innerText = messages[i]; 
-          showMessage();
-          i++;
-          if(i == messages.length)
-          {
-            clearInterval(interval);
-          }
-        }, 3000);
-    
-    
-    
     });
+
     /* 
     * ==========================================
     * ========== Settings Control ==============
