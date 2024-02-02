@@ -1,6 +1,7 @@
 import Character from './Character.js';
 import GameEnv from './GameEnv.js';
 import playGoombaDeath from './Audio.js';
+import GameControl from './GameControl.js';
 
 export class Goomba extends Character {
     // constructors sets up Character object 
@@ -36,7 +37,22 @@ export class Goomba extends Character {
         // Check for boundaries
         if (this.x <= this.minPosition || (this.x + this.canvasWidth >= this.maxPosition)) {
             this.speed = -this.speed;
-        }
+        };
+
+        //Random Event 2: Time Stop All Goombas
+        if (GameControl.randomEventId === 2 && GameControl.randomEventState === 1) {
+            this.speed = 0;
+            if (this.name === "goombaSpecial") {
+                GameControl.endRandomEvent();
+            };
+        };
+
+        //Random Event 3: Kill a Random Goomba
+        //Whichever Goomba recieves this message first will die, then end the event so the other Goombas don't die
+        if (GameControl.randomEventId === 3 && GameControl.randomEventState === 1) {
+            this.destroy();
+            GameControl.endRandomEvent();
+        };
 
         // Every so often change direction
         switch(GameEnv.difficulty) {

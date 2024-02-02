@@ -60,11 +60,10 @@ export class JumpPlatform extends GameObject {
         this.canvas.style.top = `${platformY}px`; 
 
     }
-
     // Draw position is always 0,0
-    draw() {
+    draw() {    
         this.ctx.drawImage(this.image, this.relativeX, 0, this.canvas.width / this.data.widthRatio, this.canvas.height / this.data.heightRatio);
-    }
+    };
 }
 
 export default JumpPlatform;
