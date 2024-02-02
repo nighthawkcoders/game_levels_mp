@@ -7,7 +7,7 @@ export class BackgroundTransitions extends Background {
         GameEnv.transitionHide = false
     }
 
-    
+
     update() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         super.update();
