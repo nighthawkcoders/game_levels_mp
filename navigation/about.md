@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Contributors
+title: About
 permalink: /about/
 ---
 
@@ -11,7 +11,7 @@ permalink: /about/
                 <th>Management</th>
                 <th>Leaderboard</th>
                 <th>Enemies</th>
-                <th>RPG</th>
+                <th>Animation</th>
                 <th>Multiplayer</th>
             </tr>
         </thead>
