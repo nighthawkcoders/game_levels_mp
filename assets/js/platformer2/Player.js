@@ -40,6 +40,8 @@ export class Player extends Character{
         this.transitionHide = false;
         this.shouldBeSynced = true;
         this.isDying = false;
+
+        this.name = GameEnv.userID;
     }
 
     /**
