@@ -4,7 +4,7 @@ title: Platformer Game v1.0
 description: Early steps in adding game levels to an OOP Game.  This includes basic player animations, left-right movement, jump, multiple backgrounds, and a simple callback to terminate each level.
 type: ccc
 courses: { csse: {week: 14} }
-image: /images/platformer/backgrounds/hills.png
+image: /images/draw_io_ClassDiagram.png
 ---
 
 <style>
