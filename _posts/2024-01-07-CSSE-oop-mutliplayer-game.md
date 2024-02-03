@@ -1,7 +1,7 @@
 ---
 layout: base
-title: Socket.io Multiplayer Game
-description: Using socket.io for multiplayer game
+title:  Development Game for Multiplayer
+description: This is the development game for socket.io for multiplayer game
 type: devops
 courses: { csse: {week: 18} }
 image: /images/platformer/backgrounds/hills.png
