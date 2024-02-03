@@ -5,17 +5,17 @@ image: /images/mario_animation.png
 ---
 
 {% assign sprite_file = site.baseurl | append: page.image %}  <!--- Liquid concatentation --->
-{% assign hash = site.data.mario_metadata %}  <!--- Liquid list variable created from file containing mario metatdata for sprite --->
+{% assign hash = site.data.mario_metadata %}  <!--- Liquid list variable created from a file containing mario metatdata for sprite --->
 {% assign pixels = 256 %} <!--- Liquid integer assignment --->
 
 <!--- HTML for page contains <p> tag named "mario" and class properties for a "sprite"  -->
 
 <p id="mario" class="sprite"></p>
   
-<!--- Embedded Cascading Style Sheet (CSS) rules, defines how HTML elements look --->
+<!--- Embedded Cascading Style Sheet (CSS) rules, define how HTML elements look --->
 <style>
 
-  /*CSS style rules for the elements id and class above...
+  /*CSS style rules for the id and class of the element above...
   */
   .sprite {
     height: {{pixels}}px;
