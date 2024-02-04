@@ -140,10 +140,10 @@ class GameObject {
         // Calculate hitbox constants
         var widthPercentage = this.widthPercentage;
         var heightPercentage = this.heightPercentage; 
-                if (this.canvas.id === "player" && other.canvas.id === "blockPlatform") {
+                /* if (this.canvas.id === "player" && other.canvas.id === "blockPlatform") {
                     // heightPercentage = 0;
                     // widthPercentage = 0;
-                }
+                } */
                 /* if (this.canvas.id === "goomba" && other.canvas.id === "player") {
                     heightPercentage = 0.2;
                 } */
@@ -154,7 +154,7 @@ class GameObject {
         const thisLeft = thisRect.left + widthReduction;
         const thisTop = thisRect.top + heightReduction;
         const thisRight = thisRect.right - widthReduction;
-        const thisBottom = thisRect.bottom * 1.2;
+        const thisBottom = thisRect.bottom;
     
         // Determine hit and touch points of hit
         this.collisionData = {

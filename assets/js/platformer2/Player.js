@@ -14,12 +14,13 @@ import GameControl from './GameControl.js';
  */
 export class Player extends Character{
     // instantiation: constructor sets up player object 
-    constructor(canvas, image, data){
-        super(canvas, image, data);
+    constructor(canvas, image, data, widthPercentage = 0.3, heightPercentage = 0.8) {
+        super(canvas, image, data, widthPercentage, heightPercentage);
         // Player Data is required for Animations
         this.playerData = data;
 
         // Player control data
+        this.moveSpeed = this.speed * 3;
         this.pressedKeys = {};
         this.movement = {up: true, down: true, left: true, right: true};
         this.isIdle = true;
@@ -109,17 +110,15 @@ export class Player extends Character{
 
         // Player moving right 
         if (this.isActiveAnimation("a")) {
-            if (this.movement.left) this.x -= this.speed;  // Move to left
+            if (this.movement.left) this.x -= this.isActiveAnimation("s") ? this.moveSpeed : this.speed;  // Move to left
         }
         // Player moving left
         if (this.isActiveAnimation("d")) {
-            if (this.movement.right) this.x += this.speed;  // Move to right
+            if (this.movement.right) this.x += this.isActiveAnimation("s") ? this.moveSpeed : this.speed;  // Move to right
         }
         // Player moving at dash speed left or right 
-        if (this.isActiveAnimation("s")) {
-            const moveSpeed = this.speed * 2;
-            this.x += this.isFaceLeft() ? -moveSpeed : moveSpeed;
-        }
+        if (this.isActiveAnimation("s")) {}
+
         // Player jumping
         if (this.isActiveGravityAnimation("w")) {
             if (this.gravityEnabled) {
@@ -220,9 +219,21 @@ export class Player extends Character{
         // Jump platform collision
         if (this.collisionData.touchPoints.other.id === "blockPlatform") {
             // Player is on top of the Jump platform
+            if (this.collisionData.touchPoints.other.left) {
+                this.movement.right = false;
+                this.gravityEnabled = true;
+                // this.x -= this.isActiveAnimation("s") ? this.moveSpeed : this.speed;  // Move to left
+
+            }
+            if (this.collisionData.touchPoints.other.right) {
+                this.movement.left = false;
+                this.gravityEnabled = true;
+                // this.x += this.isActiveAnimation("s") ? this.moveSpeed : this.speed;  // Move to right
+            }
             if (this.collisionData.touchPoints.this.top) {
                 this.movement.down = false; // enable movement down without gravity
                 this.gravityEnabled = false;
+                // this.y -= GameEnv.gravity;
                 this.setAnimation(this.directionKey); // set animation to direction
             }
         }
@@ -262,13 +273,14 @@ export class Player extends Character{
             } else if (this.isKeyActionRight(key)) {
                 GameEnv.backgroundHillsSpeed = 0.4;
                 GameEnv.backgroundMountainsSpeed = 0.1;
-            } else if (this.isKeyActionDash(key) && this.directionKey === "a") {
-                GameEnv.backgroundHillsSpeed = -0.4;
-                GameEnv.backgroundMountainsSpeed = -0.1;
-            } else if (this.isKeyActionDash(key) && this.directionKey === "d") {
-                GameEnv.backgroundHillsSpeed = 0.4;
-                GameEnv.backgroundMountainsSpeed = 0.1;
-            }
+            } 
+            /* else if (this.isKeyActionDash(key) && this.directionKey === "a") {
+                 GameEnv.backgroundHillsSpeed = -0.4;
+                 GameEnv.backgroundMountainsSpeed = -0.1;
+             } else if (this.isKeyActionDash(key) && this.directionKey === "d") {
+                 GameEnv.backgroundHillsSpeed = 0.4;
+                 GameEnv.backgroundMountainsSpeed = 0.1;
+            } */ // This was unnecessary, and broke hitboxes / alloswed diffusion through matter
         }
     }
 
