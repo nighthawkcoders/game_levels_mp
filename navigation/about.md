@@ -17,7 +17,7 @@ permalink: /about/
         </thead>
         <tbody>
             <tr>
-                <td>Ryan</td>
+                <td><a href="https://ryann96.github.io/NewRepository2/">Ryan</a></td>
                 <td>Gabriel</td>
                 <td>Daniel</td>
                 <td>Maryam</td>
