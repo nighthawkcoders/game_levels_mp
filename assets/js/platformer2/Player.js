@@ -213,17 +213,13 @@ export class Player extends Character{
         }
         // Checks if collision touchpoint id is either "goomba" or "flyingGoomba"
         if (["goomba", "flyingGoomba"].includes(this.collisionData.touchPoints.other.id)) {
+            var direction = this.collisionData.touchPoints.other.left ? -1 : 1;
             if (GameEnv.difficulty === "easy") {
-                this.x += this.collisionData.touchPoints.other.right ? 10 : -10;
+                this.x += 10 * direction;
             } else {
                 // animation calculation for player death
-                var rotate = 90;
-                var translate = this.canvas.height * 0.5;
-                // left side of the enemy causes player to rotate and translate to the right
-                if (this.collisionData.touchPoints.other.left) {
-                    rotate = rotate * -1;
-                    translate = translate * -1;
-                }
+                var rotate = 90 * direction;
+                var translate = this.canvas.height * 0.5 * direction;
                 // transform player to rotate and translate
                 this.canvas.style.transform = `rotate(${rotate}deg) translate(${translate}px, 0%)`;
 
