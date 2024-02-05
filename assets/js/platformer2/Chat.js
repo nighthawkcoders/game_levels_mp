@@ -77,10 +77,7 @@ class Chat{
                         return;
                     }
                 });
-                var sound = createSound();
-                var source = document.createElement("source");
-                source.src = this.soundSource;
-                sound.append(source);
+                var sound = createSound(this.soundSource);
                 var arrayToAdd = [sound,true];
                 this.soundArray.push(arrayToAdd);
                 sound.addEventListener("ended",()=>{
