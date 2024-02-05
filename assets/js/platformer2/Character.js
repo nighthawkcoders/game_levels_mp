@@ -90,6 +90,9 @@ class Character extends GameObject {
             this.canvas.width,
             this.canvas.height
         );
+        this.ctx.fillStyle = "black";
+        this.ctx.font = "10px Arial"
+        this.ctx.fillText(this.name,0,this.canvas.height/4);
     }
 
     /* Method should be called on initialization and resize events 

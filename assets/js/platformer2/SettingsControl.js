@@ -3,6 +3,7 @@ import LocalStorage from "./LocalStorage.js";
 import GameEnv from "./GameEnv.js";
 import GameControl from "./GameControl.js";
 import Socket from "./Multiplayer.js";
+import Chat from "./Chat.js"
 
 /* Coding Style Notes
  *
@@ -127,6 +128,8 @@ export class SettingsControl extends LocalStorage{
             this[this.keys.userID] = e.detail.userID();
             // Update the userID value in the game environment
             GameEnv.userID = this[this.keys.userID];
+
+            Socket.sendData("name",GameEnv.userID);
             // Save the userID value to local storage
             this.save(this.keys.userID);
         });
@@ -201,6 +204,8 @@ export class SettingsControl extends LocalStorage{
             // dispatch event to update userID
             window.dispatchEvent(new CustomEvent("userID", { detail: {userID:()=>userID.value} }));
         });
+
+        Socket.sendData("name",GameEnv.userID)
 
         div.append(userID); // wrap input element in div
         return div;
@@ -384,6 +389,63 @@ export class SettingsControl extends LocalStorage{
         return div;
     }
 
+    get chatButton() {
+        const div = document.createElement("div");
+        div.innerHTML = "Chat: "; // label
+    
+        const button = document.createElement("button"); // button for Multiplayer
+        button.innerText = "open";
+    /**
+     * Chat class to make the chat more refined and functional
+     */
+        var ChatClass = new Chat([]);
+        var chatBoxContainer =  ChatClass.chatBoxContainer;
+        var chatBox = chatBoxContainer.children.namedItem("chatBox");
+        var chatInput = chatBoxContainer.children.namedItem("chatInput");
+        var chatButton = chatBoxContainer.children.namedItem("chatButton");
+        chatBoxContainer.style.display = "none";
+        chatBoxContainer.style.zIndex = 2;
+        chatBoxContainer.style.position = "absolute";
+        chatBoxContainer.style.top = "50%";
+        chatBoxContainer.style.left = "50%";
+        chatBoxContainer.style.width = "50%";
+        chatBoxContainer.style.height = "50%";
+        chatBoxContainer.style.backgroundColor = "white";
+        chatBoxContainer.style.borderRadius = "5%";
+        chatBox.style.position = "relative";
+        chatBox.style.resize = "both";
+        chatBox.style.overflow = "auto";
+        chatBox.style.height = "90%";
+        chatBox.style.width = "100%";
+        chatBox.style.top = "0%";
+        chatInput.style.position = "relative";
+        chatInput.style.bottom = "0%";
+        chatInput.style.height = "10%"
+        chatInput.style.width = "80%";
+        chatButton.style.position = "relative";
+        chatButton.style.height = "10%";
+        chatButton.style.width = "20%";
+        chatButton.style.bottom = "0%";
+
+
+        document.getElementById("leaderboard").insertAdjacentElement("afterend",chatBoxContainer);
+
+        var isShown = false;
+        button.addEventListener("click", () => {
+            isShown=!isShown;
+            if(isShown){
+                chatBoxContainer.style.display = "block";
+                button.innerText = "close";
+            }else{
+                chatBoxContainer.style.display = "none";
+                button.innerText = "open"
+            }
+        });
+    
+        div.append(button); // wrap button element in div
+        return div;
+    }
+
     /**
      * Static method to initialize the game settings controller and add the settings controls to the sidebar.
      * Constructs an HTML table/menu from GameEnv.levels[] and HTML inputs for invert, game speed, and gravity.
@@ -427,6 +489,10 @@ export class SettingsControl extends LocalStorage{
         // Get/Construct HTML button and event update for multiplayer
         var multiplayerButton = settingsControl.multiplayerButton;
         document.getElementById("sidebar").append(multiplayerButton);
+
+        // Get/Construct HTML button and event update for multiplayer
+        var chatButton = settingsControl.chatButton;
+        document.getElementById("sidebar").append(chatButton);
 
 
         // Listener, isOpen, and function for sidebar open and close
