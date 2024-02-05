@@ -95,18 +95,27 @@ const GameControl = {
     
             if (!recentTimeScore) {
                 // Add the new time score with user ID to the array
+                // Assume the existingTimeScores retrieval as described in the previous response
+
+                // Assuming you have userID and elapsedTime defined somewhere in your code
+                const userID = 'exampleUserID';
+                const elapsedTime = elapsedTime.toFixed(2); // Replace with the actual elapsed time value
+
+                // Add the new time score with user ID to the array
                 const newTimeScore = {
                     userID: userID,
                     time: elapsedTime.toFixed(2),
                     // You can add more properties if needed
                 };
+
                 existingTimeScores.push(newTimeScore);
-    
+
                 // Log the updated array to the console for debugging
                 console.log(existingTimeScores);
-    
+
                 // Save the updated array to local storage
                 localStorage.setItem('timeScores', JSON.stringify(existingTimeScores));
+
             }
         }
     },    
