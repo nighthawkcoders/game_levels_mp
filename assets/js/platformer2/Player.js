@@ -211,59 +211,34 @@ export class Player extends Character{
             this.movement.left = true;
             this.movement.right = true;
         }
-        // Goomba left/right collision
+        // Checks if collision touchpoint id is either "goomba" or "flyingGoomba"
         if (["goomba", "flyingGoomba"].includes(this.collisionData.touchPoints.other.id)) {
-            // Collision with the left side of the Enemy
-            if (this.collisionData.touchPoints.other.left) {
-
-                //Animate player death
-                this.canvas.style.transition = "transform 0.5s";
-                this.canvas.style.transform = "rotate(-90deg) translate(-26px, 0%)";
-
-                if (GameEnv.difficulty === "easy") {
-                    this.x -= 10;
-                } else {
-                    //Reset Player to Beginning
-                    playPlayerDeath();
-                    
-                    if (this.isDying == false) {
-                        this.isDying = true;
-                        setTimeout(async() => {
-                            await GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
-                            console.log("level restart")
-                            this.isDying = false;
-                        }, 700); 
-                    }   
-                    //GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
+            if (GameEnv.difficulty === "easy") {
+                this.x += this.collisionData.touchPoints.other.right ? 10 : -10;
+            } else {
+                // animation calculation for player death
+                var rotate = 90;
+                var translate = this.canvas.height * 0.5;
+                // left side of the enemy causes player to rotate and translate to the right
+                if (this.collisionData.touchPoints.other.left) {
+                    rotate = rotate * -1;
+                    translate = translate * -1;
                 }
-        
-            }
-            // Collision with the right side of the Enemy
-            if (this.collisionData.touchPoints.other.right) {
-            //Animate player death
-                this.canvas.style.transition = "transform 0.5s";
-                this.canvas.style.transform = "rotate(90deg) translate(26px, 0%)";
+                // transform player to rotate and translate
+                this.canvas.style.transform = `rotate(${rotate}deg) translate(${translate}px, 0%)`;
 
-                if (["normal","hard"].includes(GameEnv.difficulty)) {
-                if (GameEnv.difficulty === "easy") {
-                    this.x += 10;
-                } else {
-                    //Reset Player to Beginning
-                    // if statement prevents timeout from running multiple times
-                    if (this.isDying == false) {
-                        this.isDying = true;
-                        setTimeout(async() => {
-                            await GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
-                            console.log("level restart")
-                            this.isDying = false;
-                        }, 700); 
-                    }       
-                    //GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
-                }} else {
-                    this.x -= 10;
-                    playPlayerDeath();
-                    GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
-                }
+                // Reset Player to Beginning
+                playPlayerDeath();
+
+                if (this.isDying == false) {
+                    this.isDying = true;
+                    setTimeout(async() => {
+                        await GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
+                        console.log("level restart")
+                        this.isDying = false;
+                    }, 700); 
+                }   
+                
             }
         }
         if (this.collisionData.touchPoints.other.id === "jumpPlatform") {
