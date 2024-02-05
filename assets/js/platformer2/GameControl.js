@@ -7,6 +7,7 @@
  * - call or add listener to GameControl.startTimer() to start the game timer.
  */
 import GameEnv from './GameEnv.js';
+import Socket from './Multiplayer.js';
 
 /**
  * GameControl is a singleton object that controls the game loop.
@@ -86,6 +87,37 @@ const GameControl = {
         clearInterval(this.timerInterval); // Clear the interval to stop the timer
     },
 
+    randomEventId: null, //Variable to determine which random event will activate.
+    randomEventState: null, //Variable to hold the state. Is equal set to 1 when an event is triggered and then back to 0 once the event is completed.
+
+    //HOW TO ADD A RANDOM EVENT
+    //Import GameControl.js into the desired file
+    //Put this code in the update function of any game object
+
+    /**if (GameControl.randomEventId === # && GameControl.randomEventState === 1) {
+        //random event goes here
+        GameControl.endRandomEvent();
+    }*/
+
+    //Next, make sure that the event Id that triggers it is not being used
+    //Make sure that the event id is within the possible numbers that can be picked
+    //Once you are done make sure to add it to the random event key below
+
+    startRandomEvent() {
+        this.randomEventState = 1;
+        this.randomEventId = Math.floor(Math.random() * 3) + 1; //The number multiplied by Math.random() is the number of possible events.
+        /**Random Event Key
+         * 1: Inverts the Color of the Background
+         * 2: Time Stops all Goombas
+         * 3: Kills a Random Goomba
+        */
+    },
+
+    endRandomEvent() {
+        this.randomEventId = 0;
+    },
+
+
     /**
      * Transitions to a new level. Destroys the current level and loads the new level.
      * @param {Object} newLevel - The new level to transition to.
@@ -105,7 +137,7 @@ const GameControl = {
         
         // Trigger a resize to redraw canvas elements
         window.dispatchEvent(new Event('resize'));
-        
+
         this.inTransition = false;
     },
 
@@ -145,7 +177,6 @@ const GameControl = {
         // recycle gameLoop, aka recursion
         requestAnimationFrame(this.gameLoop.bind(this));  
     },
-
 };
 
 export default GameControl;

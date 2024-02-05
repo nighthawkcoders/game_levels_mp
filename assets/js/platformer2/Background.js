@@ -1,5 +1,6 @@
 import GameEnv from './GameEnv.js';
 import GameObject from './GameObject.js';
+import GameControl from './GameControl.js';
 
 export class Background extends GameObject {
     constructor(canvas, image, data) {
@@ -13,6 +14,10 @@ export class Background extends GameObject {
     */
     update() {
         this.x = (this.x - this.speed) % this.width;
+        if (GameControl.randomEventId === 1 && GameControl.randomEventState === 1) {
+            this.canvas.style.filter = "invert(100)";
+            GameControl.endRandomEvent();
+        }
     }
 
     /* To draws are used to capture primary frame and wrap around ot next frame
