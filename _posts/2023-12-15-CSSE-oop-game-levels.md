@@ -1,10 +1,10 @@
 ---
 layout: base
-title:  Platformer Development for Multiplayer v1.x
-description: This is the development game for socket.io for multiplayer game
-type: devops
-courses: { csse: {week: 18} }
-image: /images/platformer/backgrounds/hills.png
+title: Platformer Game v1.0 
+description: Early steps in adding game levels to an OOP Game.  This includes basic player animations, left-right movement, jump, multiple backgrounds, and a simple callback to terminate each level.
+type: ccc
+courses: { csse: {week: 14} }
+image: /images/draw_io_ClassDiagram.png
 ---
 
 <style>
@@ -27,16 +27,13 @@ image: /images/platformer/backgrounds/hills.png
     <div id="gameOver" hidden>
         <button id="restartGame">Restart</button>
     </div>
-    <div>
-    </div>
 </div>
-
 
 <script type="module">
     // Imports
-    import GameEnv from '{{site.baseurl}}/assets/js/multiplayer/GameEnv.js';
-    import GameLevel from '{{site.baseurl}}/assets/js/multiplayer/GameLevel.js';
-    import GameControl from '{{site.baseurl}}/assets/js/multiplayer/GameControl.js';
+    import GameEnv from '{{site.baseurl}}/assets/js/platformer/GameEnv.js';
+    import GameLevel from '{{site.baseurl}}/assets/js/platformer/GameLevel.js';
+    import GameControl from '{{site.baseurl}}/assets/js/platformer/GameControl.js';
 
 
     /*  ==========================================
@@ -55,7 +52,7 @@ image: /images/platformer/backgrounds/hills.png
       },
       backgrounds: {
         start: { src: "/images/platformer/backgrounds/home.png" },
-        hills: { src: "/images/platformer/backgrounds/springfield.png" },
+        hills: { src: "/images/platformer/backgrounds/hills.png" },
         planet: { src: "/images/platformer/backgrounds/planet.jpg" },
         castles: { src: "/images/platformer/backgrounds/castles.png" },
         end: { src: "/images/platformer/backgrounds/game_over.png" }
