@@ -1,10 +1,10 @@
 ---
 layout: base
-title: Dynamic Game Levels v2.0 
-description: Incorporate student lessons goombas, platforms, parallax backgrounds, settings with local storage, etc.  Refactor code introducing GameSetup and SettingsControl.  Style is moved into _sass.
+title: Platformer Game v2.0 
+description: Incorporate student lessons. Gameplay includes enemies, platforms, parallax backgrounds, settings with local storage, etc.  This revision introduces Settings, Leaderboard and Multiplayer.
 type: collab
 courses: { csse: {week: 18} }
-image: /images/platformer/backgrounds/hills.png
+image: /images/platformer/backgrounds/home.png
 ---
 
 <!-- Syle is now located, as of Jan 2024 v2.0, in _sass/minima/platformer-styles.scss -->

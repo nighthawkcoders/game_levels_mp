@@ -213,59 +213,29 @@ export class Player extends Character{
             this.movement.left = true;
             this.movement.right = true;
         }
-        // Goomba left/right collision
+        // Checks if collision touchpoint id is either "goomba" or "flyingGoomba"
         if (["goomba", "flyingGoomba"].includes(this.collisionData.touchPoints.other.id)) {
-            // Collision with the left side of the Enemy
-            if (this.collisionData.touchPoints.other.left) {
+            const direction = this.collisionData.touchPoints.other.left ? -1 : 1;
+            if (GameEnv.difficulty === "easy") {
+                this.x += 10 * direction;
+            } else {
+                // calculate the rotation and translation for the death animation
+                const rotate = 90 * direction;
+                const translate = this.canvas.height * 0.5 * direction;
+                // apply the death animation 
+                this.canvas.style.transform = `rotate(${rotate}deg) translate(${translate}px, 0%)`;
 
-                //Animate player death
-                this.canvas.style.transition = "transform 0.5s";
-                this.canvas.style.transform = "rotate(-90deg) translate(-26px, 0%)";
+                // reset player to the beginning of level
+                playPlayerDeath();
 
-                if (GameEnv.difficulty === "easy") {
-                    this.x -= 10;
-                } else {
-                    //Reset Player to Beginning
-                    playPlayerDeath();
-                    
-                    if (this.isDying == false) {
-                        this.isDying = true;
-                        setTimeout(async() => {
-                            await GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
-                            console.log("level restart")
-                            this.isDying = false;
-                        }, 700); 
-                    }   
-                    //GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
-                }
-        
-            }
-            // Collision with the right side of the Enemy
-            if (this.collisionData.touchPoints.other.right) {
-            //Animate player death
-                this.canvas.style.transition = "transform 0.5s";
-                this.canvas.style.transform = "rotate(90deg) translate(26px, 0%)";
-
-                if (["normal","hard"].includes(GameEnv.difficulty)) {
-                if (GameEnv.difficulty === "easy") {
-                    this.x += 10;
-                } else {
-                    //Reset Player to Beginning
-                    // if statement prevents timeout from running multiple times
-                    if (this.isDying == false) {
-                        this.isDying = true;
-                        setTimeout(async() => {
-                            await GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
-                            console.log("level restart")
-                            this.isDying = false;
-                        }, 700); 
-                    }       
-                    //GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
-                }} else {
-                    this.x -= 10;
-                    playPlayerDeath();
-                    GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
-                }
+                if (this.isDying === false) {
+                    this.isDying = true;
+                    // restart current level after delay
+                    setTimeout(async() => {
+                        await GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
+                        this.isDying = false;
+                    }, 700); 
+                }   
             }
         }
         if (this.collisionData.touchPoints.other.id === "jumpPlatform") {
