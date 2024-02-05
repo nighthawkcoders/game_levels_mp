@@ -4,6 +4,7 @@ import Socket from './Multiplayer.js';
 class GameObject {
     // container for all game objects in game
     constructor(canvas, image, data) {
+        this.name = "";
         this.x = 0;
         this.y = 0;
         this.frame = 0;
@@ -61,7 +62,8 @@ class GameObject {
                 tag: GameEnv.currentLevel.tag,
                 x: this.x / GameEnv.innerWidth,
                 y: (this.y - GameEnv.top) / (GameEnv.bottom - GameEnv.top),
-                frameY: this.frameY
+                frameY: this.frameY,
+                name: this.name
             };
         }
     }
