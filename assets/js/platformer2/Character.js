@@ -61,7 +61,6 @@ class Character extends GameObject {
             this.x = json.x * GameEnv.innerWidth;
             this.y = (json.y * (GameEnv.bottom - GameEnv.top)) + GameEnv.top;
             this.frameY = json.frameY
-            console.log(this.x, this.y, json.y)
         }
         return json.id === element.id
     }
