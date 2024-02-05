@@ -117,7 +117,7 @@ image: /images/platformer/backgrounds/home.png
       
         let cutStory = document.getElementById('cut-story');
         let messages = ["Hi! My name is Mario, and I wish...", 
-        "I wish I could be just as cool as this guy, Mr. Lopez.", "Help me get to the next level to become him!", "Do you want a speed boost?   [Y/N]"];
+        "I wish I could be just as cool as this guy, Mr. Lopez.", "Help me get to the next level to become him!", "Goomba: >:(, we hate you and want to kill you! ARRRR"];
         console.log("Message length: " + messages.length);
     
         function showMessage(){
