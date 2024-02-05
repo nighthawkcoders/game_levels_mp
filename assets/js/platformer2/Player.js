@@ -213,28 +213,27 @@ export class Player extends Character{
         }
         // Checks if collision touchpoint id is either "goomba" or "flyingGoomba"
         if (["goomba", "flyingGoomba"].includes(this.collisionData.touchPoints.other.id)) {
-            var direction = this.collisionData.touchPoints.other.left ? -1 : 1;
+            const direction = this.collisionData.touchPoints.other.left ? -1 : 1;
             if (GameEnv.difficulty === "easy") {
                 this.x += 10 * direction;
             } else {
-                // animation calculation for player death
-                var rotate = 90 * direction;
-                var translate = this.canvas.height * 0.5 * direction;
-                // transform player to rotate and translate
+                // calculate the rotation and translation for the death animation
+                const rotate = 90 * direction;
+                const translate = this.canvas.height * 0.5 * direction;
+                // apply the death animation 
                 this.canvas.style.transform = `rotate(${rotate}deg) translate(${translate}px, 0%)`;
 
-                // Reset Player to Beginning
+                // reset player to the beginning of level
                 playPlayerDeath();
 
-                if (this.isDying == false) {
+                if (this.isDying === false) {
                     this.isDying = true;
+                    // restart current level after delay
                     setTimeout(async() => {
                         await GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
-                        console.log("level restart")
                         this.isDying = false;
                     }, 700); 
                 }   
-                
             }
         }
         if (this.collisionData.touchPoints.other.id === "jumpPlatform") {
