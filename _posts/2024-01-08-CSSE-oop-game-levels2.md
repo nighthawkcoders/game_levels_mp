@@ -20,6 +20,13 @@ image: /images/platformer/backgrounds/home.png
 <!--Audio for Death of Goomba -->
 <audio id="goombaDeath" src="{{site.baseurl}}/assets/audio/goomba-death.mp3" preload="auto"></audio>
 
+<!--Audio for Jump oF player -->
+<audio id ="PlayerJump" src="{{site.baseurl}}/assets/audio/mario-jump.mp3" preload="auto"></audio>
+
+<!--Audio for death of player -->
+<audio id ="PlayerDeath" src="{{site.baseurl}}/assets/audio/MarioDeath.mp3" preload="auto"></audio>
+
+
 <!-- Wrap both the controls and gameplay in a container div -->
 <div id="canvasContainer">
   <div class="submenu">
