@@ -14,8 +14,9 @@ export class Background extends GameObject {
     */
     update() {
         this.x = (this.x - this.speed) % this.width;
-        if (GameControl.randomEventId === 1) {
+        if (GameControl.randomEventId === 1 && GameControl.randomEventState === 1) {
             this.canvas.style.filter = "invert(100)";
+            GameControl.endRandomEvent();
         }
     }
 
