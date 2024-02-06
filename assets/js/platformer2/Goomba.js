@@ -6,7 +6,7 @@ import GameControl from './GameControl.js';
 export class Goomba extends Character {
     // constructors sets up Character object 
     constructor(canvas, image, data, xPercentage, yPercentage, name, minPosition){
-        super(canvas, image, data );
+        super(canvas, image, data, 0.0, 0.2);
 
         //Unused but must be Defined
         this.name = name;
@@ -111,7 +111,12 @@ export class Goomba extends Character {
             if (GameEnv.difficulty !== "impossible" && (this.collisionData.touchPoints.other.left || this.collisionData.touchPoints.other.right)) {
                 this.speed = -this.speed;      
             }
-        }    
+        }
+        if (this.collisionData.touchPoints.other.id === "blockPlatform") {
+            if (this.collisionData.touchPoints.other.left || this.collisionData.touchPoints.other.right) {
+                this.speed = -this.speed;            
+            }
+        }
     }
 }
 

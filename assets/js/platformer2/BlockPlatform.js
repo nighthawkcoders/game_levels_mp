@@ -7,7 +7,10 @@ export class BlockPlatform extends GameObject {
         this.platformY = yPercentage;
     }
     // Required, but no update action
-    update() {}
+    update() {
+        console.log(this.platformY)
+    }
+
     // Draw position is always 0,0
     draw() {
         this.ctx.drawImage(this.image, 0, 0, this.canvas.width, this.canvas.height);
