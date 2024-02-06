@@ -119,6 +119,9 @@ $tableBackground: #006bbd;
 }
 
 .table.scores {
+  th {
+    background-color: #00ff00;
+  }
   tr {
     td {
       border: 1px solid $dt-blue;
@@ -126,7 +129,7 @@ $tableBackground: #006bbd;
         background-color: #ff00ea; // Background color for odd rows
       }
       &:nth-child(even) {
-        background-color: #b700ff; // Background color for even rows
+        background-color: #3b1e47; // Background color for even rows
       }
     }
   }
