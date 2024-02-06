@@ -123,8 +123,8 @@ export class Leaderboard extends LocalStorage {
         var clearButton = newLeaderboard.clearButton;
         document.getElementById("leaderboardDropDown").append(clearButton);
 
-        var filterDropDown = newLeaderboard.filter;
-        document.getElementById("leaderboardDropDown").append(filterDropDown);
+        //var filterDropDown = newLeaderboard.filter;
+        //document.getElementById("leaderboardDropDown").append(filterDropDown);
 
         var IsOpen = false; // default sidebar is closed
         var SubmenuHeight = 0; // calculated height of submenu
