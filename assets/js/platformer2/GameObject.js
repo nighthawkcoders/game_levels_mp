@@ -144,6 +144,9 @@ class GameObject {
         if (this.canvas.id === "goomba" && other.canvas.id === "player") {
             heightPercentage = 0.2;
         }
+        if (this.canvas.id === "coin" && other.canvas.id === "player") {
+            heightPercentage = 0.0;
+        }
         const widthReduction = thisRect.width * widthPercentage;
         const heightReduction = thisRect.height * heightPercentage;
     

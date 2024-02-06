@@ -209,6 +209,15 @@ export class Player extends Character{
                 GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
             }
         }
+        //Coin Collision
+        if (this.collisionData.touchPoints.other.id === "coin") {
+            if (this.collisionData.touchPoints.this.top || this.collisionData.touchPoints.other.bottom);
+                console.log("Coin destroyed")
+
+            if (this.collisionData.touchPoints.other.top || this.collisionData.touchPoints.other.bottom)
+                console.log("Coin destroyed")
+
+        }
         // Jump platform collision
         if (this.collisionData.touchPoints.other.id === "jumpPlatform") {
             // Player is on top of the Jump platform
