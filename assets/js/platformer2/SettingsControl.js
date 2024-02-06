@@ -428,7 +428,7 @@ export class SettingsControl extends LocalStorage{
         chatButton.style.bottom = "0%";
 
 
-        document.getElementById("leaderboard").insertAdjacentElement("afterend",chatBoxContainer);
+        document.getElementById("sidebar").insertAdjacentElement("afterend",chatBoxContainer);
 
         var isShown = false;
         button.addEventListener("click", () => {
