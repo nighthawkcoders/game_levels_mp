@@ -264,6 +264,11 @@ export class Player extends Character{
                     GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
                 }
             }
+                if (this.collisionData.touchPoints.this.top) {
+                    // Игрок находится сверху Goomba
+                    this.y -= 200;  // Измените высоту отскока по ys
+                    this.setAnimation(this.directionKey);
+                }
         }
         if (this.collisionData.touchPoints.other.id === "jumpPlatform") {
             // Player is on top of the Jump platform
