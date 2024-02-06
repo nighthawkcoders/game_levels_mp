@@ -29,6 +29,8 @@ export class Leaderboard extends LocalStorage {
         // Fetch time scores from local storage
         const timeScores = JSON.parse(localStorage.getItem('timeScores')) || [];
 
+        timeScores.sort((a, b) => parseFloat(a.time) - parseFloat(b.time));
+
         // Populate the table with time scores
         timeScores.forEach(score => {
             var row = document.createElement("tr");
