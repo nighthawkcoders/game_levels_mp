@@ -118,6 +118,20 @@ $tableBackground: #006bbd;
   padding-right: 0px; 
 }
 
+.table.scores {
+  tr {
+    td {
+      border: 1px solid $dt-blue;
+      &:nth-child(odd) {
+        background-color: #49df49; // Background color for odd rows
+      }
+      &:nth-child(even) {
+        background-color: #473a1e; // Background color for even rows
+      }
+    }
+  }
+}
+
 /// Table class
 /// @description Key style is to present game levels and make it responsive with hover highlighting.
 .table.levels {
