@@ -41,20 +41,6 @@
   margin-right: $spacing-unit;
 }
 
-$tableBackground: #006bbd;
-#leaderboardHead * {
-  background-color: $tableBackground !important;
-}
-
-#leaderboard * {
-  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
-}  
-
-#tableBody * {
-  background-color: mix($tableBackground, white, 75%) !important;
-  text-align: center;
-}
-
 
 /// Color mixin 
 /// @description This mixin is defined to share colors with classes in this stylesheet.
@@ -101,7 +87,7 @@ $tableBackground: #006bbd;
   height: 75%;
 }
 
-.leaderboard {
+.leaderboardDropDown {
   @include dark-mode-color; // use the dark mode color scheme
   border: none; // remove setting as sidebar collapse leaves residue line
   position: fixed;
@@ -116,6 +102,28 @@ $tableBackground: #006bbd;
   width: 0px;
   padding-left: 0px; 
   padding-right: 0px; 
+}
+$dt-leaderboard: #b385eb;
+
+.table.scores, th, tr, td {
+  text-align: center;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.table.scores {
+  th {
+    background-color: #5f3692;
+  }
+  tr {
+    td {
+      border: 1px solid mix($dt-leaderboard, black, 50%);
+      &:nth-child(odd) {
+        background-color: $dt-leaderboard; // Background color for odd rows
+      }
+      &:nth-child(even) {
+        background-color: mix($dt-leaderboard, gray, 60%); // Background color for even rows
+      }
+    }
+  }
 }
 
 /// Table class
