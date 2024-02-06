@@ -24,7 +24,7 @@ permalink: /about/
                 <td>Trystan</td>
             </tr>
             <tr>
-                <td>Gavin C</td>
+                <td><a href="https://gavincopley.github.io/testing/">Gavin C</a></td>
                 <td>Nora</td>
                 <td>Xavier</td>
                 <td>Daisy</td>

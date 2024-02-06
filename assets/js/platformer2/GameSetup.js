@@ -191,7 +191,8 @@ const GameSetup = {
         space: { src: "/images/platformer/backgrounds/planet.jpg" },
         castles: { src: "/images/platformer/backgrounds/castles.png" },
         loading: { src: "/images/platformer/backgrounds/greenscreen.png" },
-        complete: { src: "/images/platformer/backgrounds/bluescreen.png" },
+        complete: { src: "/images/platformer/backgrounds/Onestar.png" },
+        complete2: { src: "/images/platformer/backgrounds/TwoStar.png" },
         end: { src: "/images/platformer/backgrounds/game_over.png" }
       },
       players: {
@@ -382,7 +383,7 @@ const GameSetup = {
           { name: 'flyingGoomba', id: 'flyingGoomba', class: FlyingGoomba, data: this.assets.enemies.flyingGoomba, xPercentage:  0.9, minPosition: 0.5},
           { name: 'lopez', id: 'player', class: Player, data: this.assets.players.lopez },
           { name: 'tube', id: 'tube', class: Tube, data: this.assets.obstacles.tube },
-          { name: 'complete', id: 'background', class: BackgroundTransitions,  data: this.assets.backgrounds.complete },
+          { name: 'complete2', id: 'background', class: BackgroundTransitions,  data: this.assets.backgrounds.complete2 },
         ];
         // Avenida Game Level added to the GameEnv ...
         new GameLevel( {tag: "space", callback: this.playerOffScreenCallBack, objects: spaceGameObjects} );
