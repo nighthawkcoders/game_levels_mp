@@ -38,7 +38,7 @@ permalink: /about/
                 <td>Ian</td>
             </tr>
             <tr>
-                <td>Dean</td>
+                <td><a href="https://deanphillips24.github.io/csse2_individual/">Dean</a></td>
                 <td>Kaden</td>
                 <td>Abigail</td>
                 <td>Zafeer</td>
