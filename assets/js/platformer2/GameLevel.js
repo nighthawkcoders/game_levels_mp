@@ -98,7 +98,7 @@ class GameLevel {
                 
                 obj1.updateInfo(data);
                 obj1.size();
-                console.log(obj1.canvasWidth)
+                obj1.name = data.name;
             }
         }
     }

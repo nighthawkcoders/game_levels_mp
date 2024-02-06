@@ -1,10 +1,10 @@
 ---
 layout: base
-title: Dynamic Game Levels v2.0 
-description: Incorporate student lessons goombas, platforms, parallax backgrounds, settings with local storage, etc.  Refactor code introducing GameSetup and SettingsControl.  Style is moved into _sass.
+title: Platformer Game v2.0 
+description: Incorporate student lessons. Gameplay includes enemies, platforms, parallax backgrounds, settings with local storage, etc.  This revision introduces Settings, Leaderboard and Multiplayer.
 type: collab
 courses: { csse: {week: 18} }
-image: /images/platformer/backgrounds/hills.png
+image: /images/platformer/backgrounds/home.png
 ---
 
 <!-- Syle is now located, as of Jan 2024 v2.0, in _sass/minima/platformer-styles.scss -->
@@ -13,7 +13,7 @@ image: /images/platformer/backgrounds/hills.png
 <div id="sidebar" class="sidebar">
   <a href="javascript:void(0)" id="sidebar-header">&times; Settings</a>
 </div>
-<div id="leaderboard" class="leaderboard">
+<div id="leaderboardDropDown" class="leaderboardDropDown">
   <a href="javascript:void(0)" id="leaderboard-header">&times; Leaderboard</a>
 </div>
 
@@ -25,6 +25,7 @@ image: /images/platformer/backgrounds/hills.png
 
 <!--Audio for death of player -->
 <audio id ="PlayerDeath" src="{{site.baseurl}}/assets/audio/MarioDeath.mp3" preload="auto"></audio>
+
 
 <!-- Wrap both the controls and gameplay in a container div -->
 <div id="canvasContainer">
@@ -66,7 +67,6 @@ image: /images/platformer/backgrounds/hills.png
     import GameEnv from '{{site.baseurl}}/assets/js/platformer2/GameEnv.js';
     import Leaderboard from '{{site.baseurl}}/assets/js/platformer2/Leaderboard.js';
     import Audio from '{{site.baseurl}}/assets/js/platformer2/Audio.js';
-    import Audio1 from '{{site.baseurl}}/assets/js/platformer2/Audio1.js';
 
     /* 
      * ==========================================
@@ -159,8 +159,8 @@ image: /images/platformer/backgrounds/hills.png
 
     // Construct settings sidebar, MVC variable paradigm, and async events to trigger user interaction
     SettingsControl.sidebar();
-
-    Leaderboard.leaderboard();
+    
+    Leaderboard.leaderboardDropDown();
 
     /* 
      * ==========================================
