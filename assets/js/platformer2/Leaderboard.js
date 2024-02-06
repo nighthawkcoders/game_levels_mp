@@ -44,6 +44,39 @@ export class Leaderboard extends LocalStorage {
         return t;
     }
 
+    updateLeaderboardTable() {
+        // Fetch time scores from local storage
+        const timeScores = JSON.parse(localStorage.getItem('timeScores')) || [];
+
+        // Get the existing table element
+        const table = document.querySelector(".table.scores");
+
+        // Clear the table content
+        table.innerHTML = "";
+
+        // Recreate the table header
+        var header = document.createElement("tr");
+        var th1 = document.createElement("th");
+        th1.innerText = "Name";
+        header.append(th1);
+        var th2 = document.createElement("th");
+        th2.innerText = "Score";
+        header.append(th2);
+        table.append(header);
+
+        // Populate the table with time scores
+        timeScores.forEach(score => {
+            var row = document.createElement("tr");
+            var td1 = document.createElement("td");
+            td1.innerText = score.userID;
+            row.append(td1);
+            var td2 = document.createElement("td");
+            td2.innerText = score.time;
+            row.append(td2);
+            table.append(row);
+        });
+    }
+
     get clearButton() {
         const div = document.createElement("div");
         div.innerHTML = "Clear Leaderboard: ";
@@ -52,8 +85,8 @@ export class Leaderboard extends LocalStorage {
         button.innerText = "Clear!";
 
         button.addEventListener("click", () => {
-            // Add the logic to clear the leaderboard here
-            console.log("Leaderboard cleared!"); // Replace this with your actual logic
+            localStorage.clear();
+            this.updateLeaderboardTable();
         });
 
         div.append(button); // wrap button element in div
