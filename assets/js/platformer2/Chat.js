@@ -1,4 +1,5 @@
 import Multiplayer from './Multiplayer.js'
+import createSound from './Sound.js';
 /**
  * Prevents players from typing no-no words in the chat.
  * If these words are detected, a pre-written message 
@@ -17,6 +18,8 @@ class Chat{
         this.prohibitedWords.concat(wordsToAdd);
     }
 
+    soundSource = "/game_levels_mp/assets/audio/discord-ping.mp3";
+    soundArray = [];
     
 
     sendMessage(message){
@@ -67,6 +70,20 @@ class Chat{
             Multiplayer.createListener("onMessage",(data)=>{
                 var message = this.parseMessage(data.message);
                 addMessage(message,data.name?data.name:data.id);
+                this.soundArray.forEach((d)=>{
+                    if (d[1]==true){ //sound can be played
+                        d[0].play();
+                        d[1]=false;
+                        return;
+                    }
+                });
+                var sound = createSound(this.soundSource);
+                var arrayToAdd = [sound,true];
+                this.soundArray.push(arrayToAdd);
+                sound.addEventListener("ended",()=>{
+                    arrayToAdd[1]=true;
+                })
+                sound.play();
             })
             var message = input.value;
             message = this.parseMessage(message);
