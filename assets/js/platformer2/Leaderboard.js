@@ -95,6 +95,26 @@ export class Leaderboard extends LocalStorage {
         return div;
     }
 
+    get clearButton() {
+        const div = document.createElement("div");
+        div.innerHTML = "Clear Leaderboard: ";
+        
+        const button = document.createElement("button");
+        button.innerText = "Clear!";
+    
+        button.addEventListener("click", () => {
+            const confirmed = confirm("Are you sure you want to clear the leaderboard?");
+            if (confirmed) {
+                localStorage.clear();
+                this.updateLeaderboardTable();
+            }
+        });
+    
+        div.append(button); // wrap button element in div
+        return div;
+    }
+    
+
     get filter() {
         const div = document.createElement("div");
         div.innerHTML = "Filters: ";
