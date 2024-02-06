@@ -44,12 +44,31 @@ export class Leaderboard extends LocalStorage {
         return t;
     }
 
+    get clearButton() {
+        const div = document.createElement("div");
+        div.innerHTML = "Clear Leaderboard: ";
+    
+        const button = document.createElement("button");
+        button.innerText = "Clear!";
+
+        button.addEventListener("click", () => {
+            // Add the logic to clear the leaderboard here
+            console.log("Leaderboard cleared!"); // Replace this with your actual logic
+        });
+
+        div.append(button); // wrap button element in div
+        return div;
+    }
+
     static leaderboardDropDown() {
         var newLeaderboard = new Leaderboard();
         newLeaderboard.initialize();
 
         var score = newLeaderboard.leaderboardTable;
         document.getElementById("leaderboardDropDown").append(score);
+
+        var clearButton = newLeaderboard.clearButton;
+        document.getElementById("leaderboardDropDown").append(clearButton);
 
         var IsOpen = false; // default sidebar is closed
         var SubmenuHeight = 0; // calculated height of submenu
