@@ -87,8 +87,10 @@ export class Goomba extends Character {
 
         // Move the enemy
         this.x -= this.speed;
-    }
 
+        this.playerBottomCollision = false;
+    }
+    
     // Player action on collisions
     collisionAction() {
         if (this.collisionData.touchPoints.other.id === "tube") {
@@ -99,13 +101,10 @@ export class Goomba extends Character {
         if (this.collisionData.touchPoints.other.id === "player") {
             // Collision: Top of Goomba with Bottom of Player
             if (this.collisionData.touchPoints.other.bottom && this.immune === 0) {
-                //Animate player death
-                this.speed = false;
                 this.canvas.style.transition = "transform 2s, opacity 1s";
-                this.canvas.style.transform = "rotate(-1080deg) translate(-26px, 0%)";
-                this.canvas.style.opacity = "0";
+                this.canvas.style.transformOrigin = "bottom"; // Set the transform origin to the bottom
+                this.canvas.style.transform = "scaleY(0)"; // Make the Goomba flat
                 playGoombaDeath();
-  
             }
         }
         if (this.collisionData.touchPoints.other.id === "goomba") {
