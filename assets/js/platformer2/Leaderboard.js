@@ -93,6 +93,24 @@ export class Leaderboard extends LocalStorage {
         return div;
     }
 
+    get filter() {
+        const div = document.createElement("div");
+        div.innerHTML = "Filters: ";
+    
+        const filter = document.createElement("select");
+        const options = ["low", "high"];
+
+        options.forEach(option => {
+            const opt = document.createElement("option");
+            opt.value = option.toLowerCase();
+            opt.text = option;
+            filter.add(opt);
+        });
+
+        div.append(filter); // wrap button element in div
+        return div;
+    }
+
     static leaderboardDropDown() {
         var newLeaderboard = new Leaderboard();
         newLeaderboard.initialize();
@@ -102,6 +120,9 @@ export class Leaderboard extends LocalStorage {
 
         var clearButton = newLeaderboard.clearButton;
         document.getElementById("leaderboardDropDown").append(clearButton);
+
+        var filterDropDown = newLeaderboard.filter;
+        document.getElementById("leaderboardDropDown").append(filterDropDown);
 
         var IsOpen = false; // default sidebar is closed
         var SubmenuHeight = 0; // calculated height of submenu
