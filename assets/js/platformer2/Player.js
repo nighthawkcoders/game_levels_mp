@@ -21,6 +21,7 @@ export class Player extends Character{
         super(canvas, image, data);
         // Player Data is required for Animations
         this.playerData = data;
+        GameEnv.invincible = false; 
 
         // Player control data
         this.pressedKeys = {};
@@ -211,10 +212,11 @@ export class Player extends Character{
             this.movement.left = true;
             this.movement.right = true;
         }
+        
         // Goomba left/right collision
         if (["goomba", "flyingGoomba"].includes(this.collisionData.touchPoints.other.id)) {
             // Collision with the left side of the Enemy
-            if (this.collisionData.touchPoints.other.left) {
+            if (this.collisionData.touchPoints.other.left && GameEnv.invincible === false) {
 
                 //Animate player death
                 this.canvas.style.transition = "transform 0.5s";
@@ -239,7 +241,7 @@ export class Player extends Character{
         
             }
             // Collision with the right side of the Enemy
-            if (this.collisionData.touchPoints.other.right) {
+            if (this.collisionData.touchPoints.other.right && GameEnv.invincible === false) {
             //Animate player death
                 this.canvas.style.transition = "transform 0.5s";
                 this.canvas.style.transform = "rotate(90deg) translate(26px, 0%)";
