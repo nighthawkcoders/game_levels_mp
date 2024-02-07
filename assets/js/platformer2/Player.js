@@ -214,20 +214,29 @@ export class Player extends Character{
             this.movement.right = true;
         }
 
-        // Checks if collision touchpoint id is either "goomba" or "flyingGoomba"
+        // Goomba left/right collision
         if (["goomba", "flyingGoomba"].includes(this.collisionData.touchPoints.other.id)) {
-            const direction = this.collisionData.touchPoints.other.left ? -1 : 1;
-            if (GameEnv.difficulty === "easy") {
-                this.x += 10 * direction;
-            } else if (GameEnv.invincible = true) {
-                // calculate the rotation and translation for the death animation
-                const rotate = 90 * direction;
-                const translate = this.canvas.height * 0.5 * direction;
-                // apply the death animation 
-                this.canvas.style.transform = `rotate(${rotate}deg) translate(${translate}px, 0%)`;
+            // Collision with the left side of the Enemy
+            if (this.collisionData.touchPoints.other.left && GameEnv.invincible === false) {
 
-                // reset player to the beginning of level
-                playPlayerDeath();
+                //Animate player death
+                this.canvas.style.transition = "transform 0.5s";
+                this.canvas.style.transform = "rotate(-90deg) translate(-26px, 0%)";
+
+                if (GameEnv.difficulty === "easy") {
+                    this.x -= 10;
+                } else {
+                    //Reset Player to Beginning
+                    playPlayerDeath();
+
+                    if (this.isDying == false) {
+                        this.isDying = true;
+                        setTimeout(async() => {
+                            await GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
+                            console.log("level restart")
+                            this.isDying = false;
+                        }, 700); 
+                    }   
 
                 if (this.isDying === false) {
                     this.isDying = true;
@@ -239,6 +248,7 @@ export class Player extends Character{
                 }   
             }
 
+            }    
         }
         if (this.collisionData.touchPoints.other.id === "jumpPlatform") {
             // Player is on top of the Jump platform
