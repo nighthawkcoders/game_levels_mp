@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Contributors
+title: About
 permalink: /about/
 ---
 
@@ -11,20 +11,20 @@ permalink: /about/
                 <th>Management</th>
                 <th>Leaderboard</th>
                 <th>Enemies</th>
-                <th>RPG</th>
+                <th>Animation</th>
                 <th>Multiplayer</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td>Ryan</td>
+                <td><a href="https://ryann96.github.io/NewRepository2/">Ryan</a></td>
                 <td>Gabriel</td>
                 <td>Daniel</td>
                 <td>Maryam</td>
                 <td>Trystan</td>
             </tr>
             <tr>
-                <td>Gavin C</td>
+                <td><a href="https://gavincopley.github.io/testing/">Gavin C</a></td>
                 <td>Nora</td>
                 <td>Xavier</td>
                 <td>Daisy</td>
@@ -38,7 +38,7 @@ permalink: /about/
                 <td>Ian</td>
             </tr>
             <tr>
-                <td>Dean</td>
+                <td><a href="https://deanphillips24.github.io/csse2_individual/">Dean</a></td>
                 <td>Kaden</td>
                 <td>Abigail</td>
                 <td>Zafeer</td>

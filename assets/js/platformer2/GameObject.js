@@ -3,7 +3,8 @@ import Socket from './Multiplayer.js';
 
 class GameObject {
     // container for all game objects in game
-    constructor(canvas, image, data) {
+    constructor(canvas, image, data, widthPercentage = 0.0, heightPercentage = 0.0) {
+        this.name = "";
         this.x = 0;
         this.y = 0;
         this.frame = 0;
@@ -21,6 +22,8 @@ class GameObject {
         this.collisionData = {};
         this.jsonifiedElement = '';
         this.shouldBeSynced = false; //if the object should be synced with the server
+        this.widthPercentage = widthPercentage;
+        this.heightPercentage = heightPercentage;
         // Add this object to the game object array so collision can be detected
         // among other things
         GameEnv.gameObjects.push(this); 
@@ -61,7 +64,8 @@ class GameObject {
                 tag: GameEnv.currentLevel.tag,
                 x: this.x / GameEnv.innerWidth,
                 y: (this.y - GameEnv.top) / (GameEnv.bottom - GameEnv.top),
-                frameY: this.frameY
+                frameY: this.frameY,
+                name: this.name
             };
         }
     }
@@ -87,7 +91,6 @@ class GameObject {
     updateInfo(json) {
         var element = this.canvas;
         if (json.id === element.id) {
-            console.log("runs", json.width, json.height)
             this.canvas.width = json.width;
             this.canvas.height = json.height;
             this.canvas.style.filter = json.filter;
@@ -160,12 +163,12 @@ class GameObject {
         //const otherCenterY = (otherRect.top + otherRect.bottom) / 2;
     
         // Calculate hitbox constants
-        var widthPercentage = 0.5;
-        var heightPercentage = 0.5; 
-        if (this.canvas.id === "player" && other.canvas.id === "blockPlatform") {
-            heightPercentage = 0;
-            widthPercentage = 0.4;
-        }
+        var widthPercentage = this.widthPercentage;
+        var heightPercentage = this.heightPercentage; 
+                /* if (this.canvas.id === "player" && other.canvas.id === "blockPlatform") {
+                    // heightPercentage = 0;
+                    // widthPercentage = 0;
+                } */
         if (this.canvas.id === "player" && other.canvas.id === "jumpPlatform") {
             heightPercentage = 0;
             widthPercentage = 0.4;
@@ -175,9 +178,9 @@ class GameObject {
             //hitbox for activation is slightly larger than the block to ensure
             //that there is enough room for mario to collide without getting stopped by the platform
         }
-        if (this.canvas.id === "goomba" && other.canvas.id === "player") {
-            heightPercentage = 0.2;
-        }
+                /* if (this.canvas.id === "goomba" && other.canvas.id === "player") {
+                    heightPercentage = 0.2;
+                } */
         const widthReduction = thisRect.width * widthPercentage;
         const heightReduction = thisRect.height * heightPercentage;
     
@@ -185,7 +188,7 @@ class GameObject {
         const thisLeft = thisRect.left + widthReduction;
         const thisTop = thisRect.top + heightReduction;
         const thisRight = thisRect.right - widthReduction;
-        const thisBottom = thisRect.bottom - heightReduction;
+        const thisBottom = thisRect.bottom;
     
         // Determine hit and touch points of hit
         this.collisionData = {
