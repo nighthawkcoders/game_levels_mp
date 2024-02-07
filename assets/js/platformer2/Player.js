@@ -21,6 +21,7 @@ export class Player extends Character{
         super(canvas, image, data, widthPercentage, heightPercentage);
         // Player Data is required for Animations
         this.playerData = data;
+        GameEnv.invincible = false; 
 
         // Player control data
         this.moveSpeed = this.speed * 3;
@@ -212,12 +213,13 @@ export class Player extends Character{
             this.movement.left = true;
             this.movement.right = true;
         }
+
         // Checks if collision touchpoint id is either "goomba" or "flyingGoomba"
         if (["goomba", "flyingGoomba"].includes(this.collisionData.touchPoints.other.id)) {
             const direction = this.collisionData.touchPoints.other.left ? -1 : 1;
             if (GameEnv.difficulty === "easy") {
                 this.x += 10 * direction;
-            } else {
+            } else if (GameEnv.invincible = true) {
                 // calculate the rotation and translation for the death animation
                 const rotate = 90 * direction;
                 const translate = this.canvas.height * 0.5 * direction;
@@ -236,11 +238,7 @@ export class Player extends Character{
                     }, 700); 
                 }   
             }
-                if (this.collisionData.touchPoints.this.top) {
-                    // Игрок находится сверху Goomba
-                    this.y -= 200;  // Измените высоту отскока по ys
-                    this.setAnimation(this.directionKey);
-                }
+
         }
         if (this.collisionData.touchPoints.other.id === "jumpPlatform") {
             // Player is on top of the Jump platform
