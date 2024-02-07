@@ -17,13 +17,14 @@ import Socket from './Multiplayer.js';
  */
 export class Player extends Character{
     // instantiation: constructor sets up player object 
-    constructor(canvas, image, data){
-        super(canvas, image, data);
+    constructor(canvas, image, data, widthPercentage = 0.3, heightPercentage = 0.8) {
+        super(canvas, image, data, widthPercentage, heightPercentage);
         // Player Data is required for Animations
         this.playerData = data;
         GameEnv.invincible = false; 
 
         // Player control data
+        this.moveSpeed = this.speed * 3;
         this.pressedKeys = {};
         this.movement = {up: true, down: true, left: true, right: true};
         this.isIdle = true;
@@ -41,6 +42,8 @@ export class Player extends Character{
         this.transitionHide = false;
         this.shouldBeSynced = true;
         this.isDying = false;
+
+        this.name = GameEnv.userID;
     }
 
     /**
@@ -116,17 +119,15 @@ export class Player extends Character{
 
         // Player moving right 
         if (this.isActiveAnimation("a")) {
-            if (this.movement.left) this.x -= this.speed;  // Move to left
+            if (this.movement.left) this.x -= this.isActiveAnimation("s") ? this.moveSpeed : this.speed;  // Move to left
         }
         // Player moving left
         if (this.isActiveAnimation("d")) {
-            if (this.movement.right) this.x += this.speed;  // Move to right
+            if (this.movement.right) this.x += this.isActiveAnimation("s") ? this.moveSpeed : this.speed;  // Move to right
         }
         // Player moving at dash speed left or right 
-        if (this.isActiveAnimation("s")) {
-            const moveSpeed = this.speed * 2;
-            this.x += this.isFaceLeft() ? -moveSpeed : moveSpeed;
-        }
+        if (this.isActiveAnimation("s")) {}
+
         // Player jumping
         if (this.isActiveGravityAnimation("w")) {
             playJump();
@@ -212,67 +213,50 @@ export class Player extends Character{
             this.movement.left = true;
             this.movement.right = true;
         }
-        
-        // Goomba left/right collision
+
+        // Checks if collision touchpoint id is either "goomba" or "flyingGoomba"
         if (["goomba", "flyingGoomba"].includes(this.collisionData.touchPoints.other.id)) {
-            // Collision with the left side of the Enemy
-            if (this.collisionData.touchPoints.other.left && GameEnv.invincible === false) {
+            const direction = this.collisionData.touchPoints.other.left ? -1 : 1;
+            if (GameEnv.difficulty === "easy") {
+                this.x += 10 * direction;
+            } else if (GameEnv.invincible = true) {
+                // calculate the rotation and translation for the death animation
+                const rotate = 90 * direction;
+                const translate = this.canvas.height * 0.5 * direction;
+                // apply the death animation 
+                this.canvas.style.transform = `rotate(${rotate}deg) translate(${translate}px, 0%)`;
 
-                //Animate player death
-                this.canvas.style.transition = "transform 0.5s";
-                this.canvas.style.transform = "rotate(-90deg) translate(-26px, 0%)";
+                // reset player to the beginning of level
+                playPlayerDeath();
 
-                if (GameEnv.difficulty === "easy") {
-                    this.x -= 10;
-                } else {
-                    //Reset Player to Beginning
-                    playPlayerDeath();
-                    
-                    if (this.isDying == false) {
-                        this.isDying = true;
-                        setTimeout(async() => {
-                            await GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
-                            console.log("level restart")
-                            this.isDying = false;
-                        }, 700); 
-                    }   
-                    //GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
-                }
-        
+                if (this.isDying === false) {
+                    this.isDying = true;
+                    // restart current level after delay
+                    setTimeout(async() => {
+                        await GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
+                        this.isDying = false;
+                    }, 700); 
+                }   
             }
-            // Collision with the right side of the Enemy
-            if (this.collisionData.touchPoints.other.right && GameEnv.invincible === false) {
-            //Animate player death
-                this.canvas.style.transition = "transform 0.5s";
-                this.canvas.style.transform = "rotate(90deg) translate(26px, 0%)";
 
-                if (["normal","hard"].includes(GameEnv.difficulty)) {
-                if (GameEnv.difficulty === "easy") {
-                    this.x += 10;
-                } else {
-                    //Reset Player to Beginning
-                    // if statement prevents timeout from running multiple times
-                    if (this.isDying == false) {
-                        this.isDying = true;
-                        setTimeout(async() => {
-                            await GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
-                            console.log("level restart")
-                            this.isDying = false;
-                        }, 700); 
-                    }       
-                    //GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
-                }} else {
-                    this.x -= 10;
-                    playPlayerDeath();
-                    GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
-                }
-            }
         }
         if (this.collisionData.touchPoints.other.id === "jumpPlatform") {
             // Player is on top of the Jump platform
+            if (this.collisionData.touchPoints.other.left) {
+                this.movement.right = false;
+                this.gravityEnabled = true;
+                // this.x -= this.isActiveAnimation("s") ? this.moveSpeed : this.speed;  // Move to left
+
+            }
+            if (this.collisionData.touchPoints.other.right) {
+                this.movement.left = false;
+                this.gravityEnabled = true;
+                // this.x += this.isActiveAnimation("s") ? this.moveSpeed : this.speed;  // Move to right
+            }
             if (this.collisionData.touchPoints.this.top) {
                 this.movement.down = false; // enable movement down without gravity
                 this.gravityEnabled = false;
+                // this.y -= GameEnv.gravity;
                 this.setAnimation(this.directionKey); // set animation to direction
             }
         }
@@ -313,13 +297,14 @@ export class Player extends Character{
             } else if (this.isKeyActionRight(key)) {
                 GameEnv.backgroundHillsSpeed = 0.4;
                 GameEnv.backgroundMountainsSpeed = 0.1;
-            } else if (this.isKeyActionDash(key) && this.directionKey === "a" && this.x > 2) {
-                GameEnv.backgroundHillsSpeed = -0.4;
-                GameEnv.backgroundMountainsSpeed = -0.1;
-            } else if (this.isKeyActionDash(key) && this.directionKey === "d") {
-                GameEnv.backgroundHillsSpeed = 0.4;
-                GameEnv.backgroundMountainsSpeed = 0.1;
-            }
+            } 
+            /* else if (this.isKeyActionDash(key) && this.directionKey === "a") {
+                 GameEnv.backgroundHillsSpeed = -0.4;
+                 GameEnv.backgroundMountainsSpeed = -0.1;
+             } else if (this.isKeyActionDash(key) && this.directionKey === "d") {
+                 GameEnv.backgroundHillsSpeed = 0.4;
+                 GameEnv.backgroundMountainsSpeed = 0.1;
+            } */ // This was unnecessary, and broke hitboxes / alloswed diffusion through matter
         }
     }
 
