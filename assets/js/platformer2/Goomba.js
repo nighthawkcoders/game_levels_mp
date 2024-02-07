@@ -104,7 +104,7 @@ export class Goomba extends Character {
 
         if (this.collisionData.touchPoints.other.id === "player") {
             // Collision: Top of Goomba with Bottom of Player
-            if (this.collisionData.touchPoints.other.bottom && this.immune === 0) {
+            if (this.collisionData.touchPoints.other.bottom) {
                 this.canvas.style.transition = "transform 2s, opacity 1s";
                 this.canvas.style.transformOrigin = "bottom"; // Set the transform origin to the bottom
                 this.canvas.style.transform = "scaleY(0)"; // Make the Goomba flat
