@@ -382,7 +382,7 @@ const GameSetup = {
           { name: 'goombaSpecial', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage:  0.75, minPosition: 0.5 }, //this special name is used for random event 2 to make sure that only one of the Goombas ends the random event
           { name: 'flyingGoomba', id: 'flyingGoomba', class: FlyingGoomba, data: this.assets.enemies.flyingGoomba, xPercentage:  0.5, minPosition:  0.05},
           { name: 'flyingGoomba', id: 'flyingGoomba', class: FlyingGoomba, data: this.assets.enemies.flyingGoomba, xPercentage:  0.9, minPosition: 0.5},
-          { name: 'lopez', id: 'player', class: Player, data: this.assets.players.lopez },
+          { name: 'monkey', id: 'player', class: Player, data: this.assets.players.monkey },
           { name: 'tube', id: 'tube', class: Tube, data: this.assets.obstacles.tube },
           { name: 'complete2', id: 'background', class: BackgroundTransitions,  data: this.assets.backgrounds.complete2 },
         ];
