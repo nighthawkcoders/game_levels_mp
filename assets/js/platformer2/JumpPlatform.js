@@ -4,7 +4,7 @@ import GameObject from './GameObject.js';
 
 export class JumpPlatform extends GameObject {
     constructor(canvas, image, data, xPercentage, yPercentage, name) {
-        super(canvas, image, data);
+        super(canvas, image, data, 0.4, -0.2);
         this.platformX = xPercentage * GameEnv.innerWidth;
         this.platformY = yPercentage;
         this.data = data;

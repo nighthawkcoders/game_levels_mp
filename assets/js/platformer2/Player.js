@@ -211,7 +211,7 @@ export class Player extends Character{
             this.movement.right = true;
         }
         // Goomba left/right collision
-        if (["goomba", "flyingGoomba"].includes(this.collisionData.touchPoints.other.id)) {
+        /* if (["goomba", "flyingGoomba"].includes(this.collisionData.touchPoints.other.id)) {
             // Collision with the left side of the Enemy
             if (this.collisionData.touchPoints.other.left) {
 
@@ -224,7 +224,6 @@ export class Player extends Character{
                 } else {
                     //Reset Player to Beginning
                     playPlayerDeath();
-                    
                     if (this.isDying == false) {
                         this.isDying = true;
                         setTimeout(async() => {
@@ -235,14 +234,12 @@ export class Player extends Character{
                     }   
                     //GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
                 }
-        
             }
             // Collision with the right side of the Enemy
             if (this.collisionData.touchPoints.other.right) {
             //Animate player death
                 this.canvas.style.transition = "transform 0.5s";
                 this.canvas.style.transform = "rotate(90deg) translate(26px, 0%)";
-
                 if (["normal","hard"].includes(GameEnv.difficulty)) {
                 if (GameEnv.difficulty === "easy") {
                     this.x += 10;
@@ -264,7 +261,7 @@ export class Player extends Character{
                     GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
                 }
             }
-        }
+        } */
         if (this.collisionData.touchPoints.other.id === "jumpPlatform") {
             // Player is on top of the Jump platform
             if (this.collisionData.touchPoints.other.left) {
