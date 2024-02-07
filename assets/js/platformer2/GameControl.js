@@ -8,7 +8,6 @@
  */
 import GameEnv from './GameEnv.js';
 import SettingsControl from "./SettingsControl.js";
-import Socket from './Multiplayer.js';
 
 /**
  * GameControl is a singleton object that controls the game loop.

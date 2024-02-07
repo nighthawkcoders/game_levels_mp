@@ -6,7 +6,7 @@ import GameControl from './GameControl.js';
 export class Goomba extends Character {
     // constructors sets up Character object 
     constructor(canvas, image, data, xPercentage, yPercentage, name, minPosition){
-        super(canvas, image, data );
+        super(canvas, image, data, 0.0, 0.2);
 
         //Unused but must be Defined
         this.name = name;
@@ -87,8 +87,10 @@ export class Goomba extends Character {
 
         // Move the enemy
         this.x -= this.speed;
-    }
 
+        this.playerBottomCollision = false;
+    }
+    
     // Player action on collisions
     collisionAction() {
         if (this.collisionData.touchPoints.other.id === "tube") {
@@ -99,7 +101,9 @@ export class Goomba extends Character {
         if (this.collisionData.touchPoints.other.id === "player") {
             // Collision: Top of Goomba with Bottom of Player
             if (this.collisionData.touchPoints.other.bottom && this.immune === 0) {
-                this.destroy();
+                this.canvas.style.transition = "transform 2s, opacity 1s";
+                this.canvas.style.transformOrigin = "bottom"; // Set the transform origin to the bottom
+                this.canvas.style.transform = "scaleY(0)"; // Make the Goomba flat
                 playGoombaDeath();
             }
         }
@@ -107,7 +111,12 @@ export class Goomba extends Character {
             if (GameEnv.difficulty !== "impossible" && (this.collisionData.touchPoints.other.left || this.collisionData.touchPoints.other.right)) {
                 this.speed = -this.speed;      
             }
-        }    
+        }
+        if (this.collisionData.touchPoints.other.id === "blockPlatform") {
+            if (this.collisionData.touchPoints.other.left || this.collisionData.touchPoints.other.right) {
+                this.speed = -this.speed;            
+            }
+        }
     }
 }
 
