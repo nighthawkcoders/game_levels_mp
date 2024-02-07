@@ -4,7 +4,6 @@ import Socket from './Multiplayer.js';
 class GameObject {
     // container for all game objects in game
     constructor(canvas, image, data, widthPercentage = 0.0, heightPercentage = 0.0) {
-        this.name = "";
         this.x = 0;
         this.y = 0;
         this.frame = 0;
@@ -64,8 +63,7 @@ class GameObject {
                 tag: GameEnv.currentLevel.tag,
                 x: this.x / GameEnv.innerWidth,
                 y: (this.y - GameEnv.top) / (GameEnv.bottom - GameEnv.top),
-                frameY: this.frameY,
-                name: this.name
+                frameY: this.frameY
             };
         }
     }
@@ -91,6 +89,7 @@ class GameObject {
     updateInfo(json) {
         var element = this.canvas;
         if (json.id === element.id) {
+            console.log("runs", json.width, json.height)
             this.canvas.width = json.width;
             this.canvas.height = json.height;
             this.canvas.style.filter = json.filter;
@@ -169,10 +168,6 @@ class GameObject {
                     // heightPercentage = 0;
                     // widthPercentage = 0;
                 } */
-        if (this.canvas.id === "player" && other.canvas.id === "jumpPlatform") {
-            heightPercentage = 0;
-            widthPercentage = 0.4;
-        }
         if(this.canvas.id === "jumpPlatform" && other.canvas.id === "player") { 
             heightPercentage = -0.2;
             //hitbox for activation is slightly larger than the block to ensure
