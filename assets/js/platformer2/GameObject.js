@@ -173,9 +173,9 @@ class GameObject {
             //hitbox for activation is slightly larger than the block to ensure
             //that there is enough room for mario to collide without getting stopped by the platform
         }
-         if (this.canvas.id === "coin" && other.canvas.id === "player") {
-            heightPercentage = 0.0;
-        }
+                /* if (this.canvas.id === "goomba" && other.canvas.id === "player") {
+                    heightPercentage = 0.2;
+                } */
         const widthReduction = thisRect.width * widthPercentage;
         const heightReduction = thisRect.height * heightPercentage;
     
