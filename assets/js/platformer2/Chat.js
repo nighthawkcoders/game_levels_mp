@@ -65,31 +65,40 @@ class Chat{
             div2.append(div3);
         }
 
-        button.addEventListener("click",()=>{
-            Multiplayer.removeListener("onMessage")
-            Multiplayer.createListener("onMessage",(data)=>{
-                var message = this.parseMessage(data.message);
-                addMessage(message,data.name?data.name:data.id);
-                this.soundArray.forEach((d)=>{
-                    if (d[1]==true){ //sound can be played
-                        d[0].play();
-                        d[1]=false;
-                        return;
-                    }
-                });
-                var sound = createSound(this.soundSource);
-                var arrayToAdd = [sound,true];
-                this.soundArray.push(arrayToAdd);
-                sound.addEventListener("ended",()=>{
-                    arrayToAdd[1]=true;
+        function onMessage(){
+                Multiplayer.removeListener("onMessage")
+                Multiplayer.createListener("onMessage",(data)=>{
+                    var message = this.parseMessage(data.message);
+                    addMessage(message,data.name?data.name:data.id);
+                    this.soundArray.forEach((d)=>{
+                        if (d[1]==true){ //sound can be played
+                            d[0].play();
+                            d[1]=false;
+                            return;
+                        }
+                    });
+                    var sound = createSound(this.soundSource);
+                    var arrayToAdd = [sound,true];
+                    this.soundArray.push(arrayToAdd);
+                    sound.addEventListener("ended",()=>{
+                        arrayToAdd[1]=true;
+                    })
+                    sound.play();
                 })
-                sound.play();
-            })
-            var message = input.value;
-            message = this.parseMessage(message);
-            addMessage(message,"you");
-            this.sendMessage(message);
-        });
+                var message = input.value;
+                message = this.parseMessage(message);
+                addMessage(message,"you");
+                this.sendMessage(message);
+            }
+        button.addEventListener("click",onMessage.bind(this));
+
+        function KeyCheck(e){
+            console.log(this)
+            if(e.key == "Enter"){
+                onMessage.bind(this)()
+            }
+        }
+        window.addEventListener("keypress",KeyCheck.bind(this));
 
         div.append(div2);
         div.append(input);
