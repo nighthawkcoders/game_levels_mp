@@ -133,6 +133,7 @@ export class Leaderboard extends LocalStorage {
         var IsOpen = false; // default sidebar is closed
         var SubmenuHeight = 0; // calculated height of submenu
         function leaderboardPanel() {
+            newLeaderboard.updateLeaderboardTable();
             // toggle isOpen
             IsOpen = !IsOpen;
             // open and close properties for sidebar based on isOpen

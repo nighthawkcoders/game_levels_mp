@@ -291,8 +291,7 @@ const GameSetup = {
             });
         });
 
-        function generate(){
-          var fun_facts = {
+        var fun_facts = {
           //data structure
           "Fun Fact #1" : "Mario's full name is Mario Mario.", //key and value
           "Fun Fact #2" : "Mario's least favorite food is shittake mushrooms.", //single quotes to include the double quotes
@@ -304,6 +303,7 @@ const GameSetup = {
           "Fun Fact #8" : " Mario was originally a carpenter, not a plumber.",
           "Fun Fact #9" : " There are actually lyrics to the Mario theme song."
           }
+        function generate(){
           var nums = Object.keys(fun_facts);
           console.log(nums);
           var num = nums[Math.floor(Math.random()*nums.length)]
