@@ -407,8 +407,8 @@ export class SettingsControl extends LocalStorage{
         chatBoxContainer.style.zIndex = 2;
         chatBoxContainer.style.position = "absolute";
         chatBoxContainer.style.top = "70%";
-        chatBoxContainer.style.left = "60%";
-        chatBoxContainer.style.width = "60%";
+        chatBoxContainer.style.left = "50%";
+        chatBoxContainer.style.width = "50%";
         chatBoxContainer.style.height = "30%";
         chatBoxContainer.style.backgroundColor = "grey";
         chatBoxContainer.style.opacity = "65%";
