@@ -20,6 +20,8 @@ class Group {
    * Create a group with a unique ID.
    * @constructor
    */
+  //  Creates group "Leader"
+  //  Allows any group ID
   leader;
   ids = [];
   constructor() {
@@ -99,6 +101,7 @@ io.on("connection", (socket) => {
   var g = connectionFunc(id, true);
   socket.join(g.name);
   console.log("a player joined with id: " + id + " and added to group: " + g.name);
+  var name = "";
 
   /**
    * Listen for "update" events and broadcast updates to all users in the group.
@@ -106,9 +109,21 @@ io.on("connection", (socket) => {
    * @param {any} data - The update data.
    */
   socket.on("update", (data) => {
+    // Logs the socket's ID
     console.log("fired for:" +id);
     data.id = id;
+    // Broadcasts to all clients within a room
     socket.to(g.name).emit("stateUpdate", data);
+  });
+
+  /**
+   * Listen for "update" events and broadcast updates to all users in the group.
+   * @event
+   * @param {any} data - The update data.
+   */
+  socket.on("leaderboard", (data) => {
+    // Broadcasts to all clients within a room
+    socket.to(g.name).emit("leaderboardUpdate", {time:data,userID:name});
   });
 
   /**
@@ -118,10 +133,27 @@ io.on("connection", (socket) => {
    */
   socket.on("event_name_here", (id) => {
     if (id === g.leader) {
-      io.to(g.name).emit("event_nameStart", "");
+      socket.to(g.name).emit("event_nameStart", "");
     }
   });
+/**
+ * Sends message to all connected users except for the sender
+ * @event
+ * @param {any} message - The message sent by the player
+ */
+  socket.on("message",(message)=>{
+      socket.broadcast.emit("onMessage",{message:message,id:id,name:name});
+  })
 
+/**
+ * Sets the name
+ * @event
+ * @param {any} name - The name sent by the user
+ */
+
+  socket.on("name",(n)=>{
+    name = n;
+  })
   /**
    * Listen for "disconnect" events and handle user disconnections.
    * @event
