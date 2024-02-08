@@ -218,6 +218,7 @@ export class Player extends Character{
                 console.log("Coin destroyed")
 
         }
+        
         // Jump platform collision
         if (this.collisionData.touchPoints.other.id === "jumpPlatform") {
             // Player is on top of the Jump platform
