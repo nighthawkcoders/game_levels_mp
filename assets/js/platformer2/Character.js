@@ -2,8 +2,8 @@ import GameEnv from './GameEnv.js';
 import GameObject from './GameObject.js';
 
 class Character extends GameObject {
-    constructor(canvas, image, data) {
-        super(canvas, image, data);
+    constructor(canvas, image, data, widthPercentage = 0.0, heightPercentage = 0.0) {
+        super(canvas, image, data, widthPercentage, heightPercentage);
 
         // sprite sizes
         this.spriteWidth = data.width;
@@ -54,6 +54,17 @@ class Character extends GameObject {
         this.frameY = frameY;
     }
 
+    updateInfo(json) {
+        super.updateInfo(json)
+        var element = this.canvas;
+        if (json.id === element.id) {
+            this.x = json.x * GameEnv.innerWidth;
+            this.y = (json.y * (GameEnv.bottom - GameEnv.top)) + GameEnv.top;
+            this.frameY = json.frameY
+        }
+        return json.id === element.id
+    }
+
     /* Draw character object
      * Canvas and Context
     */
@@ -78,6 +89,9 @@ class Character extends GameObject {
             this.canvas.width,
             this.canvas.height
         );
+        this.ctx.fillStyle = "black";
+        this.ctx.font = "10px Arial"
+        this.ctx.fillText(this.name,0,this.canvas.height/4);
     }
 
     /* Method should be called on initialization and resize events 

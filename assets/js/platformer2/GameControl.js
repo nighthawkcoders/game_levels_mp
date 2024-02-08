@@ -7,6 +7,8 @@
  * - call or add listener to GameControl.startTimer() to start the game timer.
  */
 import GameEnv from './GameEnv.js';
+import Socket from './Multiplayer.js';
+import SettingsControl from "./SettingsControl.js";
 
 /**
  * GameControl is a singleton object that controls the game loop.
@@ -50,20 +52,81 @@ const GameControl = {
      */
     updateTimer() {
         const id = document.getElementById("gameOver");
-        if (id.hidden == false) {
-            this.stopTimer()
-        }
-
-        // Calculate elapsed time in seconds
+    
         const elapsedTime = (Date.now() - this.startTime) / 1000;
 
-        // Display the updated time in the span element with id 'timeScore'
+        if (id.hidden == false) {
+            this.stopTimer();
+            // Get the current user ID from SettingsControl
+            const userID = GameEnv.userID
+    
+            // Retrieve existing time scores from local storage
+            const existingTimeScores = JSON.parse(localStorage.getItem('timeScores')) || [];
+            const existingTimeScores2 = JSON.parse(localStorage.getItem('GtimeScores')) || [];
+        
+            // Add the new time score with user ID to the array
+            const newTimeScore = {
+                userID: userID,
+                time: elapsedTime.toFixed(2),
+                // You can add more properties if needed
+            };
+            existingTimeScores.push(newTimeScore);
+            existingTimeScores2.push(newTimeScore);
+
+            // Log the updated array to the console for debugging
+            console.log(existingTimeScores);
+
+            // Save the updated array to local storage
+            localStorage.setItem('timeScores', JSON.stringify(existingTimeScores));
+            localStorage.setItem('GtimeScores', JSON.stringify(existingTimeScores2));
+
+            Socket.sendData("leaderboard",elapsedTime.toFixed(2));
+        
+        }
+    
         const timeScoreElement = document.getElementById('timeScore');
         if (timeScoreElement) {
-            timeScoreElement.textContent = elapsedTime.toFixed(2); // Update the displayed time
-        }
-    },
+            // Update the displayed time
+            timeScoreElement.textContent = elapsedTime.toFixed(2);
+    
+            // Get the current user ID from SettingsControl
+            const userID = SettingsControl.userID;
+    
+            /*
+            // Retrieve existing time scores from local storage
+            const existingTimeScores = JSON.parse(localStorage.getItem('timeScore')) || [];
+    
+            // Check if there is a recent time score for the current user
+            const recentTimeScore = existingTimeScores.find(score => score.userID === userID);
+    
+            if (!recentTimeScore) {
+                // Add the new time score with user ID to the array
+                // Assume the existingTimeScores retrieval as described in the previous response
 
+                // Assuming you have userID and elapsedTime defined somewhere in your code
+                const userID = 'exampleUserID';
+                const elapsedTime = elapsedTime.toFixed(2); // Replace with the actual elapsed time value
+
+                // Add the new time score with user ID to the array
+                const newTimeScore = {
+                    userID: userID,
+                    time: elapsedTime.toFixed(2),
+                    // You can add more properties if needed
+                };
+
+                existingTimeScores.push(newTimeScore);
+
+                // Log the updated array to the console for debugging
+                console.log(existingTimeScores);
+
+                // Save the updated array to local storage
+                localStorage.setItem('timeScores', JSON.stringify(existingTimeScores));
+
+            }
+            */
+        }
+    },    
+        
     /**
      * Starts the game timer.
      * @function startTimer
@@ -86,6 +149,37 @@ const GameControl = {
         clearInterval(this.timerInterval); // Clear the interval to stop the timer
     },
 
+    randomEventId: null, //Variable to determine which random event will activate.
+    randomEventState: null, //Variable to hold the state. Is equal set to 1 when an event is triggered and then back to 0 once the event is completed.
+
+    //HOW TO ADD A RANDOM EVENT
+    //Import GameControl.js into the desired file
+    //Put this code in the update function of any game object
+
+    /**if (GameControl.randomEventId === # && GameControl.randomEventState === 1) {
+        //random event goes here
+        GameControl.endRandomEvent();
+    }*/
+
+    //Next, make sure that the event Id that triggers it is not being used
+    //Make sure that the event id is within the possible numbers that can be picked
+    //Once you are done make sure to add it to the random event key below
+
+    startRandomEvent() {
+        this.randomEventState = 1;
+        this.randomEventId = Math.floor(Math.random() * 3) + 1; //The number multiplied by Math.random() is the number of possible events.
+        /**Random Event Key
+         * 1: Inverts the Color of the Background
+         * 2: Time Stops all Goombas
+         * 3: Kills a Random Goomba
+        */
+    },
+
+    endRandomEvent() {
+        this.randomEventId = 0;
+    },
+
+
     /**
      * Transitions to a new level. Destroys the current level and loads the new level.
      * @param {Object} newLevel - The new level to transition to.
@@ -105,7 +199,7 @@ const GameControl = {
         
         // Trigger a resize to redraw canvas elements
         window.dispatchEvent(new Event('resize'));
-        
+
         this.inTransition = false;
     },
 
@@ -145,7 +239,6 @@ const GameControl = {
         // recycle gameLoop, aka recursion
         requestAnimationFrame(this.gameLoop.bind(this));  
     },
-
 };
 
 export default GameControl;

@@ -1,10 +1,10 @@
 ---
 layout: base
-title: Dynamic Game Levels v2.0 
-description: Incorporate student lessons goombas, platforms, parallax backgrounds, settings with local storage, etc.  Refactor code introducing GameSetup and SettingsControl.  Style is moved into _sass.
+title: Platformer Game v2.0 
+description: Incorporate student lessons. Gameplay includes enemies, platforms, parallax backgrounds, settings with local storage, etc.  This revision introduces Settings, Leaderboard and Multiplayer.
 type: collab
 courses: { csse: {week: 18} }
-image: /images/platformer/backgrounds/hills.png
+image: /images/platformer/backgrounds/home.png
 ---
 
 <!-- Syle is now located, as of Jan 2024 v2.0, in _sass/minima/platformer-styles.scss -->
@@ -13,6 +13,19 @@ image: /images/platformer/backgrounds/hills.png
 <div id="sidebar" class="sidebar">
   <a href="javascript:void(0)" id="sidebar-header">&times; Settings</a>
 </div>
+<div id="leaderboardDropDown" class="leaderboardDropDown">
+  <a href="javascript:void(0)" id="leaderboard-header">&times; Leaderboard</a>
+</div>
+
+<!--Audio for Death of Goomba -->
+<audio id="goombaDeath" src="{{site.baseurl}}/assets/audio/goomba-death.mp3" preload="auto"></audio>
+
+<!--Audio for Jump oF player -->
+<audio id ="PlayerJump" src="{{site.baseurl}}/assets/audio/mario-jump.mp3" preload="auto"></audio>
+
+<!--Audio for death of player -->
+<audio id ="PlayerDeath" src="{{site.baseurl}}/assets/audio/MarioDeath.mp3" preload="auto"></audio>
+
 
 <!-- Wrap both the controls and gameplay in a container div -->
 <div id="canvasContainer">
@@ -31,11 +44,20 @@ image: /images/platformer/backgrounds/hills.png
         <button id="settings-button">Settings</button>
     </div>
     <div id="leaderboard"> <!-- Controls -->
-      <button id="leaderboard-button">Leaderboard</button>
+        <button id="leaderboard-button">Leaderboard</button>
     </div>
   </div>
   <!-- JavaScript-generated canvas items are inserted here -->
 </div>
+
+<div id="container">
+    <header class="fun_facts">
+    <p id="num">Fun Fact #0</p>
+    <h3 id="fun_fact">Mario is named after frustrated landlord, Mario Segale, of the Nintendo of America building.</h3> <!-- want to access later so have id-->
+    </header>
+  </div>
+
+<footer id="cut-story"></footer>
 
 <script type="module">
     // Imports to drive game
@@ -43,6 +65,8 @@ image: /images/platformer/backgrounds/hills.png
     import GameControl from '{{site.baseurl}}/assets/js/platformer2/GameControl.js';
     import SettingsControl from '{{site.baseurl}}/assets/js/platformer2/SettingsControl.js';
     import GameEnv from '{{site.baseurl}}/assets/js/platformer2/GameEnv.js';
+    import Leaderboard from '{{site.baseurl}}/assets/js/platformer2/Leaderboard.js';
+    import Audio from '{{site.baseurl}}/assets/js/platformer2/Audio.js';
 
     /* 
      * ==========================================
@@ -70,13 +94,58 @@ image: /images/platformer/backgrounds/hills.png
     */
 
     // Start the PRIMARY game loop
-    GameControl.gameLoop();
+   GameControl.gameLoop();
 
     // Create an async event to start the timer when the start game button is pushed
+    var y = document.getElementById("cut-story");
+    y.style.display = "none";
     document.getElementById('startGame').addEventListener('click', () => {
         GameControl.startTimer(); 
+        var x = document.getElementById("container");
+        if (x.style.display === "none") {
+          x.style.display = "block";
+          } 
+        else {
+          x.style.display = "none";
+          }
+        if (y.style.display === "none") {
+          y.style.display = "block";
+          } 
+        else {
+          y.style.display = "none";
+          }
+      
+        let cutStory = document.getElementById('cut-story');
+        let messages = ["Hi! My name is Mario, and I wish...", 
+        "I wish I could be just as cool as this guy, Mr. Lopez.", "Help me get to the next level to become him!", "Do you want a speed boost?   [Y/N]"];
+        console.log("Message length: " + messages.length);
+    
+        function showMessage(){
+            var x = cutStory;
+            x.className = 'show'; // change class name to show
+            console.log("class name before: "+x.className);
+            console.log("inner HTML: "+x.innerText);
+            //only want to last 3 secs
+            setTimeout(function(){x.className = x.className.replace('show',' ');}, 2000); //replace show with an empty string
+             setTimeout(function(){x.className = x.className.replace(' ','hide');}, 2000);
+            console.log("class name after: "+x.className);
+        }
+        
+        let i = 0;
+        let interval = setInterval(() => 
+        {
+          cutStory.innerText = messages[i]; 
+          showMessage();
+          i++;
+          if(i == messages.length)
+          {
+            clearInterval(interval);
+          }
+        }, 3000);
+    
+    
+    
     });
-
     /* 
     * ==========================================
     * ========== Settings Control ==============
@@ -90,6 +159,8 @@ image: /images/platformer/backgrounds/hills.png
 
     // Construct settings sidebar, MVC variable paradigm, and async events to trigger user interaction
     SettingsControl.sidebar();
+    
+    Leaderboard.leaderboardDropDown();
 
     /* 
      * ==========================================

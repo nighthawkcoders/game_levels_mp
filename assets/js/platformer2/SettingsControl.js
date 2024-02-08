@@ -2,6 +2,8 @@
 import LocalStorage from "./LocalStorage.js";
 import GameEnv from "./GameEnv.js";
 import GameControl from "./GameControl.js";
+import Socket from "./Multiplayer.js";
+import Chat from "./Chat.js"
 
 /* Coding Style Notes
  *
@@ -45,6 +47,15 @@ export class SettingsControl extends LocalStorage{
         super(keys); //creates this.keys
     }
 
+    reloadGame() {
+        // Add code to reload or restart your game here
+        // You may want to perform actions like resetting the game state, restarting the level, etc.
+        // Example:
+        window.location.reload(); // Reload the entire page (this might not be suitable for all scenarios)
+        // Alternatively, you may have a custom function to handle game restart logic.
+    }
+    
+
     /**
      * Note. Separated from constructor so that class can be created before levels are addeda
      * 
@@ -57,6 +68,18 @@ export class SettingsControl extends LocalStorage{
     initialize(){ 
         // Load all keys from local storage
         this.loadAll();
+
+        window.addEventListener("difficulty", (e) => {
+            // Update the difficulty value when a difficulty event is fired
+            this[this.keys.difficulty] = e.detail.difficulty();
+            // Update the difficulty value in the game environment
+            GameEnv.difficulty = parseFloat(this[this.keys.difficulty]);
+            // Save the difficulty value to local storage
+            this.save(this.keys.difficulty);
+    
+            // Reload the game to apply the new difficulty settings
+            this.reloadGame();
+        });
 
         /**
          * Handles a key by checking if it exists in local storage and parsing its value.
@@ -105,6 +128,8 @@ export class SettingsControl extends LocalStorage{
             this[this.keys.userID] = e.detail.userID();
             // Update the userID value in the game environment
             GameEnv.userID = this[this.keys.userID];
+
+            Socket.sendData("name",GameEnv.userID);
             // Save the userID value to local storage
             this.save(this.keys.userID);
         });
@@ -179,6 +204,8 @@ export class SettingsControl extends LocalStorage{
             // dispatch event to update userID
             window.dispatchEvent(new CustomEvent("userID", { detail: {userID:()=>userID.value} }));
         });
+
+        Socket.sendData("name",GameEnv.userID)
 
         div.append(userID); // wrap input element in div
         return div;
@@ -326,7 +353,7 @@ export class SettingsControl extends LocalStorage{
         div.innerHTML = "Difficulty: "; // label
     
         const difficulty = document.createElement("select"); // dropdown for difficulty
-        const options = ["Easy", "Normal", "Hard"];
+        const options = ["Easy", "Normal", "Hard", "Impossible"];
     
         options.forEach(option => {
             const opt = document.createElement("option");
@@ -346,6 +373,79 @@ export class SettingsControl extends LocalStorage{
         return div;
     }
     
+    get multiplayerButton() {
+        const div = document.createElement("div");
+        div.innerHTML = "Multiplayer: "; // label
+    
+        const button = document.createElement("button"); // button for Multiplayer
+        button.innerText = String(Socket.shouldBeSynced);
+    
+        button.addEventListener("click", () => {
+            // dispatch event to update difficulty
+            button.innerText = String(Socket.changeStatus());
+        });
+    
+        div.append(button); // wrap button element in div
+        return div;
+    }
+
+    get chatButton() {
+        const div = document.createElement("div");
+        div.innerHTML = "Chat: "; // label
+    
+        const button = document.createElement("button"); // button for Multiplayer
+        button.innerText = "open";
+    /**
+     * Chat class to make the chat more refined and functional
+     */
+        var ChatClass = new Chat([]);
+        var chatBoxContainer =  ChatClass.chatBoxContainer;
+        var chatBox = chatBoxContainer.children.namedItem("chatBox");
+        var chatInput = chatBoxContainer.children.namedItem("chatInput");
+        var chatButton = chatBoxContainer.children.namedItem("chatButton");
+        chatBoxContainer.style.display = "none";
+        chatBoxContainer.style.zIndex = 2;
+        chatBoxContainer.style.position = "absolute";
+        chatBoxContainer.style.top = "70%";
+        chatBoxContainer.style.left = "50%";
+        chatBoxContainer.style.width = "50%";
+        chatBoxContainer.style.height = "30%";
+        chatBoxContainer.style.backgroundColor = "grey";
+        chatBoxContainer.style.opacity = "65%";
+        chatBoxContainer.style.borderRadius = "1%";
+        chatBox.style.position = "relative";
+        chatBox.style.resize = "both";
+        chatBox.style.overflow = "auto";
+        chatBox.style.height = "90%";
+        chatBox.style.width = "100%";
+        chatBox.style.top = "0%";
+        chatInput.style.position = "relative";
+        chatInput.style.bottom = "0%";
+        chatInput.style.height = "10%"
+        chatInput.style.width = "80%";
+        chatButton.style.position = "relative";
+        chatButton.style.height = "10%";
+        chatButton.style.width = "20%";
+        chatButton.style.bottom = "0%";
+
+
+        document.getElementById("sidebar").insertAdjacentElement("afterend",chatBoxContainer);
+
+        var isShown = false;
+        button.addEventListener("click", () => {
+            isShown=!isShown;
+            if(isShown){
+                chatBoxContainer.style.display = "block";
+                button.innerText = "close";
+            }else{
+                chatBoxContainer.style.display = "none";
+                button.innerText = "open"
+            }
+        });
+    
+        div.append(button); // wrap button element in div
+        return div;
+    }
 
     /**
      * Static method to initialize the game settings controller and add the settings controls to the sidebar.
@@ -386,6 +486,14 @@ export class SettingsControl extends LocalStorage{
         // Get/Construct HTML input and event update for difficulty
         var difficultyInput = settingsControl.difficultyInput;
         document.getElementById("sidebar").append(difficultyInput);
+
+        // Get/Construct HTML button and event update for multiplayer
+        var multiplayerButton = settingsControl.multiplayerButton;
+        document.getElementById("sidebar").append(multiplayerButton);
+
+        // Get/Construct HTML button and event update for multiplayer
+        var chatButton = settingsControl.chatButton;
+        document.getElementById("sidebar").append(chatButton);
 
 
         // Listener, isOpen, and function for sidebar open and close
