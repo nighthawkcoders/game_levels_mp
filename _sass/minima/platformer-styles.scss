@@ -58,9 +58,10 @@
   position: fixed;
   z-index: 3; // Position on Top of other elements, as well as ID buttons above
   top: $spacing-unit * 1.865;  // matches minima ".site-header min-height height", reference: https://github.com/jekyll/minima/blob/master/_sass/minima/_layout.scss
+  width: fit-content;
 
   // Styles for the score and buttons
-  #score, #gameBegin, #gameOver, #settings, #leaderboard {
+  #score, #gameBegin, #gameOver, #settings, #leaderboard, #serverLeaderboard, #personalLeaderboard {
     display: inline-block; // Make the score and buttons inline
     margin-right: $spacing-unit; // Add some margin to the right of each item
   }
