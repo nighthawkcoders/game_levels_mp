@@ -32,9 +32,11 @@ export class GameEnv {
      * @property {Object} currentLevel - used by GameControl
      * @property {Array} gameObjects - used by GameControl
      * @property {boolean} isInverted - localstorage key, canvas filter property, used by GameControl
+     * @property {boolean} invincible - invincibility for the mario when stomping on Goomba
      * @property {number} gameSpeed - localstorage key, used by platformer objects
      * @property {number} backgroundHillsSpeed - used by background objects
      * @property {number} backgroundMountainsSpeed - used by background objects
+     * @property {number} backgroundCloudsSpeed - used by background objects
      * @property {boolean} transitionHide - used to hide the transition screen
      * @property {number} gravity - localstorage key, used by platformer objects
      * @property {Object} difficulty - localstorage key, used by GameControl
@@ -56,6 +58,7 @@ export class GameEnv {
     static gameSpeed = 2;
     static backgroundHillsSpeed = 0;
     static backgroundMountainsSpeed = 0;
+    static backgroundCloudsSpeed = 2;
     static transitionHide = false;
     static gravity = 3;
     static difficulty = "normal";
@@ -65,6 +68,7 @@ export class GameEnv {
     static top;
     static bottom;
     static prevBottom;
+    static invincible = false;
 
 
     
