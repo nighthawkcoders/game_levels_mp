@@ -6,6 +6,7 @@ import Background from './Background.js'
 import BackgroundHills from './BackgroundHills.js';
 import BackgroundMountains from './BackgroundMountains.js';
 import BackgroundTransitions from './BackgroundTransitions.js';
+import BackgroundClouds from './BackgroundClouds.js';
 import Platform from './Platform.js';
 import JumpPlatform from './JumpPlatform.js';
 import Player from './Player.js';
@@ -149,7 +150,7 @@ const GameSetup = {
       GameEnv.currentLevel = null;
 
       return true;
-    },    
+    },
 
     /*  ==========================================
      *  ======= Data Definitions =================
@@ -188,6 +189,7 @@ const GameSetup = {
         hills: { src: "/images/platformer/backgrounds/hills.png" },
         avenida: { src: "/images/platformer/backgrounds/avenidawide3.jpg" },
         mountains: { src: "/images/platformer/backgrounds/mountains.jpg" },
+        clouds : { src: "/images/platformer/backgrounds/clouds.png"},
         space: { src: "/images/platformer/backgrounds/planet.jpg" },
         castles: { src: "/images/platformer/backgrounds/castles.png" },
         loading: { src: "/images/platformer/backgrounds/greenscreen.png" },
@@ -289,8 +291,7 @@ const GameSetup = {
             });
         });
 
-        function generate(){
-          var fun_facts = {
+        var fun_facts = {
           //data structure
           "Fun Fact #1" : "Mario's full name is Mario Mario.", //key and value
           "Fun Fact #2" : "Mario's least favorite food is shittake mushrooms.", //single quotes to include the double quotes
@@ -302,6 +303,7 @@ const GameSetup = {
           "Fun Fact #8" : " Mario was originally a carpenter, not a plumber.",
           "Fun Fact #9" : " There are actually lyrics to the Mario theme song."
           }
+        function generate(){
           var nums = Object.keys(fun_facts);
           console.log(nums);
           var num = nums[Math.floor(Math.random()*nums.length)]
@@ -334,12 +336,13 @@ const GameSetup = {
         const hillsGameObjects = [
         // GameObject(s), the order is important to z-index...
         { name: 'mountains', id: 'background', class: BackgroundMountains,  data: this.assets.backgrounds.mountains },
+        { name: 'clouds', id: 'background', class: BackgroundClouds, data: this.assets.backgrounds.clouds },
         { name: 'hills', id: 'background', class: BackgroundHills, data: this.assets.backgrounds.hills },
         { name: 'grass', id: 'platform', class: Platform, data: this.assets.platforms.grass },
         { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: this.assets.platforms.block, xPercentage: 0.2, yPercentage: 0.85 },
         { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: this.assets.platforms.block, xPercentage: 0.2368, yPercentage: 0.85 },
         { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: this.assets.platforms.block, xPercentage: 0.2736, yPercentage: 0.85 },
-        { name: 'blocks', id: 'blockPlatform', class: BlockPlatform, data: this.assets.platforms.block, xPercentage: 0.6, yPercentage: 1 },
+        { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: this.assets.platforms.block, xPercentage: 0.6, yPercentage: 1 },
         { name: 'itemBlock', id: 'jumpPlatform', class: JumpPlatform, data: this.assets.platforms.itemBlock, xPercentage: 0.4, yPercentage: 0.65 }, //item block is a platform
         { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage: 0.3, yPercentage: 1, minPosition: 0.05},
         { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage:  0.5, yPercentage: 1, minPosition: 0.3 },
@@ -356,8 +359,10 @@ const GameSetup = {
         // GameObject(s), the order is important to z-index...
         { name: 'avenida', id: 'background', class: Background, data: this.assets.backgrounds.avenida },
         { name: 'grass', id: 'platform', class: Platform, data: this.assets.platforms.grass },
-        { name: 'bricks', id: 'jumpPlatform', class: JumpPlatform, data: this.assets.platforms.bricks, xPercentage: 0.2 },
-        { name: 'bricks', id: 'jumpPlatform', class: JumpPlatform, data: this.assets.platforms.bricks, xPercentage: 0.5 },
+        { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: this.assets.platforms.block, xPercentage: 0.2, yPercentage: 0.85 },
+        { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: this.assets.platforms.block, xPercentage: 0.2368, yPercentage: 0.85 },
+        { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: this.assets.platforms.block, xPercentage: 0.5, yPercentage: 0.85 },
+        { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: this.assets.platforms.block, xPercentage: 0.5368, yPercentage: 0.85 },
         { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage: 0.3, minPosition: 0.05},
         { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage:  0.5, minPosition: 0.3 },
         { name: 'goombaSpecial', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage:  0.75, minPosition: 0.5 }, //this special name is used for random event 2 to make sure that only one of the Goombas ends the random event
