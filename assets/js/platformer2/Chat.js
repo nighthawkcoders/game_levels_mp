@@ -4,7 +4,7 @@ import Multiplayer from './Multiplayer.js'
  * If these words are detected, a pre-written message 
  * will be displayed instead
  */
-class Chat{
+class Chat {
     constructor(wordsToAdd){
         this.prohibitedWords = ['westview', 'pee', 'poo', 
         'multiplayer', 'multi', 'leaderboard', 'enemies', 
@@ -16,8 +16,6 @@ class Chat{
 
         this.prohibitedWords.concat(wordsToAdd);
     }
-
-    
 
     sendMessage(message){
         message = this.parseMessage(message);  
