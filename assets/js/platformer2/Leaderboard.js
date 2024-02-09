@@ -1,4 +1,5 @@
 import GameEnv from "./GameEnv.js";
+import Socket from "./Multiplayer.js";
 export class Leaderboard{
     constructor(key){ //default keys for localStorage
         this.key = key;
@@ -130,6 +131,16 @@ export class Leaderboard{
         var IsOpen = false; // default sidebar is closed
         var SubmenuHeight = 0; // calculated height of submenu
         function leaderboardPanel() {
+            if (Socket.shouldBeSynced) {
+                t1.style.display = "none";
+                t2.style.display = "table";
+                // turn off local
+            } else if (!Socket.shouldBeSynced) {
+                // turn off multiplayer
+                t2.style.display = "none";
+                t1.style.display = "table";
+            }
+
             localLeaderboard.updateLeaderboardTable();
             serverLeaderboard.updateLeaderboardTable();
             // toggle isOpen
