@@ -148,6 +148,9 @@ export class Player extends Character{
         let tubeX = (.80 * GameEnv.innerWidth)
         if (this.x >= tubeX && this.x <= GameEnv.innerWidth) {
             this.x = tubeX - 1;
+
+            GameEnv.backgroundHillsSpeed = 0;
+            GameEnv.backgroundMountainsSpeed = 0;
         }
 
         //Prevent Player from Leaving from Screen
@@ -342,6 +345,15 @@ export class Player extends Character{
         if (this.playerData.hasOwnProperty(event.key)) {
             const key = event.key;
             if (!(event.key in this.pressedKeys)) {
+                //If both 'a' and 'd' are pressed, then only 'd' will be inputted
+                //Originally if this is deleted, player would stand still. 
+                if (this.pressedKeys['a'] && key === 'd') {
+                    delete this.pressedKeys['a']; // Remove "a" key from pressedKeys
+                    return; //(return) = exit early
+                } else if (this.pressedKeys['d'] && key === 'a') {
+                    // If "d" is pressed and "a" is pressed afterward, ignore "a" key
+                    return;
+                }
                 this.pressedKeys[event.key] = this.playerData[key];
                 this.setAnimation(key);
                 // player active
