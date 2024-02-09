@@ -188,7 +188,7 @@ const GameSetup = {
       backgrounds: {
         start: { src: "/images/platformer/backgrounds/home.png" },
         hills: { src: "/images/platformer/backgrounds/hills.png" },
-        avenida: { src: "/images/platformer/backgrounds/avenidawide3.jpg" },
+        avenida: { src: "/images/platformer/backgrounds/avenida.png" },
         mountains: { src: "/images/platformer/backgrounds/mountains.jpg" },
         space: { src: "/images/platformer/backgrounds/planet.jpg" },
         castles: { src: "/images/platformer/backgrounds/castles.png" },
@@ -269,9 +269,9 @@ const GameSetup = {
       },
       enemies: {
         goomba: {
-          src: "/images/platformer/sprites/goomba.png",
-          width: 448,
-          height: 452,
+          src: "/images/platformer/sprites/goombaspritesheet.png",
+          width: 1920,
+          height: 212,
           scaleSize: 60,
           speedRatio: 0.7,
           xPercentage: 0.6,
@@ -379,7 +379,6 @@ const GameSetup = {
         { name: 'wario', id: 'npcs', class: Wario, data: this.assets.npcs.Wario  ,yPercentage: 0.95},
         { name: 'speedup', id: 'speedup', class: speedup, data: this.assets.powerups.speedup, xPercentage:  0.75, minPosition: 0.5 },
         { name: 'tube', id: 'tube', class: Tube, data: this.assets.obstacles.tube },
-        { name: 'loading', id: 'background', class: BackgroundTransitions,  data: this.assets.backgrounds.loading },
         ];
         // Hills Game Level added to the GameEnv ...
         new GameLevel( {tag: "hills", callback: this.playerOffScreenCallBack, objects: hillsGameObjects } );
@@ -399,7 +398,7 @@ const GameSetup = {
         { name: 'bricks', id: 'jumpPlatform', class: JumpPlatform, data: this.assets.platforms.bricks, xPercentage: 0.5 },
         { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage: 0.3, minPosition: 0.05},
         { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage:  0.5, minPosition: 0.3 },
-        { name: 'goombaSpecial', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage:  0.75, minPosition: 0.5 }, //this special name is used for random event 2 to make sure that only one of the Goombas ends the random event
+        { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage:  0.75, minPosition: 0.5 },
         { name: 'flyingGoomba', id: 'flyingGoomba', class: FlyingGoomba, data: this.assets.enemies.flyingGoomba, xPercentage:  0.5, minPosition:  0.05},
         { name: 'flyingGoomba', id: 'flyingGoomba', class: FlyingGoomba, data: this.assets.enemies.flyingGoomba, xPercentage:  0.9, minPosition: 0.5},
         { name: 'speedup', id: 'speedup', class: speedup, data: this.assets.powerups.speedup, xPercentage:  0.75, minPosition: 0.5 },
@@ -419,12 +418,12 @@ const GameSetup = {
           { name: 'bricks', id: 'jumpPlatform', class: JumpPlatform, data: this.assets.platforms.bricks, xPercentage: 0.5 },
           { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage: 0.3, minPosition: 0.05},
           { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage:  0.5, minPosition: 0.3 },
-          { name: 'goombaSpecial', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage:  0.75, minPosition: 0.5 }, //this special name is used for random event 2 to make sure that only one of the Goombas ends the random event
+          { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage:  0.75, minPosition: 0.5 },
           { name: 'flyingGoomba', id: 'flyingGoomba', class: FlyingGoomba, data: this.assets.enemies.flyingGoomba, xPercentage:  0.5, minPosition:  0.05},
           { name: 'flyingGoomba', id: 'flyingGoomba', class: FlyingGoomba, data: this.assets.enemies.flyingGoomba, xPercentage:  0.9, minPosition: 0.5},
           { name: 'monkey', id: 'player', class: Player, data: this.assets.players.monkey },
           { name: 'tube', id: 'tube', class: Tube, data: this.assets.obstacles.tube },
-          { name: 'complete2', id: 'background', class: BackgroundTransitions,  data: this.assets.backgrounds.complete2 },
+          { name: 'complete', id: 'background', class: BackgroundTransitions,  data: this.assets.backgrounds.complete },
         ];
         // Avenida Game Level added to the GameEnv ...
         new GameLevel( {tag: "space", callback: this.playerOffScreenCallBack, objects: spaceGameObjects} );
