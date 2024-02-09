@@ -61,7 +61,7 @@
   width: fit-content;
 
   // Styles for the score and buttons
-  #score, #gameBegin, #gameOver, #settings, #leaderboard, #serverLeaderboard, #personalLeaderboard {
+  #score, #gameBegin, #gameOver, #settings, #leaderboard {
     display: inline-block; // Make the score and buttons inline
     margin-right: $spacing-unit; // Add some margin to the right of each item
   }

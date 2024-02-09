@@ -43,11 +43,8 @@ image: /images/platformer/backgrounds/home.png
         <!-- Background controls -->
         <button id="settings-button">Settings</button>
     </div>
-    <div id="serverLeaderboard"> <!-- Controls -->
-        <button id="leaderboard-button">Server Leaderboard</button>
-    </div>
-    <div id="personalLeaderboard"> <!-- Controls -->
-        <button id="leaderboard-button">Local Leaderboard</button>
+    <div id="Leaderboard"> <!-- Controls -->
+        <button id="leaderboard-button">Leaderboard</button>
     </div>
   </div>
   <!-- JavaScript-generated canvas items are inserted here -->
