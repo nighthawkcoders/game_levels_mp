@@ -28,7 +28,7 @@ permalink: /about/
                 <td>Nora</td>
                 <td>Xavier</td>
                 <td>Daisy</td>
-                <td>Matthew</td>
+                <td><a href="https://matthewborabo.github.io/student2.0/">Matthew</a></td>
             </tr>
             <tr>
                 <td>Nathan</td>
