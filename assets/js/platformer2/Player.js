@@ -301,6 +301,7 @@ export class Player extends Character{
                 }
             }
         } */
+    }
         if (this.collisionData.touchPoints.other.id === "jumpPlatform") {
             // Player is on top of the Jump platform
             if (this.collisionData.touchPoints.other.left) {
@@ -326,8 +327,9 @@ export class Player extends Character{
             this.movement.down = true;          
             this.gravityEnabled = true;
         }
-    }
-    
+
+
+
     /**
      * Handles the keydown event.
      * This method checks the pressed key, then conditionally:
@@ -336,8 +338,9 @@ export class Player extends Character{
      * - adjusts the game environment
      *
      * @param {Event} event - The keydown event.
-     */    
-    handleKeyDown(event) {
+     */  
+    
+    handleKeyDown(event); {
         if (this.playerData.hasOwnProperty(event.key)) {
             const key = event.key;
             if (!(event.key in this.pressedKeys)) {
@@ -367,7 +370,7 @@ export class Player extends Character{
                  GameEnv.backgroundMountainsSpeed = 0.1;
             } */ // This was unnecessary, and broke hitboxes / alloswed diffusion through matter
         }
-    }
+    
 
     /**
      * Handles the keyup event.
@@ -375,7 +378,8 @@ export class Player extends Character{
      * *
      * @param {Event} event - The keyup event.
      */
-    handleKeyUp(event) {
+    
+    handleKeyUp(event); {
         if (this.playerData.hasOwnProperty(event.key)) {
             const key = event.key;
             if (event.key in this.pressedKeys) {
