@@ -7,8 +7,8 @@ export class BlockPlatform extends GameObject {
         this.platformY = yPercentage;
     }
     // Required, but no update action
-    update() {
-    }
+    update() {}
+    
 
     // Draw position is always 0,0
     draw() {

@@ -21,6 +21,7 @@ export class Player extends Character{
         super(canvas, image, data, widthPercentage, heightPercentage);
         // Player Data is required for Animations
         this.playerData = data;
+        GameEnv.invincible = false; 
 
         // Player control data
         this.moveSpeed = this.speed * 3;
@@ -212,7 +213,8 @@ export class Player extends Character{
             this.movement.left = true;
             this.movement.right = true;
         }
-        // Checks if collision touchpoint id is either "goomba" or "flyingGoomba"
+
+        // Goomba left/right collision
         if (["goomba", "flyingGoomba"].includes(this.collisionData.touchPoints.other.id)) {
             const direction = this.collisionData.touchPoints.other.left ? -1 : 1;
             if (GameEnv.difficulty === "easy") {
@@ -226,7 +228,15 @@ export class Player extends Character{
 
                 // reset player to the beginning of level
                 playPlayerDeath();
-                GameEnv.deaths++;
+
+                    if (this.isDying == false) {
+                        this.isDying = true;
+                        setTimeout(async() => {
+                            await GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
+                            console.log("level restart")
+                            this.isDying = false;
+                        }, 700); 
+                    }   
 
                 if (this.isDying === false) {
                     this.isDying = true;
@@ -237,11 +247,8 @@ export class Player extends Character{
                     }, 700); 
                 }   
             }
-                if (this.collisionData.touchPoints.this.top) {
-                    // Игрок находится сверху Goomba
-                    this.y -= 200;  // Измените высоту отскока по ys
-                    this.setAnimation(this.directionKey);
-                }
+
+            }    
         }
         // Goomba left/right collision
         /* if (["goomba", "flyingGoomba"].includes(this.collisionData.touchPoints.other.id)) {

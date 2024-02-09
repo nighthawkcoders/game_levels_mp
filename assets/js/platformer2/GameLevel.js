@@ -36,6 +36,8 @@ class GameLevel {
     async load() {
         Socket.removeAllListeners("stateUpdate") //reset Socket Connections
         Socket.removeAllListeners("disconnection")
+        Socket.removeAllListeners("leaderboardUpdate")
+        Socket.createListener("leaderboardUpdate",this.handleLeaderboardUpdates)
         Socket.createListener("stateUpdate",this.handleStateUpdates)
         Socket.createListener("disconnection",this.handleSocketDisconnect)
         try {
@@ -109,6 +111,16 @@ class GameLevel {
                 gameObj.destroy();
             }
         }
+    }
+
+    handleLeaderboardUpdates(data) {
+        const existingTimeScores = JSON.parse(localStorage.getItem('GtimeScores')) || [];
+        
+        existingTimeScores.push(data);
+        // Log the updated array to the console for debugging
+        console.log(existingTimeScores);
+        // Save the updated array to local storage
+        localStorage.setItem('GtimeScores', JSON.stringify(existingTimeScores));
     }
 }
 
