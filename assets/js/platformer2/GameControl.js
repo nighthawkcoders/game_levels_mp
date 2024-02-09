@@ -7,6 +7,7 @@
  * - call or add listener to GameControl.startTimer() to start the game timer.
  */
 import GameEnv from './GameEnv.js';
+import Socket from './Multiplayer.js';
 import SettingsControl from "./SettingsControl.js";
 
 /**
@@ -57,10 +58,11 @@ const GameControl = {
         if (id.hidden == false) {
             this.stopTimer();
             // Get the current user ID from SettingsControl
-            const userID = GameEnv.userID;
+            const userID = GameEnv.userID
     
             // Retrieve existing time scores from local storage
             const existingTimeScores = JSON.parse(localStorage.getItem('timeScores')) || [];
+            const existingTimeScores2 = JSON.parse(localStorage.getItem('GtimeScores')) || [];
         
             // Add the new time score with user ID to the array
             const newTimeScore = {
@@ -69,12 +71,16 @@ const GameControl = {
                 // You can add more properties if needed
             };
             existingTimeScores.push(newTimeScore);
+            existingTimeScores2.push(newTimeScore);
 
             // Log the updated array to the console for debugging
             console.log(existingTimeScores);
 
             // Save the updated array to local storage
             localStorage.setItem('timeScores', JSON.stringify(existingTimeScores));
+            localStorage.setItem('GtimeScores', JSON.stringify(existingTimeScores2));
+
+            Socket.sendData("leaderboard",elapsedTime.toFixed(2));
         
         }
     
@@ -86,6 +92,7 @@ const GameControl = {
             // Get the current user ID from SettingsControl
             const userID = SettingsControl.userID;
     
+            /*
             // Retrieve existing time scores from local storage
             const existingTimeScores = JSON.parse(localStorage.getItem('timeScore')) || [];
     
@@ -116,6 +123,7 @@ const GameControl = {
                 localStorage.setItem('timeScores', JSON.stringify(existingTimeScores));
 
             }
+            */
         }
     },    
         
