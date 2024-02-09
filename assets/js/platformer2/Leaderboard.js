@@ -18,8 +18,6 @@ export class Leaderboard{
         header.append(th2);
         t.append(header);
 
-        timeScores.sort((a, b) => parseFloat(a.time) - parseFloat(b.time));
-
         // Populate the table with time scores
         timeScores.forEach(score => {
             var row = document.createElement("tr");
