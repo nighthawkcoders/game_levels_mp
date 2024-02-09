@@ -4,6 +4,8 @@ import GameControl from './GameControl.js';
 import playJump from './Audio1.js';
 import playPlayerDeath from './Audio2.js';
 import Socket from './Multiplayer.js';
+import playGoombaDeath from './Audio.js';
+const audio = new Audio('/game_levels_mp/audio/2024-01-21-MarioJump.mp3');
 
 /**
  * @class Player class
@@ -148,6 +150,9 @@ export class Player extends Character{
         let tubeX = (.80 * GameEnv.innerWidth)
         if (this.x >= tubeX && this.x <= GameEnv.innerWidth) {
             this.x = tubeX - 1;
+
+            GameEnv.backgroundHillsSpeed = 0;
+            GameEnv.backgroundMountainsSpeed = 0;
         }
 
         //Prevent Player from Leaving from Screen
@@ -214,6 +219,22 @@ export class Player extends Character{
             this.movement.right = true;
         }
 
+
+        // Goomba left/right collision
+            if (this.collisionData.touchPoints.other.id === "speedup") {
+                // Collision with the left side of the speedup
+                if (this.collisionData.touchPoints.other.left) {
+                    this.speed = this.speed *6
+                }
+                // Collision with the right side of the speedup
+                if (this.collisionData.touchPoints.other.right) {
+                    this.speed = this.speed *6
+                }
+                // Collision with the top of the player
+                if (this.collisionData.touchPoints.other.bottom) {
+                    this.speed = this.speed *6
+                    }
+                }
         // Goomba left/right collision
         if (["goomba", "flyingGoomba"].includes(this.collisionData.touchPoints.other.id)) {
             // Collision with the left side of the Enemy
@@ -247,6 +268,7 @@ export class Player extends Character{
                     }, 700); 
                 }   
             }
+            
 
             }    
         }
@@ -342,6 +364,15 @@ export class Player extends Character{
         if (this.playerData.hasOwnProperty(event.key)) {
             const key = event.key;
             if (!(event.key in this.pressedKeys)) {
+                //If both 'a' and 'd' are pressed, then only 'd' will be inputted
+                //Originally if this is deleted, player would stand still. 
+                if (this.pressedKeys['a'] && key === 'd') {
+                    delete this.pressedKeys['a']; // Remove "a" key from pressedKeys
+                    return; //(return) = exit early
+                } else if (this.pressedKeys['d'] && key === 'a') {
+                    // If "d" is pressed and "a" is pressed afterward, ignore "a" key
+                    return;
+                }
                 this.pressedKeys[event.key] = this.playerData[key];
                 this.setAnimation(key);
                 // player active

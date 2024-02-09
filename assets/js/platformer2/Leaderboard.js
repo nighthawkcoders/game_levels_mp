@@ -1,16 +1,8 @@
-import LocalStorage from "./LocalStorage.js";
 import GameEnv from "./GameEnv.js";
-export class Leaderboard extends LocalStorage {
-    constructor(){ //default keys for localStorage
-        var keys = {
-        }; 
-        super(keys); //creates this.keys
+export class Leaderboard{
+    constructor(key){ //default keys for localStorage
+        this.key = key;
     }
-    initialize(){ 
-        // Load all keys from local storage
-        this.loadAll();
-    }
-
 
     get leaderboardTable(){
         // create table element
@@ -27,7 +19,7 @@ export class Leaderboard extends LocalStorage {
         t.append(header);
 
         // Fetch time scores from local storage
-        const timeScores = JSON.parse(localStorage.getItem('timeScores')) || [];
+        const timeScores = JSON.parse(localStorage.getItem(this.k)) || [];
 
         timeScores.sort((a, b) => parseFloat(a.time) - parseFloat(b.time));
 
@@ -42,6 +34,8 @@ export class Leaderboard extends LocalStorage {
             row.append(td2);
             t.append(row);
         });
+
+        this.table = t;
 
         return t;
     }
@@ -82,10 +76,11 @@ export class Leaderboard extends LocalStorage {
 
     updateLeaderboardTable() {
         // Fetch time scores from local storage
-        const timeScores = JSON.parse(localStorage.getItem('timeScores')) || [];
+        const timeScores = JSON.parse(localStorage.getItem(this.key)) || [];
+        console.log(timeScores,this.key)
 
         // Get the existing table element
-        const table = document.querySelector(".table.scores");
+        const table = this.table;
 
         // Clear the table content
         table.innerHTML = "";
@@ -167,13 +162,15 @@ export class Leaderboard extends LocalStorage {
     }
 
     static leaderboardDropDown() {
-        var newLeaderboard = new Leaderboard();
-        newLeaderboard.initialize();
+        var localLeaderboard = new Leaderboard("timeScores");
+        var serverLeaderboard = new Leaderboard("GtimeScores")
 
-        var score = newLeaderboard.leaderboardTable;
-        document.getElementById("leaderboardDropDown").append(score);
+        var t1 = localLeaderboard.leaderboardTable;
+        var t2 = serverLeaderboard.leaderboardTable;
+        document.getElementById("leaderboardDropDown").append(t1);
+        document.getElementById("leaderboardDropDown").append(t2);
 
-        var clearButton = newLeaderboard.clearButton;
+        var clearButton = localLeaderboard.clearButton;
         document.getElementById("leaderboardDropDown").append(clearButton);
 
         var leaderboardSwitchButton = newLeaderboard.leaderboardSwitchButton;
@@ -185,12 +182,13 @@ export class Leaderboard extends LocalStorage {
         var IsOpen = false; // default sidebar is closed
         var SubmenuHeight = 0; // calculated height of submenu
         function leaderboardPanel() {
-            newLeaderboard.updateLeaderboardTable();
+            localLeaderboard.updateLeaderboardTable();
+            serverLeaderboard.updateLeaderboardTable();
             // toggle isOpen
             IsOpen = !IsOpen;
             // open and close properties for sidebar based on isOpen
             var leaderboard = document.querySelector('.leaderboardDropDown');
-            leaderboard.style.width = IsOpen?"200px":"0px";
+            leaderboard.style.width = IsOpen?"80%":"0px";
             leaderboard.style.paddingLeft = IsOpen?"10px":"0px";
             leaderboard.style.paddingRight = IsOpen?"10px":"0px";
             leaderboard.style.top = `calc(${SubmenuHeight}px + ${GameEnv.top}px)`;
