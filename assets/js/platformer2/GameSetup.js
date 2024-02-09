@@ -269,9 +269,9 @@ const GameSetup = {
       },
       enemies: {
         goomba: {
-          src: "/images/platformer/sprites/goombaspritesheet.png",
-          width: 1920,
-          height: 212,
+          src: "/images/platformer/sprites/goomba.png",
+          width: 448,
+          height: 452,
           scaleSize: 60,
           speedRatio: 0.7,
           xPercentage: 0.6,
