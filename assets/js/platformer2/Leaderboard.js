@@ -82,18 +82,22 @@ export class Leaderboard extends LocalStorage {
     get clearButton() {
         const div = document.createElement("div");
         div.innerHTML = "Clear Leaderboard: ";
-    
+        
         const button = document.createElement("button");
         button.innerText = "Clear!";
-
+    
         button.addEventListener("click", () => {
-            localStorage.clear();
-            this.updateLeaderboardTable();
+            const confirmed = confirm("Are you sure you want to clear the leaderboard?");
+            if (confirmed) {
+                localStorage.clear();
+                this.updateLeaderboardTable();
+            }
         });
-
+    
         div.append(button); // wrap button element in div
         return div;
     }
+    
 
     get filter() {
         const div = document.createElement("div");
@@ -129,6 +133,7 @@ export class Leaderboard extends LocalStorage {
         var IsOpen = false; // default sidebar is closed
         var SubmenuHeight = 0; // calculated height of submenu
         function leaderboardPanel() {
+            newLeaderboard.updateLeaderboardTable();
             // toggle isOpen
             IsOpen = !IsOpen;
             // open and close properties for sidebar based on isOpen

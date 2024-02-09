@@ -406,12 +406,13 @@ export class SettingsControl extends LocalStorage{
         chatBoxContainer.style.display = "none";
         chatBoxContainer.style.zIndex = 2;
         chatBoxContainer.style.position = "absolute";
-        chatBoxContainer.style.top = "50%";
+        chatBoxContainer.style.top = "70%";
         chatBoxContainer.style.left = "50%";
         chatBoxContainer.style.width = "50%";
-        chatBoxContainer.style.height = "50%";
-        chatBoxContainer.style.backgroundColor = "white";
-        chatBoxContainer.style.borderRadius = "5%";
+        chatBoxContainer.style.height = "30%";
+        chatBoxContainer.style.backgroundColor = "grey";
+        chatBoxContainer.style.opacity = "65%";
+        chatBoxContainer.style.borderRadius = "1%";
         chatBox.style.position = "relative";
         chatBox.style.resize = "both";
         chatBox.style.overflow = "auto";
@@ -428,7 +429,7 @@ export class SettingsControl extends LocalStorage{
         chatButton.style.bottom = "0%";
 
 
-        document.getElementById("leaderboard").insertAdjacentElement("afterend",chatBoxContainer);
+        document.getElementById("sidebar").insertAdjacentElement("afterend",chatBoxContainer);
 
         var isShown = false;
         button.addEventListener("click", () => {
