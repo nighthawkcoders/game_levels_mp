@@ -26,7 +26,6 @@ image: /images/platformer/backgrounds/home.png
 <!--Audio for death of player -->
 <audio id ="PlayerDeath" src="{{site.baseurl}}/assets/audio/MarioDeath.mp3" preload="auto"></audio>
 
-
 <!-- Wrap both the controls and gameplay in a container div -->
 <div id="canvasContainer">
   <div class="submenu">
@@ -46,6 +45,7 @@ image: /images/platformer/backgrounds/home.png
     <div id="leaderboard"> <!-- Controls -->
         <button id="leaderboard-button">Leaderboard</button>
     </div>
+    <img src="/images/platformer/platforms/grass.png" alt="My Image">
   </div>
   <!-- JavaScript-generated canvas items are inserted here -->
 </div>
