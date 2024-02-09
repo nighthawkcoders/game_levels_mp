@@ -40,40 +40,6 @@ export class Leaderboard{
         return t;
     }
 
-    get GleaderboardTable(){
-        // create table element
-        var t = document.createElement("table");
-        t.className = "table scores";
-        //create table header
-        var header = document.createElement("tr");
-        var th1 = document.createElement("th");
-        th1.innerText = "Name";
-        header.append(th1);
-        var th2 = document.createElement("th");
-        th2.innerText = "Score";
-        header.append(th2);
-        t.append(header);
-
-        // Fetch time scores from local storage
-        const timeScores = JSON.parse(localStorage.getItem('GtimeScores')) || [];
-
-        timeScores.sort((a, b) => parseFloat(a.time) - parseFloat(b.time));
-
-        // Populate the table with time scores
-        timeScores.forEach(score => {
-            var row = document.createElement("tr");
-            var td1 = document.createElement("td");
-            td1.innerText = score.userID;
-            row.append(td1);
-            var td2 = document.createElement("td");
-            td2.innerText = score.time;
-            row.append(td2);
-            t.append(row);
-        });
-
-        return t;
-    }
-
     updateLeaderboardTable() {
         // Fetch time scores from local storage
         const timeScores = JSON.parse(localStorage.getItem(this.key)) || [];
@@ -126,21 +92,6 @@ export class Leaderboard{
         div.append(button); // wrap button element in div
         return div;
     }
-
-    get leaderboardSwitchButton() {
-        const div = document.createElement("div");
-        div.innerHTML = "Switch Leaderboard";
-        
-        const button = document.createElement("button");
-        button.innerText = "Switch";
-    
-        button.addEventListener("click", () => {
-
-        });
-    
-        div.append(button); // wrap button element in div
-        return div;
-    }
     
 
     get filter() {
@@ -172,9 +123,6 @@ export class Leaderboard{
 
         var clearButton = localLeaderboard.clearButton;
         document.getElementById("leaderboardDropDown").append(clearButton);
-
-        var leaderboardSwitchButton = newLeaderboard.leaderboardSwitchButton;
-        document.getElementById("leaderboardDropDown").append(leaderboardSwitchButton);
 
         //var filterDropDown = newLeaderboard.filter;
         //document.getElementById("leaderboardDropDown").append(filterDropDown);
