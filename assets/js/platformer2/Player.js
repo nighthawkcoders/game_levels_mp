@@ -116,6 +116,11 @@ export class Player extends Character{
         //Update the Player Position Variables to match the position of the player
         GameEnv.PlayerPosition.playerX = this.x;
         GameEnv.PlayerPosition.playerY = this.y;
+        console.log(GameEnv.invincible)
+        console.log(GameEnv.invincible)
+        console.log(GameEnv.invincible)
+        console.log(GameEnv.invincible)
+        console.log(GameEnv.invincible)
 
         // Player moving right 
         if (this.isActiveAnimation("a")) {
@@ -247,91 +252,25 @@ export class Player extends Character{
         // Goomba left/right collision
         if (["goomba", "flyingGoomba"].includes(this.collisionData.touchPoints.other.id)) {
             // Collision with the left side of the Enemy
-            if (this.collisionData.touchPoints.other.left && GameEnv.invincible === false) {
-
-                //Animate player death
-                this.canvas.style.transition = "transform 0.5s";
-                this.canvas.style.transform = "rotate(-90deg) translate(-26px, 0%)";
-
+            if (this.collisionData.touchPoints.other.left || this.collisionActionData.touchPoints.other.right) {
                 if (GameEnv.difficulty === "easy") {
                     this.x -= 10;
-                } else {
+                } else if (GameEnv.invincible === false) {
+                    //Animate player death
+                    this.canvas.style.transition = "transform 0.5s";
+                    this.canvas.style.transform = "rotate(-90deg) translate(-26px, 0%)";
                     //Reset Player to Beginning
                     playPlayerDeath();
-
-                    if (this.isDying == false) {
-                        this.isDying = true;
-                        setTimeout(async() => {
-                            await GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
-                            console.log("level restart")
-                            this.isDying = false;
-                        }, 700); 
-                    }   
-
-                if (this.isDying === false) {
                     this.isDying = true;
-                    // restart current level after delay
                     setTimeout(async() => {
-                        await GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
-                        this.isDying = false;
-                    }, 700); 
-                }   
+                            await GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
+                            console.log("level restart")
+                            this.isDying = false;
+                    }, 1000);
+                    
+                }
             }
-
-            }    
         }
-        // Goomba left/right collision
-        /* if (["goomba", "flyingGoomba"].includes(this.collisionData.touchPoints.other.id)) {
-            // Collision with the left side of the Enemy
-            if (this.collisionData.touchPoints.other.left) {
-
-                //Animate player death
-                this.canvas.style.transition = "transform 0.5s";
-                this.canvas.style.transform = "rotate(-90deg) translate(-26px, 0%)";
-
-                if (GameEnv.difficulty === "easy") {
-                    this.x -= 10;
-                } else {
-                    //Reset Player to Beginning
-                    playPlayerDeath();
-                    if (this.isDying == false) {
-                        this.isDying = true;
-                        setTimeout(async() => {
-                            await GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
-                            console.log("level restart")
-                            this.isDying = false;
-                        }, 700); 
-                    }   
-                    //GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
-                }
-            }
-            // Collision with the right side of the Enemy
-            if (this.collisionData.touchPoints.other.right) {
-            //Animate player death
-                this.canvas.style.transition = "transform 0.5s";
-                this.canvas.style.transform = "rotate(90deg) translate(26px, 0%)";
-                if (["normal","hard"].includes(GameEnv.difficulty)) {
-                if (GameEnv.difficulty === "easy") {
-                    this.x += 10;
-                } else {
-                    //Reset Player to Beginning
-                    // if statement prevents timeout from running multiple times
-                    if (this.isDying == false) {
-                        this.isDying = true;
-                        setTimeout(async() => {
-                            await GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
-                            console.log("level restart")
-                            this.isDying = false;
-                        }, 700); 
-                    }       
-                    //GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
-                }} else {
-                    this.x -= 10;
-                    playPlayerDeath();
-                    GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
-                }
-            }
-        } */
         if (this.collisionData.touchPoints.other.id === "jumpPlatform") {
             // Player is on top of the Jump platform
             if (this.collisionData.touchPoints.other.left) {

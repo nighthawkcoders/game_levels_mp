@@ -8,9 +8,6 @@ export class Goomba extends Character {
     constructor(canvas, image, data, xPercentage, yPercentage, name, minPosition){
         super(canvas, image, data, 0.0, 0.2);
 
-        //Invincibility
-        this.invincible = false;
-
         //Unused but must be Defined
         this.name = name;
         this.y = yPercentage;
@@ -103,19 +100,21 @@ export class Goomba extends Character {
         }
 
         if (this.collisionData.touchPoints.other.id === "player") {
+            setTimeout(async() => {
+                GameEnv.invincible = true;
+            }, 100);
             // Collision: Top of Goomba with Bottom of Player
             if (this.collisionData.touchPoints.other.bottom) {
                 this.canvas.style.transition = "transform 2s, opacity 1s";
                 this.canvas.style.transformOrigin = "bottom"; // Set the transform origin to the bottom
                 this.canvas.style.transform = "scaleY(0)"; // Make the Goomba flat
                 this.speed = 0;
-                GameEnv.invincible = true;
                 playGoombaDeath();
 
                 // Set a timeout to make GameEnv.invincible false after 2000 milliseconds (2 seconds)
                 setTimeout(function () {
-                this.destroy();
                 GameEnv.invincible = false;
+                this.destroy();
                 }, 2000);
             }
         }
