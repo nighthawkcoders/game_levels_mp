@@ -131,6 +131,21 @@ export class Leaderboard extends LocalStorage {
         div.append(button); // wrap button element in div
         return div;
     }
+
+    get leaderboardSwitchButton() {
+        const div = document.createElement("div");
+        div.innerHTML = "Switch Leaderboard";
+        
+        const button = document.createElement("button");
+        button.innerText = "Switch";
+    
+        button.addEventListener("click", () => {
+
+        });
+    
+        div.append(button); // wrap button element in div
+        return div;
+    }
     
 
     get filter() {
@@ -160,6 +175,9 @@ export class Leaderboard extends LocalStorage {
 
         var clearButton = newLeaderboard.clearButton;
         document.getElementById("leaderboardDropDown").append(clearButton);
+
+        var leaderboardSwitchButton = newLeaderboard.leaderboardSwitchButton;
+        document.getElementById("leaderboardDropDown").append(leaderboardSwitchButton);
 
         //var filterDropDown = newLeaderboard.filter;
         //document.getElementById("leaderboardDropDown").append(filterDropDown);

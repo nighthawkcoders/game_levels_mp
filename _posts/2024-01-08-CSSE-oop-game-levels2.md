@@ -43,7 +43,7 @@ image: /images/platformer/backgrounds/home.png
         <!-- Background controls -->
         <button id="settings-button">Settings</button>
     </div>
-    <div id="Leaderboard"> <!-- Controls -->
+    <div id="leaderboard"> <!-- Controls -->
         <button id="leaderboard-button">Leaderboard</button>
     </div>
   </div>
