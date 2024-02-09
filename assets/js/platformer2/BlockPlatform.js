@@ -8,7 +8,6 @@ export class BlockPlatform extends GameObject {
     }
     // Required, but no update action
     update() {
-        console.log(this.platformY)
     }
 
     // Draw position is always 0,0
