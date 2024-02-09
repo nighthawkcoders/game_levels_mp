@@ -17,6 +17,9 @@ class Chat {
         this.prohibitedWords.concat(wordsToAdd);
     }
 
+    soundSource = "/game_levels_mp/assets/audio/discord-ping.mp3";
+    soundArray = [];
+
     sendMessage(message){
         message = this.parseMessage(message);  
         Multiplayer.sendData("message",message);
