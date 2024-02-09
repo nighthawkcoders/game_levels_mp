@@ -18,18 +18,6 @@ export class Leaderboard{
         header.append(th2);
         t.append(header);
 
-        // Populate the table with time scores
-        timeScores.forEach(score => {
-            var row = document.createElement("tr");
-            var td1 = document.createElement("td");
-            td1.innerText = score.userID;
-            row.append(td1);
-            var td2 = document.createElement("td");
-            td2.innerText = score.time;
-            row.append(td2);
-            t.append(row);
-        });
-
         this.table = t;
 
         return t;
