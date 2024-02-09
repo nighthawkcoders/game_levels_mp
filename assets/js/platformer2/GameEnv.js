@@ -65,6 +65,10 @@ export class GameEnv {
     static top;
     static bottom;
     static prevBottom;
+    static goombaDeaths = 0;
+    static uniqueGoombaDeaths = 0;
+    static coinsCollected = 0;
+    static deaths = 0;
 
 
     

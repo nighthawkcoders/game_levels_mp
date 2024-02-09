@@ -226,6 +226,7 @@ export class Player extends Character{
 
                 // reset player to the beginning of level
                 playPlayerDeath();
+                GameEnv.deaths++;
 
                 if (this.isDying === false) {
                     this.isDying = true;
