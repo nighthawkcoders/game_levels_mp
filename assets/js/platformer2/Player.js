@@ -4,6 +4,8 @@ import GameControl from './GameControl.js';
 import playJump from './Audio1.js';
 import playPlayerDeath from './Audio2.js';
 import Socket from './Multiplayer.js';
+import playGoombaDeath from './Audio.js';
+const audio = new Audio('/game_levels_mp/audio/2024-01-21-MarioJump.mp3');
 
 /**
  * @class Player class
@@ -217,6 +219,22 @@ export class Player extends Character{
             this.movement.right = true;
         }
 
+
+        // Goomba left/right collision
+            if (this.collisionData.touchPoints.other.id === "speedup") {
+                // Collision with the left side of the speedup
+                if (this.collisionData.touchPoints.other.left) {
+                    this.speed = this.speed *6
+                }
+                // Collision with the right side of the speedup
+                if (this.collisionData.touchPoints.other.right) {
+                    this.speed = this.speed *6
+                }
+                // Collision with the top of the player
+                if (this.collisionData.touchPoints.other.bottom) {
+                    this.speed = this.speed *6
+                    }
+                }
         // Goomba left/right collision
         if (["goomba", "flyingGoomba"].includes(this.collisionData.touchPoints.other.id)) {
             // Collision with the left side of the Enemy
@@ -250,6 +268,7 @@ export class Player extends Character{
                     }, 700); 
                 }   
             }
+            
 
             }    
         }
