@@ -45,6 +45,7 @@ image: /images/draw_io_ClassDiagram.png
     var assets = {
       obstacles: {
         tube: { src: "/images/platformer/obstacles/tube.png" },
+        coin: { src: "/images/platformer/obstacles/coin.png" }
       },
       platforms: {
         grass: { src: "/images/platformer/platforms/grass.png" },
@@ -163,7 +164,7 @@ image: /images/draw_io_ClassDiagram.png
     new GameLevel( {tag: "start", callback: startGameCallback } );
     new GameLevel( {tag: "home", background: assets.backgrounds.start, callback: homeScreenCallback } );
     // Game screens
-    new GameLevel( {tag: "hills", background: assets.backgrounds.hills, platform: assets.platforms.grass, player: assets.players.mario, tube: assets.obstacles.tube, callback: testerCallBack } );
+    new GameLevel( {tag: "hills", background: assets.backgrounds.hills, platform: assets.platforms.grass, player: assets.players.mario, tube: assets.obstacles.tube, coin: assets.obstacles.coin, callback: testerCallBack } );
     new GameLevel( {tag: "alien", background: assets.backgrounds.planet, platform: assets.platforms.alien, player: assets.players.monkey, callback: testerCallBack } );
     // Game Over screen
     new GameLevel( {tag: "end", background: assets.backgrounds.end, callback: gameOverCallBack } );
