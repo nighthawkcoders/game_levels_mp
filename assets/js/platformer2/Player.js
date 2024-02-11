@@ -248,8 +248,7 @@ export class Player extends Character{
                 }   
             }
 
-            }    
-        }
+            }
         // Goomba left/right collision
         /* if (["goomba", "flyingGoomba"].includes(this.collisionData.touchPoints.other.id)) {
             // Collision with the left side of the Enemy

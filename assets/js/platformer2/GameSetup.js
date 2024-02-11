@@ -305,7 +305,6 @@ const GameSetup = {
           }
         function generate(){
           var nums = Object.keys(fun_facts);
-          console.log(nums);
           var num = nums[Math.floor(Math.random()*nums.length)]
           var fun_fact = fun_facts[num]; //using dictionary
           //access ids
