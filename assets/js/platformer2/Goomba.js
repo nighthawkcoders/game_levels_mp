@@ -14,7 +14,6 @@ export class Goomba extends Character {
         //Unused but must be Defined
         this.name = name;
         this.y = yPercentage;
-        goombaDeath = 0;
 
         //Initial Position of Goomba
         this.x = xPercentage * GameEnv.innerWidth;
@@ -115,7 +114,6 @@ export class Goomba extends Character {
                 super.destroy();
                 GameEnv.goombaDeaths++;
                 playGoombaDeath();
-
                 // Set a timeout to make GameEnv.invincible false after 2000 milliseconds (2 seconds)
                 setTimeout(function () {
                 this.destroy();
