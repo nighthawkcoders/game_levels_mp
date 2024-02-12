@@ -50,11 +50,6 @@ const GameControl = {
      * @function updateTimer
      * @memberof GameControl
      */
-    calculateScore() {
-        score = ( GameEnv.goombaDeaths*100 + GameEnv.uniqueGoombaDeaths*300 + GameEnv.coinsCollected*100 - ((Date.now() - this.startTime) / 1000));
-        return score;
-    },
-
     updateTimer() {
         const id = document.getElementById("gameOver");
     

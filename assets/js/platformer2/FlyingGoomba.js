@@ -92,7 +92,6 @@ export class FlyingGoomba extends Character {
             if (this.collisionData.touchPoints.other.bottom && this.immune === 0) {
                 this.x = GameEnv.innerWidth + 1;
                 playGoombaDeath();
-                GameEnv.uniqueGoombaDeaths++;
                 this.destroy();
             }
         }    
