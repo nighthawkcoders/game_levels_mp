@@ -123,8 +123,6 @@ image: /images/platformer/backgrounds/home.png
         function showMessage(){
             var x = cutStory;
             x.className = 'show'; // change class name to show
-            console.log("class name before: "+x.className);
-            console.log("inner HTML: "+x.innerText);
             //only want to last 3 secs
             setTimeout(function(){x.className = x.className.replace('show',' ');}, 2000); //replace show with an empty string
              setTimeout(function(){x.className = x.className.replace(' ','hide');}, 2000);
