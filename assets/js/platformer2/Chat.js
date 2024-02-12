@@ -92,7 +92,7 @@ class Chat {
         button.addEventListener("click",onMessage.bind(this));
 
         function KeyCheck(e){
-            console.log(this)
+            //console.log(this)
             if(e.key == "Enter"){
                 onMessage.bind(this)()
             }

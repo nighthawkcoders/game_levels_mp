@@ -100,25 +100,27 @@ export class Goomba extends Character {
         }
 
         if (this.collisionData.touchPoints.other.id === "player") {
-            setTimeout(async() => {
-                GameEnv.invincible = true;
-            }, 100);
             // Collision: Top of Goomba with Bottom of Player
-            if (this.collisionData.touchPoints.other.bottom) {
+            //console.log(this.collisionData.touchPoints.other.bottom + 'bottom')
+            //console.log(this.collisionData.touchPoints.other.top + "top")
+            //console.log(this.collisionData.touchPoints.other.right + "right")
+            //console.log(this.collisionData.touchPoints.other.left + "left")
+            
+            if (this.collisionData.touchPoints.other.bottom && this.immune == 0) {
+                GameEnv.invincible = true;
+                GameEnv.goombaBounce = true;
                 this.canvas.style.transition = "transform 2s, opacity 1s";
                 this.canvas.style.transformOrigin = "bottom"; // Set the transform origin to the bottom
                 this.canvas.style.transform = "scaleY(0)"; // Make the Goomba flat
                 this.speed = 0;
                 playGoombaDeath();
 
-                // Set a timeout to make GameEnv.invincible false after 2000 milliseconds (2 seconds)
-                setTimeout(function () {
-                GameEnv.invincible = false;
-                this.destroy();
-                }, 2000);
+                setTimeout((function() {
+                    GameEnv.invincible = false;
+                    this.destroy();
+                }).bind(this), 1500);
             }
         }
-
 
         if (this.collisionData.touchPoints.other.id === "goomba") {
             if (GameEnv.difficulty !== "impossible" && (this.collisionData.touchPoints.other.left || this.collisionData.touchPoints.other.right)) {
