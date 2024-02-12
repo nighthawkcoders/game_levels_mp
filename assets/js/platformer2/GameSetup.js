@@ -11,11 +11,11 @@ import Platform from './Platform.js';
 import JumpPlatform from './JumpPlatform.js';
 import Player from './Player.js';
 import Tube from './Tube.js';
-import Coin from './Coin.js';
 import Tree from './Tree.js';
 import Goomba from './Goomba.js';
 import FlyingGoomba from './FlyingGoomba.js';
 import BlockPlatform from './BlockPlatform.js'
+import Coin from './Coin.js';
 
 
 /* Coding Style Notes
@@ -308,6 +308,7 @@ const GameSetup = {
           }
         function generate(){
           var nums = Object.keys(fun_facts);
+          console.log(nums);
           var num = nums[Math.floor(Math.random()*nums.length)]
           var fun_fact = fun_facts[num]; //using dictionary
           //access ids
@@ -351,7 +352,6 @@ const GameSetup = {
         { name: 'goombaSpecial', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage:  0.75, yPercentage: 1, minPosition: 0.5 }, //this special name is used for random event 2 to make sure that only one of the Goombas ends the random event
         { name: 'mario', id: 'player', class: Player, data: this.assets.players.mario },
         { name: 'tube', id: 'tube', class: Tube, data: this.assets.obstacles.tube },
-        { name: 'coin', id: 'coin', class: Coin, data: this.assets.obstacles.coin },
         { name: 'loading', id: 'background', class: BackgroundTransitions,  data: this.assets.backgrounds.loading },
         ];
         // Hills Game Level added to the GameEnv ...
