@@ -15,7 +15,7 @@ import Socket from './Multiplayer.js';
  * 
  * @extends Character
  */
-export class Player extends Character{
+export class Player extends Character {
     // instantiation: constructor sets up player object 
     constructor(canvas, image, data, widthPercentage = 0.3, heightPercentage = 0.8) {
         super(canvas, image, data, widthPercentage, heightPercentage);
@@ -112,6 +112,7 @@ export class Player extends Character{
      * This method overrides Character.update, which overrides GameObject.update. 
      * @override
      */
+
     update() {
         //Update the Player Position Variables to match the position of the player
         GameEnv.PlayerPosition.playerX = this.x;
@@ -302,6 +303,7 @@ export class Player extends Character{
             }
         } */
     }
+}
         if (this.collisionData.touchPoints.other.id === "jumpPlatform") {
             // Player is on top of the Jump platform
             if (this.collisionData.touchPoints.other.left) {
@@ -321,14 +323,14 @@ export class Player extends Character{
                 // this.y -= GameEnv.gravity;
                 this.setAnimation(this.directionKey); // set animation to direction
             }
-        }
+        
         // Fall Off edge of Jump platform
         else if (this.movement.down === false) {
             this.movement.down = true;          
             this.gravityEnabled = true;
         }
-
-
+    
+    }
 
     /**
      * Handles the keydown event.
@@ -400,6 +402,7 @@ export class Player extends Character{
         }
     }
 }
+
 
 
 export default Player;
