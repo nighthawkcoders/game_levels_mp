@@ -246,18 +246,18 @@ export class Player extends Character{
 
         // Goomba left/right collision
         if (["goomba", "flyingGoomba"].includes(this.collisionData.touchPoints.other.id)) {
-            // Collision with the left side of the Enemy
-            if (this.collisionData.touchPoints.other.left && GameEnv.invincible === false) {
+            const direction = this.collisionData.touchPoints.other.left ? -1 : 1;
+            if (GameEnv.difficulty === "easy") {
+                this.x += 10 * direction;
+            } else {
+                // calculate the rotation and translation for the death animation
+                const rotate = 90 * direction;
+                const translate = this.canvas.height * 0.5 * direction;
+                // apply the death animation 
+                this.canvas.style.transform = `rotate(${rotate}deg) translate(${translate}px, 0%)`;
 
-                //Animate player death
-                this.canvas.style.transition = "transform 0.5s";
-                this.canvas.style.transform = "rotate(-90deg) translate(-26px, 0%)";
-
-                if (GameEnv.difficulty === "easy") {
-                    this.x -= 10;
-                } else {
-                    //Reset Player to Beginning
-                    playPlayerDeath();
+                // reset player to the beginning of level
+                playPlayerDeath();
 
                     if (this.isDying == false) {
                         this.isDying = true;
@@ -278,8 +278,7 @@ export class Player extends Character{
                 }   
             }
 
-            }    
-        }
+            }
         // Goomba left/right collision
         /* if (["goomba", "flyingGoomba"].includes(this.collisionData.touchPoints.other.id)) {
             // Collision with the left side of the Enemy
@@ -332,6 +331,7 @@ export class Player extends Character{
                 }
             }
         } */
+    }
         if (this.collisionData.touchPoints.other.id === "jumpPlatform") {
             // Player is on top of the Jump platform
             if (this.collisionData.touchPoints.other.left) {
@@ -357,8 +357,9 @@ export class Player extends Character{
             this.movement.down = true;          
             this.gravityEnabled = true;
         }
-    }
-    
+
+
+
     /**
      * Handles the keydown event.
      * This method checks the pressed key, then conditionally:
@@ -367,8 +368,9 @@ export class Player extends Character{
      * - adjusts the game environment
      *
      * @param {Event} event - The keydown event.
-     */    
-    handleKeyDown(event) {
+     */  
+    
+    handleKeyDown(event); {
         if (this.playerData.hasOwnProperty(event.key)) {
             const key = event.key;
             if (!(event.key in this.pressedKeys)) {
@@ -407,7 +409,7 @@ export class Player extends Character{
                  GameEnv.backgroundMountainsSpeed = 0.1;
             } */ // This was unnecessary, and broke hitboxes / alloswed diffusion through matter
         }
-    }
+    
 
     /**
      * Handles the keyup event.
@@ -415,7 +417,8 @@ export class Player extends Character{
      * *
      * @param {Event} event - The keyup event.
      */
-    handleKeyUp(event) {
+    
+    handleKeyUp(event); {
         if (this.playerData.hasOwnProperty(event.key)) {
             const key = event.key;
             if (event.key in this.pressedKeys) {

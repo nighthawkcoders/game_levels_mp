@@ -14,6 +14,7 @@ export class Goomba extends Character {
         //Unused but must be Defined
         this.name = name;
         this.y = yPercentage;
+        goombaDeath = 0;
 
         //Initial Position of Goomba
         this.x = xPercentage * GameEnv.innerWidth;
@@ -54,6 +55,7 @@ export class Goomba extends Character {
         //Whichever Goomba recieves this message first will die, then end the event so the other Goombas don't die
         if (GameControl.randomEventId === 3 && GameControl.randomEventState === 1) {
             this.destroy();
+            this.goombaDeath++;
             GameControl.endRandomEvent();
         };
 
@@ -110,6 +112,8 @@ export class Goomba extends Character {
                 this.canvas.style.transform = "scaleY(0)"; // Make the Goomba flat
                 this.speed = 0;
                 GameEnv.invincible = true;
+                super.destroy();
+                GameEnv.goombaDeaths++;
                 playGoombaDeath();
 
                 // Set a timeout to make GameEnv.invincible false after 2000 milliseconds (2 seconds)
