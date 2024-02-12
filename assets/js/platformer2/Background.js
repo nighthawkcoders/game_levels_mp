@@ -25,7 +25,13 @@ export class Background extends GameObject {
      * x + width to y is wrap around draw
     */
     draw() {
+        // Draw the primary segment
         this.ctx.drawImage(this.image, this.x, this.y);
+        
+        // Draw the wrap-around segment for the left side
+        this.ctx.drawImage(this.image, this.x - this.width, this.y);
+    
+        // Draw the wrap-around segment for the right side
         this.ctx.drawImage(this.image, this.x + this.width, this.y);
     }
 

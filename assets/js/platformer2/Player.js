@@ -149,6 +149,9 @@ export class Player extends Character {
         let tubeX = (.80 * GameEnv.innerWidth)
         if (this.x >= tubeX && this.x <= GameEnv.innerWidth) {
             this.x = tubeX - 1;
+
+            GameEnv.backgroundHillsSpeed = 0;
+            GameEnv.backgroundMountainsSpeed = 0;
         }
 
         //Prevent Player from Leaving from Screen
@@ -211,6 +214,33 @@ export class Player extends Character {
             }
         } else {
             // Reset movement flags if not colliding with a tube
+            this.movement.left = true;
+            this.movement.right = true;
+        }
+
+        if (this.collisionData.touchPoints.other.id === "tree") {
+            // Collision with the left side of the tree
+            if (this.collisionData.touchPoints.other.left) {
+                this.movement.right = false;
+            }
+            // Collision with the right side of the tree
+            if (this.collisionData.touchPoints.other.right) {
+                this.movement.left = false;
+            }
+            // Collision with the top of the player
+            if (this.collisionData.touchPoints.other.bottom) {
+                this.x = this.collisionData.touchPoints.other.x;
+                this.gravityEnabled = false; // stop gravity
+                // Pause for two seconds
+                setTimeout(() => {   // animation in tree for 1 seconds
+                    this.gravityEnabled = true;
+                    setTimeout(() => { // move to end of screen for end of game detection
+                        this.x = GameEnv.innerWidth + 1;
+                    }, 1000);
+                }, 1000);
+            }
+        } else {
+            // Reset movement flags if not colliding with a tree
             this.movement.left = true;
             this.movement.right = true;
         }
@@ -346,6 +376,15 @@ export class Player extends Character {
         if (this.playerData.hasOwnProperty(event.key)) {
             const key = event.key;
             if (!(event.key in this.pressedKeys)) {
+                //If both 'a' and 'd' are pressed, then only 'd' will be inputted
+                //Originally if this is deleted, player would stand still. 
+                if (this.pressedKeys['a'] && key === 'd') {
+                    delete this.pressedKeys['a']; // Remove "a" key from pressedKeys
+                    return; //(return) = exit early
+                } else if (this.pressedKeys['d'] && key === 'a') {
+                    // If "d" is pressed and "a" is pressed afterward, ignore "a" key
+                    return;
+                }
                 this.pressedKeys[event.key] = this.playerData[key];
                 this.setAnimation(key);
                 // player active
