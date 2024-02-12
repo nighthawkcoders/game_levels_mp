@@ -217,6 +217,33 @@ export class Player extends Character{
             this.movement.right = true;
         }
 
+        if (this.collisionData.touchPoints.other.id === "tree") {
+            // Collision with the left side of the tree
+            if (this.collisionData.touchPoints.other.left) {
+                this.movement.right = false;
+            }
+            // Collision with the right side of the tree
+            if (this.collisionData.touchPoints.other.right) {
+                this.movement.left = false;
+            }
+            // Collision with the top of the player
+            if (this.collisionData.touchPoints.other.bottom) {
+                this.x = this.collisionData.touchPoints.other.x;
+                this.gravityEnabled = false; // stop gravity
+                // Pause for two seconds
+                setTimeout(() => {   // animation in tree for 1 seconds
+                    this.gravityEnabled = true;
+                    setTimeout(() => { // move to end of screen for end of game detection
+                        this.x = GameEnv.innerWidth + 1;
+                    }, 1000);
+                }, 1000);
+            }
+        } else {
+            // Reset movement flags if not colliding with a tree
+            this.movement.left = true;
+            this.movement.right = true;
+        }
+
         // Goomba left/right collision
         if (["goomba", "flyingGoomba"].includes(this.collisionData.touchPoints.other.id)) {
             // Collision with the left side of the Enemy
