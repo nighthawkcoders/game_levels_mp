@@ -191,6 +191,12 @@ export class Player extends Character{
 
         // Perform super update actions
         super.update();
+
+        // To put mario in the air after stepping on the goomba
+        if (GameEnv.goombaBoost === true) {
+            GameEnv.goombaBoost = false;
+            this.y = this.y - 150;
+        }
     }
 
     /**
@@ -255,7 +261,6 @@ export class Player extends Character{
                 } else if (this.collisionData.touchPoints.other.right && !this.collisionData.touchPoints.other.bottom && !this.collisionData.touchPoints.other.top && GameEnv.invincible === false && this.timer === false) {
                     setTimeout(this.goombaCollision.bind(this), 50);
                 }
-            
 
                 // Collision with the right side of the Enemy
             }
