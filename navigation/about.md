@@ -20,7 +20,7 @@ permalink: /about/
                 <td><a href="https://ryann96.github.io/NewRepository2/">Ryan</a></td>
                 <td>Gabriel</td>
                 <td>Daniel</td>
-                <td>Maryam</td>
+                <td><a href = "https://maryamabdul-aziz.github.io/student2/">Maryam</a></td>
                 <td>Trystan</td>
             </tr>
             <tr>
@@ -28,7 +28,7 @@ permalink: /about/
                 <td>Nora</td>
                 <td>Xavier</td>
                 <td>Daisy</td>
-                <td>Matthew</td>
+                <td><a href="https://matthewborabo.github.io/student2.0/">Matthew</a></td>
             </tr>
             <tr>
                 <td>Nathan</td>
