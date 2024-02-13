@@ -94,7 +94,7 @@ class GameLevel {
                  const canvas = document.createElement("canvas");
                  canvas.id = data.id;
                  document.querySelector("#canvasContainer").appendChild(canvas);
-                 console.log(canvas);
+                 //console.log(canvas);
                  // Create a new instance of the game object.
                 var obj1 =  new Character(canvas, image, obj.data, obj.xPercentage, obj.yPercentage, obj.minPosition);
                 

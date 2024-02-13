@@ -33,6 +33,8 @@ export class GameEnv {
      * @property {Array} gameObjects - used by GameControl
      * @property {boolean} isInverted - localstorage key, canvas filter property, used by GameControl
      * @property {boolean} invincible - invincibility for the mario when stomping on Goomba
+     * @property {boolean} goombaInvincible - invincibility for the goomba when mario touch
+     * @property {boolean} goombaBounce - mario touch goomba --> bounce
      * @property {number} gameSpeed - localstorage key, used by platformer objects
      * @property {number} backgroundHillsSpeed - used by background objects
      * @property {number} backgroundMountainsSpeed - used by background objects
@@ -69,6 +71,8 @@ export class GameEnv {
     static bottom;
     static prevBottom;
     static invincible = false;
+    static goombaInvincible = false;
+    static goombaBounce = false;
 
 
     
