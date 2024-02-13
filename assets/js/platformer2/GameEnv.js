@@ -33,12 +33,16 @@ export class GameEnv {
      * @property {Array} gameObjects - used by GameControl
      * @property {boolean} isInverted - localstorage key, canvas filter property, used by GameControl
      * @property {boolean} invincible - invincibility for the mario when stomping on Goomba
+     * @property {boolean} goombaInvincible - invincibility for the goomba when mario touch
+     * @property {boolean} goombaBounce - mario touch goomba --> bounce
      * @property {number} gameSpeed - localstorage key, used by platformer objects
      * @property {number} backgroundHillsSpeed - used by background objects
      * @property {number} backgroundMountainsSpeed - used by background objects
      * @property {number} backgroundCloudsSpeed - used by background objects
      * @property {boolean} transitionHide - used to hide the transition screen
      * @property {number} gravity - localstorage key, used by platformer objects
+     * @property {boolean} true - to update gravity and settings button when mushroom is stepped on
+     * @property {boolean} true1 
      * @property {Object} difficulty - localstorage key, used by GameControl
      * @property {number} innerWidth - used by platformer objects
      * @property {number} prevInnerWidth - used by platformer objects
@@ -61,6 +65,8 @@ export class GameEnv {
     static backgroundCloudsSpeed = 2;
     static transitionHide = false;
     static gravity = 3;
+    static true = true;
+    static true1 = true;
     static difficulty = "normal";
     static innerWidth;
     static prevInnerWidth;
@@ -69,6 +75,8 @@ export class GameEnv {
     static bottom;
     static prevBottom;
     static invincible = false;
+    static goombaInvincible = false;
+    static goombaBounce = false;
 
 
     
