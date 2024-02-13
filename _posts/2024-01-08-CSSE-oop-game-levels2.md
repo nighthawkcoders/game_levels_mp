@@ -17,6 +17,9 @@ image: /images/platformer/backgrounds/home.png
   <a href="javascript:void(0)" id="leaderboard-header">&times; Leaderboard</a>
 </div>
 
+<!--Audio for Mushroom -->
+<audio id="Mushroom" src="{{site.baseurl}}/assets/audio/Mushroom.mp3" preload="auto"></audio>
+
 <!--Audio for Death of Goomba -->
 <audio id="goombaDeath" src="{{site.baseurl}}/assets/audio/goomba-death.mp3" preload="auto"></audio>
 
@@ -119,7 +122,7 @@ image: /images/platformer/backgrounds/home.png
         let messages = ["Hi! My name is Mario, and I wish...", 
         "I wish I could be just as cool as this guy, Mr. Lopez.", "Help me get to the next level to become him!", "Do you want a speed boost?   [Y/N]","This game was provided by CompSci Inc.","Turn on multiplayer from the settings tab to play with others."];
         console.log("Message length: " + messages.length);
-    
+
         function showMessage(){
             var x = cutStory;
             x.className = 'show'; // change class name to show
