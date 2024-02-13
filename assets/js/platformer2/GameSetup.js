@@ -149,7 +149,7 @@ const GameSetup = {
       id.hidden = true;
       
       // Change currentLevel to start/restart value of null
-      GameEnv.currentLevel = null;
+      GameEnv.currentLevel = false;
 
       return true;
     },
