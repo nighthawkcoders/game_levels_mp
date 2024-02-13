@@ -73,6 +73,7 @@ export class FlyingGoomba extends Character {
                 this.immune = 1;
         } else if (GameEnv.difficulty === "impossible") {
                 this.canvas.style.filter = 'brightness(1000%)';
+                this.canvas.style.transform = "rotate(180deg)"
                 this.immune = 1;
         }
 
