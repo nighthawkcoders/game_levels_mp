@@ -89,13 +89,26 @@ export class FlyingGoomba extends Character {
         }
         if (this.collisionData.touchPoints.other.id === "player") {
             // Collision: Top of Goomba with Bottom of Player
-            if (this.collisionData.touchPoints.other.bottom && this.immune === 0) {
-                this.x = GameEnv.innerWidth + 1;
+            console.log(this.collisionData.touchPoints.other.bottom + 'bottom')
+            console.log(this.collisionData.touchPoints.other.top + "top")
+            console.log(this.collisionData.touchPoints.other.right + "right")
+            console.log(this.collisionData.touchPoints.other.left + "left")
+            
+            if (this.collisionData.touchPoints.other.bottom && this.immune == 0) {
+                GameEnv.invincible = true;
+                this.canvas.style.transition = "transform 2s, opacity 1s";
+                this.canvas.style.transformOrigin = "bottom"; // Set the transform origin to the bottom
+                this.canvas.style.transform = "scaleY(0)"; // Make the Goomba flat
+                this.speed = 0;
                 playGoombaDeath();
-                GameEnv.uniqueGoombaDeaths++;
-                this.destroy();
+
+                setTimeout((function() {
+                    GameEnv.invincible = false;
+                    this.destroy();
+                }).bind(this), 1500);
             }
         }
+
         if (this.collisionData.touchPoints.other.id === "jumpPlatform") {
             if (this.collisionData.touchPoints.other.left || this.collisionData.touchPoints.other.right) {
                 this.speed = -this.speed;            
