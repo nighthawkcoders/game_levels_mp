@@ -84,6 +84,7 @@ export class Player extends Character{
             if (GameEnv.difficulty === "normal" || GameEnv.difficulty === "hard") {
                 this.canvas.style.transition = "transform 0.5s";
                 this.canvas.style.transform = "rotate(-90deg) translate(-26px, 0%)";
+                playPlayerDeath();
 
                 if (this.isDying == false) {
                     this.isDying = true;
@@ -142,7 +143,7 @@ export class Player extends Character{
         // GoombaBounce deals with player.js and goomba.js
         if (GameEnv.goombaBounce === true) {
             GameEnv.goombaBounce = false;
-            this.y = this.y - 125;
+            this.y = this.y - 250;
         }
 
         // Player moving right 
@@ -291,9 +292,12 @@ export class Player extends Character{
 
                 // Collision with the right side of the Enemy
             }
+        } 
+        if (this.collisionData.touchPoints.other.id === "mushroom") {
+            this.canvas.style.filter = 'invert(1)';
+            GameEnv.true = true;
         }
         if (this.collisionData.touchPoints.other.id === "jumpPlatform") {
-            // Player is on top of the Jump platform
             if (this.collisionData.touchPoints.other.left) {
                 this.movement.right = false;
                 this.gravityEnabled = true;
