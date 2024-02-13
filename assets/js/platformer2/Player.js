@@ -332,8 +332,6 @@ export class Player extends Character {
                 }
             }
         } */
-    }
-}
         if (this.collisionData.touchPoints.other.id === "jumpPlatform") {
             // Player is on top of the Jump platform
             if (this.collisionData.touchPoints.other.left) {
@@ -352,7 +350,7 @@ export class Player extends Character {
                 this.gravityEnabled = false;
                 // this.y -= GameEnv.gravity;
                 this.setAnimation(this.directionKey); // set animation to direction
-            }
+            }}
         
         // Fall Off edge of Jump platform
         else if (this.movement.down === false) {
@@ -372,7 +370,7 @@ export class Player extends Character {
      * @param {Event} event - The keydown event.
      */  
     
-    handleKeyDown(event); {
+    handleKeyDown(event) {
         if (this.playerData.hasOwnProperty(event.key)) {
             const key = event.key;
             if (!(event.key in this.pressedKeys)) {
@@ -411,7 +409,7 @@ export class Player extends Character {
                  GameEnv.backgroundMountainsSpeed = 0.1;
             } */ // This was unnecessary, and broke hitboxes / alloswed diffusion through matter
         }
-    
+    }
 
     /**
      * Handles the keyup event.
@@ -420,7 +418,7 @@ export class Player extends Character {
      * @param {Event} event - The keyup event.
      */
     
-    handleKeyUp(event); {
+    handleKeyUp(event) {
         if (this.playerData.hasOwnProperty(event.key)) {
             const key = event.key;
             if (event.key in this.pressedKeys) {
@@ -441,7 +439,5 @@ export class Player extends Character {
         }
     }
 }
-
-
 
 export default Player;
