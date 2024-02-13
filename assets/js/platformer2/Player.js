@@ -3,6 +3,7 @@ import Character from './Character.js';
 import GameControl from './GameControl.js';
 import playJump from './Audio1.js';
 import playPlayerDeath from './Audio2.js';
+import GameSetup from './GameSetup.js';
 import Socket from './Multiplayer.js';
 
 /**
@@ -231,6 +232,18 @@ export class Player extends Character{
                 } else {
                     //Reset Player to Beginning
                     playPlayerDeath();
+                
+                // Instant Death System (For Harder Stages besides impossible)
+                if (GameEnv.difficulty === "normal" || GameEnv.difficulty === "hard") {
+                    if (this.isDying == false) {
+                        this.isDying = true;
+                        setTimeout(async() => {
+                            await GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameSetup.gameOverCallBack)]);
+                            console.log("player died");
+                            this.isDying = false;
+                        }, 700)
+                    }
+                }
 
                     if (this.isDying == false) {
                         this.isDying = true;

@@ -9,6 +9,7 @@
 import GameEnv from './GameEnv.js';
 import Socket from './Multiplayer.js';
 import SettingsControl from "./SettingsControl.js";
+import Player from './Player.js';
 
 /**
  * GameControl is a singleton object that controls the game loop.
@@ -148,6 +149,8 @@ const GameControl = {
     stopTimer() {   
         clearInterval(this.timerInterval); // Clear the interval to stop the timer
     },
+    
+
 
     randomEventId: null, //Variable to determine which random event will activate.
     randomEventState: null, //Variable to hold the state. Is equal set to 1 when an event is triggered and then back to 0 once the event is completed.
