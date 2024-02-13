@@ -108,6 +108,12 @@ export class FlyingGoomba extends Character {
                 }).bind(this), 1500);
             }
         }
+
+        if (this.collisionData.touchPoints.other.id === "jumpPlatform") {
+            if (this.collisionData.touchPoints.other.left || this.collisionData.touchPoints.other.right) {
+                this.speed = -this.speed;            
+            }
+        }
     }
 }
 
