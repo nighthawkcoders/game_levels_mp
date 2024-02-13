@@ -95,7 +95,12 @@ export class FlyingGoomba extends Character {
                 GameEnv.uniqueGoombaDeaths++;
                 this.destroy();
             }
-        }    
+        }
+        if (this.collisionData.touchPoints.other.id === "jumpPlatform") {
+            if (this.collisionData.touchPoints.other.left || this.collisionData.touchPoints.other.right) {
+                this.speed = -this.speed;            
+            }
+        }
     }
 }
 
