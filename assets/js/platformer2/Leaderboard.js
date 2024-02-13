@@ -9,7 +9,7 @@ export class Leaderboard{
         // create table element
         var t = document.createElement("table");
         t.className = "table scores";
-        //create table header
+        // create table header
         var header = document.createElement("tr");
         var th1 = document.createElement("th");
         th1.innerText = "Name";
@@ -97,6 +97,11 @@ export class Leaderboard{
     }
 
     static leaderboardDropDown() {
+        // create title for leaderboard
+        var localMultiplayer = document.createElement("div");
+        localMultiplayer.id = "leaderboardTitle";
+        document.getElementById("leaderboardDropDown").appendChild(localMultiplayer);
+
         var localLeaderboard = new Leaderboard("timeScores");
         var serverLeaderboard = new Leaderboard("GtimeScores")
 
@@ -115,13 +120,17 @@ export class Leaderboard{
         var SubmenuHeight = 0; // calculated height of submenu
         function leaderboardPanel() {
             if (Socket.shouldBeSynced) {
+                // turn off local
                 t1.style.display = "none";
                 t2.style.display = "table";
-                // turn off local
+
+                localMultiplayer.innerHTML = "Multiplayer Leaderboard";
             } else if (!Socket.shouldBeSynced) {
                 // turn off multiplayer
                 t2.style.display = "none";
                 t1.style.display = "table";
+
+                localMultiplayer.innerHTML = "Local Leaderboard";
             }
 
             localLeaderboard.updateLeaderboardTable();
