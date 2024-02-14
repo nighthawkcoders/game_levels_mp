@@ -1,6 +1,5 @@
 /// platformer-styles.scss
 /// @description This stylesheet is used to style the platformer game.
-
 /// Coding Syles in SCCS (Sass), from code below:
 /// @mixin is a block of CSS declarations that can be reused in other classes, see @mixin dark-mode-color below.
 /// @include is used to include a mixin in a class, see @include dark-mode-color below.
@@ -12,60 +11,51 @@
 /// the double slash comments (//) are considered regular comments in Sass.
 /// the triple slash comments (///) are considered documentation comments in Sass.
 /// comments are not included in the compiled CSS file.
-/// @import is used to import other stylesheets, see @import of this file in "_sass/minima/custom-styles.sccs".
+/// @import is used to import other stylesheets, see @import of this file in “_sass/minima/custom-styles.sccs”.
 /// see https://sass-lang.com/documentation/syntax for more information.
-
-/// Score for the game  
+/// Score for the game
 /// @description This ID is used to style the score for the game, key style is to ensure it is on top of other elements.
-
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-
-#score { 
-  position: relative; 
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+#score {
+  position: relative;
   z-index: 2; // z-index position ensures these buttons are on top.
   padding: 5px;
   color: $dt-red !important; // use the high-emphasis color for the text
 }
-
 /// Game Begin, Game Over, Settings IDs
-/// @description These IDs correspond to buttons in game screen. Key styling is to ensure they are on top of other elements. 
+/// @description These IDs correspond to buttons in game screen. Key styling is to ensure they are on top of other elements.
 #gameBegin, #gameOver, #settings, #leaderboard {
   position: relative;
   z-index: 2; // z-index position ensures these buttons are on top.
 }
-
 #addRow, #backToGame {
   position: relative;
   z-index: 2; // z-index position ensures these buttons are on top.
   display: inline-block;
   margin-right: $spacing-unit;
 }
-
-
-/// Color mixin 
+/// Color mixin
 /// @description This mixin is defined to share colors with classes in this stylesheet.
 @mixin dark-mode-color {
   color: $high-emph !important; // use the high-emphasis color for the text
   background-color: $dark-grey !important; // use the dark grey color for the background
   border: 1px solid $dt-blue; // from dracula-highlight.scss
 }
-
 /// Horizontal Submenu
 /// @description This class styles the horizontal submenu for score and buttons in the game. It has many style elements (e.g. placing submenu below header).
 .submenu {
   @include dark-mode-color; // use the dark mode color scheme
-  border: none; // remove setting as submenu 
+  border: none; // remove setting as submenu
   position: fixed;
   z-index: 3; // Position on Top of other elements, as well as ID buttons above
-  top: $spacing-unit * 1.865;  // matches minima ".site-header min-height height", reference: https://github.com/jekyll/minima/blob/master/_sass/minima/_layout.scss
-
+  top: $spacing-unit * 1.865;  // matches minima “.site-header min-height height”, reference: https://github.com/jekyll/minima/blob/master/_sass/minima/_layout.scss
+  width: fit-content;
   // Styles for the score and buttons
   #score, #gameBegin, #gameOver, #settings, #leaderboard {
     display: inline-block; // Make the score and buttons inline
     margin-right: $spacing-unit; // Add some margin to the right of each item
   }
 }
-
 /// Sidebar class
 /// @description This class styles the sidebar for settings in the game. It has many style elements (e.g. placing sidebar below header).
 .sidebar {
@@ -74,47 +64,55 @@
   position: fixed;
   z-index: 3; // Position on Top of other elements, as well as ID buttons above
   // left: 0; // set the sidebar to be on the left side of the page
-  top: 0; // calculated to be below the header and submenu 
-  padding-top: 5px; 
+  top: 0; // calculated to be below the header and submenu
+  padding-top: 5px;
   padding-bottom: 5px;
   overflow-x: hidden; /* Disable horizontal scroll */
   transition: 0.5s; /* 0.5-second transition effect to slide in the sidebar */
   // following are changed by JavaScript
   width: 0px;
-  padding-left: 0px; 
-  padding-right: 0px; 
+  padding-left: 0px;
+  padding-right: 0px;
   overflow-y: scroll; //allow scrolling
   height: 75%;
 }
-
 .leaderboardDropDown {
   @include dark-mode-color; // use the dark mode color scheme
   border: none; // remove setting as sidebar collapse leaves residue line
   position: fixed;
   z-index: 3; // Position on Top of other elements, as well as ID buttons above
   // left: 0; // set the sidebar to be on the left side of the page
-  top: 0; // calculated to be below the header and submenu 
-  padding-top: 5px; 
+  top: 0; // calculated to be below the header and submenu
+  padding-top: 5px;
   padding-bottom: 5px;
   overflow-x: hidden; /* Disable horizontal scroll */
   transition: 0.5s; /* 0.5-second transition effect to slide in the sidebar */
   // following are changed by JavaScript
   width: 0px;
-  padding-left: 0px; 
-  padding-right: 0px; 
+  padding-left: 0px;
+  padding-right: 0px;
   height: 75%;
   scroll-behavior: auto;
-
 }
-$dt-leaderboard: #b385eb;
 
+#leaderboardTitle {
+  text-align: center;
+  color: greenyellow;
+  text-decoration: wavy;
+  font-weight: 900;
+  font-size: 100px;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  background-color: rgb(163, 55, 163);
+}
+
+$dt-leaderboard: #B385EB;
 .table.scores, th, tr, td {
   text-align: center;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 .table.scores {
   th {
-    background-color: #5f3692;
+    background-color: #5F3692;
   }
   tr {
     td {
@@ -128,7 +126,6 @@ $dt-leaderboard: #b385eb;
     }
   }
 }
-
 /// Table class
 /// @description Key style is to present game levels and make it responsive with hover highlighting.
 .table.levels {
@@ -139,14 +136,12 @@ $dt-leaderboard: #b385eb;
     }
     &:hover { // Change the background when a row is hovered over
       background-color: $dt-blue; // from dracula-highlight.scss
-
       td {
         background-color: inherit; // Make the background color of the td elements the same as the tr element
       }
     }
   }
 }
-
 /// Input mixin
 /// @description This mixin sets some common styles (e.g. color, height) for the input fields, avoiding duplication of common styles in each input class.
 /// @param {Number} width - The width of the input field, how wide it is.
@@ -161,14 +156,12 @@ $dt-leaderboard: #b385eb;
   border-radius: 5px;
   padding: 5px;
 }
-
 /// Input class
 /// @description This class styles the userID input field, key style is to make it wider.
 .input.userID {
   @include input;
   width: 100px;  // customize width of the input field
 }
-
 /// Input class
 /// @description This class styles the gameSpeed and gravity input fields, key style is to right-align the text.
 .input.gameSpeed, .input.gravity {
@@ -176,16 +169,13 @@ $dt-leaderboard: #b385eb;
   width: 40px;  // customize width of the input field
   text-align: right; // right-align input for numbers
 }
-
-/// @import is used to import other stylesheets, see @import of this file in "_sass/minima/custom-styles.sccs".
+/// @import is used to import other stylesheets, see @import of this file in “_sass/minima/custom-styles.sccs”.
 #toggleCanvasEffect, #background, #platform{
   animation: fadein 5s;
 }
-
 #startGame, #marioSays{
   animation: flash 0.5s infinite;
 }
-
 @keyframes flash {
   50% {
     opacity: 0;
@@ -195,22 +185,19 @@ $dt-leaderboard: #b385eb;
     from {opacity: 1}
     to {opacity: 0}
 }
-
 @keyframes fadein{
     from {opacity: 0}
     to {opacity: 1}
 }
-
 .bottom-matter{
   position: relative;
 }
-
 #cut-story{
   visibility: hidden;
   min-width: 250px;
   background-color: rgb(255, 93, 12);
   color: white;
-  font-family: 'Press Start 2P', system-ui;
+  font-family: "Press Start 2P", system-ui;
   border-radius:4px;
   position: fixed;
   text-align: center;
@@ -228,15 +215,13 @@ $dt-leaderboard: #b385eb;
   -webkit-animation: fadein 3s;
   animation: fadein 3s;
 }
-
 #cut-story.hide{
   visibility: visible;
   -webkit-animation: fadeout 0.5s 3s;
   animation: fadeout 0.5s 3s;
 }
-
 body{
-  background: #ffb6c1;    
+  background: #FFB6C1;
 }
 #container{
   width: 95%;
@@ -248,7 +233,7 @@ body{
   min-width: 250px;
   background-color: rgb(12, 235, 255);
   color: rgb(9, 107, 78);
-  font-family: 'Press Start 2P', system-ui;
+  font-family: "Press Start 2P", system-ui;
   border-radius:20px;
   position: absolute;
   text-align: center;
@@ -262,4 +247,3 @@ body{
 .fun_facts h3, .fun_facts p{
   font-size: 1rem;
 }
-
