@@ -458,11 +458,11 @@ export class SettingsControl extends LocalStorage{
         const text = document.createElement("p");
         const button = document.createElement("button");
 
-        text.innerText = "1/5 players";
+        text.innerText = "1/10 players";
         button.innerText = "check player count";
 
         function update(d){
-            text.innerText = String(d)+"/5 players";
+            text.innerText = String(d)+"/10 players";
         }
         Socket.createListener("playerCount",update);
         button.addEventListener("click",()=>{
