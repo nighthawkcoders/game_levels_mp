@@ -27,6 +27,10 @@ export class Leaderboard{
     updateLeaderboardTable() {
         // Fetch time scores from local storage
         const timeScores = JSON.parse(localStorage.getItem(this.key)) || [];
+
+        // Sort scores from lowest to highest
+        timeScores.sort((a, b) => a.time - b.time);
+
         console.log(timeScores,this.key)
 
         // Get the existing table element
