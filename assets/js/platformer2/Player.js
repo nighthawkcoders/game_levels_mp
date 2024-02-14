@@ -15,7 +15,7 @@ import Socket from './Multiplayer.js';
  * 
  * @extends Character
  */
-export class Player extends Character{
+export class Player extends Character {
     // instantiation: constructor sets up player object 
     constructor(canvas, image, data, widthPercentage = 0.3, heightPercentage = 0.8) {
         super(canvas, image, data, widthPercentage, heightPercentage);
@@ -135,6 +135,7 @@ export class Player extends Character{
      * This method overrides Character.update, which overrides GameObject.update. 
      * @override
      */
+
     update() {
         //Update the Player Position Variables to match the position of the player
         GameEnv.PlayerPosition.playerX = this.x;
@@ -297,6 +298,7 @@ export class Player extends Character{
             this.canvas.style.filter = 'invert(1)';
             GameEnv.true = true;
         }
+        } */
         if (this.collisionData.touchPoints.other.id === "jumpPlatform") {
             if (this.collisionData.touchPoints.other.left) {
                 this.movement.right = false;
@@ -314,8 +316,8 @@ export class Player extends Character{
                 this.gravityEnabled = false;
                 // this.y -= GameEnv.gravity;
                 this.setAnimation(this.directionKey); // set animation to direction
-            }
-        }
+            }}
+        
         // Fall Off edge of Jump platform
         else if (this.movement.down === false) {
             this.movement.down = true;          
@@ -323,6 +325,9 @@ export class Player extends Character{
         }
     }
     
+    
+    }
+
     /**
      * Handles the keydown event.
      * This method checks the pressed key, then conditionally:
@@ -332,6 +337,8 @@ export class Player extends Character{
      *
      * @param {Event} event - The keydown event.
      */    
+     */  
+    
     handleKeyDown(event) {
         if (this.playerData.hasOwnProperty(event.key)) {
             const key = event.key;
@@ -400,6 +407,5 @@ export class Player extends Character{
         }
     }
 }
-
 
 export default Player;

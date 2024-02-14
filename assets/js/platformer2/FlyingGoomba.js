@@ -73,6 +73,7 @@ export class FlyingGoomba extends Character {
                 this.immune = 1;
         } else if (GameEnv.difficulty === "impossible") {
                 this.canvas.style.filter = 'brightness(1000%)';
+                this.canvas.style.transform = "rotate(180deg)"
                 this.immune = 1;
         }
 
@@ -106,6 +107,12 @@ export class FlyingGoomba extends Character {
                     GameEnv.invincible = false;
                     this.destroy();
                 }).bind(this), 1500);
+            }
+        }
+
+        if (this.collisionData.touchPoints.other.id === "jumpPlatform") {
+            if (this.collisionData.touchPoints.other.left || this.collisionData.touchPoints.other.right) {
+                this.speed = -this.speed;            
             }
         }
     }

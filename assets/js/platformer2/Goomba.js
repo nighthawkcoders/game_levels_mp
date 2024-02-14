@@ -122,6 +122,11 @@ export class Goomba extends Character {
                 }).bind(this), 1500);
 
     
+                // Set a timeout to make GameEnv.invincible false after 2000 milliseconds (2 seconds)
+                setTimeout(function () {
+                this.destroy();
+                GameEnv.invincible = false;
+                }, 2000);
             }
         }
 
