@@ -254,6 +254,33 @@ export class Player extends Character {
             this.movement.right = true;
         }
 
+        if (this.collisionData.touchPoints.other.id === "tree") {
+            // Collision with the left side of the tree
+            if (this.collisionData.touchPoints.other.left) {
+                this.movement.right = false;
+            }
+            // Collision with the right side of the tree
+            if (this.collisionData.touchPoints.other.right) {
+                this.movement.left = false;
+            }
+            // Collision with the top of the player
+            if (this.collisionData.touchPoints.other.bottom) {
+                this.x = this.collisionData.touchPoints.other.x;
+                this.gravityEnabled = false; // stop gravity
+                // Pause for two seconds
+                setTimeout(() => {   
+                    this.gravityEnabled = true;
+                    setTimeout(() => { // move to end of screen for end of game detection
+                        this.x = GameEnv.innerWidth + 1;
+                    }, 500);
+                }, 500);
+            }
+        } else {
+            // Reset movement flags if not colliding with a tree
+            this.movement.left = true;
+            this.movement.right = true;
+        }
+
         // Goomba collision code
         // Checks if collision touchpoint id is either "goomba" or "flyingGoomba"
         if (this.collisionData.touchPoints.other.id === "goomba" || this.collisionData.touchPoints.other.id === "flyingGoomba") {
@@ -302,6 +329,9 @@ export class Player extends Character {
             this.gravityEnabled = true;
         }
     }
+    
+    
+    
 
     /**
      * Handles the keydown event.
@@ -311,7 +341,7 @@ export class Player extends Character {
      * - adjusts the game environment
      *
      * @param {Event} event - The keydown event.
-     */
+     */    
     
     handleKeyDown(event) {
         if (this.playerData.hasOwnProperty(event.key)) {
