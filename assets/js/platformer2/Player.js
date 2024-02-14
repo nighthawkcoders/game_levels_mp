@@ -226,6 +226,7 @@ export class Player extends Character {
      * @override
      */
     collisionAction() {
+        // Tube collision code
         if (this.collisionData.touchPoints.other.id === "tube") {
             // Collision with the left side of the Tube
             if (this.collisionData.touchPoints.other.left) {
@@ -253,6 +254,7 @@ export class Player extends Character {
             this.movement.right = true;
         }
 
+        // Goomba collision code
         // Checks if collision touchpoint id is either "goomba" or "flyingGoomba"
         if (this.collisionData.touchPoints.other.id === "goomba" || this.collisionData.touchPoints.other.id === "flyingGoomba") {
             if (GameEnv.invincible === false) {
@@ -267,11 +269,14 @@ export class Player extends Character {
                 // Collision with the right side of the Enemy
             }
         } 
+
+        // Mushroom collision check
         if (this.collisionData.touchPoints.other.id === "mushroom") {
             this.canvas.style.filter = 'invert(1)';
             GameEnv.true = true;
         }
-        } */
+
+        // Block collision check
         if (this.collisionData.touchPoints.other.id === "jumpPlatform") {
             if (this.collisionData.touchPoints.other.left) {
                 this.movement.right = false;
@@ -289,16 +294,13 @@ export class Player extends Character {
                 this.gravityEnabled = false;
                 // this.y -= GameEnv.gravity;
                 this.setAnimation(this.directionKey); // set animation to direction
-            }}
-        
+            }
+        }
         // Fall Off edge of Jump platform
         else if (this.movement.down === false) {
             this.movement.down = true;          
             this.gravityEnabled = true;
         }
-    }
-    
-    
     }
 
     /**
@@ -309,8 +311,7 @@ export class Player extends Character {
      * - adjusts the game environment
      *
      * @param {Event} event - The keydown event.
-     */    
-     */  
+     */
     
     handleKeyDown(event) {
         if (this.playerData.hasOwnProperty(event.key)) {
