@@ -298,7 +298,7 @@ export class Player extends Character {
             this.canvas.style.filter = 'invert(1)';
             GameEnv.true = true;
         }
-        } */
+ 
         if (this.collisionData.touchPoints.other.id === "jumpPlatform") {
             if (this.collisionData.touchPoints.other.left) {
                 this.movement.right = false;
@@ -326,7 +326,7 @@ export class Player extends Character {
     }
     
     
-    }
+    
 
     /**
      * Handles the keydown event.
@@ -337,7 +337,6 @@ export class Player extends Character {
      *
      * @param {Event} event - The keydown event.
      */    
-     */  
     
     handleKeyDown(event) {
         if (this.playerData.hasOwnProperty(event.key)) {
