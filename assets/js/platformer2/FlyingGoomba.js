@@ -89,12 +89,20 @@ export class FlyingGoomba extends Character {
             }
         }
 
+        // Collides with the wall
         if (this.collisionData.touchPoints.other.id === "jumpPlatform") {
             if (this.collisionData.touchPoints.other.left || this.collisionData.touchPoints.other.right) {
-            this.speed = -this.speed;            
+                this.speed = -this.speed;            
             }
         }
+        /* There's a issue with the current collision detection as of 2/15/2024, where if you are
+        colliding with mutiple objects at the same time it refuses to collide at all or mixes all the
+        collisions together. This causes the flying Goomba on the "Space" level to be able to walk
+        through the wall regardless of the above line of code. Do not bother trying to fix it as it would
+        require a lot of reworks.
+        */
 
+        // Player collission code
         if (this.collisionData.touchPoints.other.id === "player") {
             // Collision: Top of Goomba with Bottom of Player
             console.log(this.collisionData.touchPoints.other.bottom + 'bottom')
