@@ -45,7 +45,7 @@ permalink: /about/
                 <td>Gavin I</td>
             </tr>
             <tr>
-                <td>Shaun</td>
+                <td><a href="https://shaunli8.github.io/portfolio/">Shaun</a></td>
                 <td></td>
                 <td>Tim</td>
                 <td></td>
