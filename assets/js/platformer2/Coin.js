@@ -1,15 +1,19 @@
 import GameEnv from './GameEnv.js';
 import GameObject from './GameObject.js';
+import coinSound from './Audio4.js';
+
 
 export class Coin extends GameObject {
-    constructor(canvas, image) {
-        super(canvas, image, 0);
-        // Set the initial position and size
+    constructor(canvas, image, data, xPercentage, yPercentage) {
+        super(canvas, image, data, 0.5, 0.5);
+        this.coinX = xPercentage * GameEnv.innerWidth;
+        this.coinY = yPercentage;
         this.size();
     }
 
     // Required, but no update action
     update() {
+        this.collisionChecks()
     }
 
     // Draw position is always 0,0
@@ -33,21 +37,11 @@ export class Coin extends GameObject {
         const scaledWidth = this.image.width * 0.2;
         const scaledHeight = this.image.height * 0.169;
 
-        // Center the object on the screen
-        const randomPosition = Math.random() < 0.5; // Randomly choose between two positions
-
-        let coinX, coinY;
-
-        if (randomPosition) {
-            coinX = (GameEnv.innerWidth - scaledWidth) / 7;
-            coinY = (GameEnv.innerHeight - scaledHeight) / 1.5;
-        } else {
-            coinX = (GameEnv.innerWidth - scaledWidth) / 7;
-            coinY = (GameEnv.innerHeight - scaledHeight) / 1.5;
-        }
+        const coinX = this.coinX;
+        const coinY = (GameEnv.bottom - scaledHeight) * this.coinY;
 
         // Set variables used in Display and Collision algorithms
-        this.bottom = coinY + scaledHeight;
+        this.bottom = coinY;
         this.collisionHeight = scaledHeight;
         this.collisionWidth = scaledWidth;
 
@@ -58,6 +52,14 @@ export class Coin extends GameObject {
         this.canvas.style.top = `${coinY}px`;
     }
 
+    collisionAction() {
+        // check player collision
+        if (this.collisionData.touchPoints.other.id === "player") {
+            this.destroy();
+            coinSound();
+        }
+    }
+    
     // Method to hide the coin
     hide() {
         this.canvas.style.display = 'none';
