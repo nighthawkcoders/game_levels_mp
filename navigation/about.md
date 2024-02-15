@@ -39,7 +39,7 @@ permalink: /about/
             </tr>
             <tr>
                 <td><a href="https://deanphillips24.github.io/csse2_individual/">Dean</a></td>
-                <td>Kaden</td>
+                <td><a href="https://whoskaden.github.io/Kaddd/">Kaden</a></td>
                 <td>Abigail</td>
                 <td>Zafeer</td>
                 <td>Gavin I</td>
