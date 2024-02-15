@@ -309,18 +309,21 @@ export class Player extends Character {
             if (this.collisionData.touchPoints.other.left) {
                 this.movement.right = false;
                 this.gravityEnabled = true;
+                this.y -= GameEnv.gravity; // allows movemnt on platform, but climbs walls
+
                 // this.x -= this.isActiveAnimation("s") ? this.moveSpeed : this.speed;  // Move to left
 
             }
             if (this.collisionData.touchPoints.other.right) {
                 this.movement.left = false;
                 this.gravityEnabled = true;
+                this.y -= GameEnv.gravity; // allows movemnt on platform, but climbs walls
+ 
                 // this.x += this.isActiveAnimation("s") ? this.moveSpeed : this.speed;  // Move to right
             }
             if (this.collisionData.touchPoints.this.top) {
                 this.movement.down = false; // enable movement down without gravity
                 this.gravityEnabled = false;
-                // this.y -= GameEnv.gravity;
                 this.setAnimation(this.directionKey); // set animation to direction
             }
         }
