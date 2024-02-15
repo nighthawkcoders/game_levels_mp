@@ -1,4 +1,5 @@
 import GameEnv from "./GameEnv.js";
+import Socket from "./Multiplayer.js";
 export class Leaderboard{
     constructor(key){ //default keys for localStorage
         this.key = key;
@@ -8,7 +9,7 @@ export class Leaderboard{
         // create table element
         var t = document.createElement("table");
         t.className = "table scores";
-        //create table header
+        // create table header
         var header = document.createElement("tr");
         var th1 = document.createElement("th");
         th1.innerText = "Name";
@@ -26,6 +27,10 @@ export class Leaderboard{
     updateLeaderboardTable() {
         // Fetch time scores from local storage
         const timeScores = JSON.parse(localStorage.getItem(this.key)) || [];
+
+        // Sort scores from lowest to highest
+        timeScores.sort((a, b) => a.time - b.time);
+
         console.log(timeScores,this.key)
 
         // Get the existing table element
@@ -96,6 +101,11 @@ export class Leaderboard{
     }
 
     static leaderboardDropDown() {
+        // create title for leaderboard
+        var localMultiplayer = document.createElement("div");
+        localMultiplayer.id = "leaderboardTitle";
+        document.getElementById("leaderboardDropDown").appendChild(localMultiplayer);
+
         var localLeaderboard = new Leaderboard("timeScores");
         var serverLeaderboard = new Leaderboard("GtimeScores")
 
@@ -113,6 +123,20 @@ export class Leaderboard{
         var IsOpen = false; // default sidebar is closed
         var SubmenuHeight = 0; // calculated height of submenu
         function leaderboardPanel() {
+            if (Socket.shouldBeSynced) {
+                // turn off local
+                t1.style.display = "none";
+                t2.style.display = "table";
+
+                localMultiplayer.innerHTML = "Multiplayer Leaderboard";
+            } else if (!Socket.shouldBeSynced) {
+                // turn off multiplayer
+                t2.style.display = "none";
+                t1.style.display = "table";
+
+                localMultiplayer.innerHTML = "Local Leaderboard";
+            }
+
             localLeaderboard.updateLeaderboardTable();
             serverLeaderboard.updateLeaderboardTable();
             // toggle isOpen
