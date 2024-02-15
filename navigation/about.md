@@ -31,7 +31,7 @@ permalink: /about/
                 <td><a href="https://matthewborabo.github.io/student2.0/">Matthew</a></td>
             </tr>
             <tr>
-                <td>Nathan</td>
+                <td><a href="https://NateTurman.github.io/NightHawkPages/">Nate</a></td>
                 <td>Katie</td>
                 <td>Justin</td>
                 <td>Zidane</td>
