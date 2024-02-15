@@ -25,7 +25,7 @@ permalink: /about/
             </tr>
             <tr>
                 <td><a href="https://gavincopley.github.io/testing/">Gavin C</a></td>
-                <td>Nora</td>
+                <td><a href="https://noratheturtle.github.io/code/">Nora</a></td>
                 <td>Xavier</td>
                 <td>Daisy</td>
                 <td><a href="https://matthewborabo.github.io/student2.0/">Matthew</a></td>
