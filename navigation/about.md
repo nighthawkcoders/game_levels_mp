@@ -19,14 +19,14 @@ permalink: /about/
             <tr>
                 <td><a href="https://ryann96.github.io/NewRepository2/">Ryan</a></td>
                 <td>Gabriel</td>
-                <td>Daniel</td>
+                <td><a href = "https://danielfitzwilliam.github.io/student/">Daniel</a></td>
                 <td><a href = "https://maryamabdul-aziz.github.io/student2/">Maryam</a></td>
                 <td>Trystan</td>
             </tr>
             <tr>
                 <td><a href="https://gavincopley.github.io/testing/">Gavin C</a></td>
                 <td>Nora</td>
-                <td>Xavier</td>
+                <td>Xavier<a href="https://xaviertho.github.io/xavier/"></td>
                 <td>Daisy</td>
                 <td><a href="https://matthewborabo.github.io/student2.0/">Matthew</a></td>
             </tr>
