@@ -123,8 +123,13 @@ image: /images/platformer/backgrounds/home.png
       
         let cutStory = document.getElementById('cut-story');
         let messages = ["Hi! My name is Mario, and I wish...", 
-        "I wish I could be just as cool as this guy, Mr. Lopez.", "Help me get to the next level to become him!", "Do you want a speed boost?   [Y/N]","This game was provided by CompSci Inc.","Turn on multiplayer from the settings tab to play with others."];
-        console.log("Message length: " + messages.length);
+        "I wish I could be just as cool as this guy, Mr. Lopez.", "Help me get to the next level to become him!","This game was provided by CompSci Inc.","Stomp on Mushroom to get 3 seconds off your total time!","Turn on multiplayer from the settings tab to play with others."];
+
+        //if let messages = ("Stomp on Mushroom to get 3 seconds off your total time!")
+        //GameEnv.messages = true;
+      
+
+        
 
         function showMessage(){
             var x = cutStory;
