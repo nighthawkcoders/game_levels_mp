@@ -19,7 +19,7 @@ permalink: /about/
             <tr>
                 <td><a href="https://ryann96.github.io/NewRepository2/">Ryan</a></td>
                 <td>Gabriel</td>
-                <td>Daniel</td>
+                <td><a href = "https://danielfitzwilliam.github.io/student/">Daniel</a></td>
                 <td><a href = "https://maryamabdul-aziz.github.io/student2/">Maryam</a></td>
                 <td>Trystan</td>
             </tr>
