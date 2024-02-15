@@ -59,6 +59,9 @@ const GameControl = {
             this.stopTimer();
             // Get the current user ID from SettingsControl
             const userID = GameEnv.userID
+
+            // Subtract 3 seconds if destroyedMushroom is true
+            //const adjustedElapsedTime = GameEnv.destroyedMushroom ? Math.max(0, elapsedTimeNum - 3) : elapsedTimeNum;
     
             // Retrieve existing time scores from local storage
             const existingTimeScores = JSON.parse(localStorage.getItem('timeScores')) || [];

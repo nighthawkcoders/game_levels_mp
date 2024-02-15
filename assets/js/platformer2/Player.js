@@ -144,8 +144,13 @@ export class Player extends Character {
         // GoombaBounce deals with player.js and goomba.js
         if (GameEnv.goombaBounce === true) {
             GameEnv.goombaBounce = false;
-            this.y = this.y - 250;
+            this.y = this.y - 100;
         }
+
+        if (GameEnv.goombaBounce1 === true) {
+            GameEnv.goombaBounce1 = false; 
+            this.y = this.y - 250
+        } 
 
         // Player moving right 
         if (this.isActiveAnimation("a")) {
@@ -294,11 +299,21 @@ export class Player extends Character {
                 // Collision with the right side of the Enemy
             }
         } 
+
         if (this.collisionData.touchPoints.other.id === "mushroom") {
+            GameEnv.destroyedMushroom = true;
             this.canvas.style.filter = 'invert(1)';
-            GameEnv.true = true;
+        
+            setTimeout(() => {
+                this.canvas.style.filter = 'invert(0)';
+            }, 2000); // 2000 milliseconds = 2 seconds
         }
- 
+
+        //if (GameEnv.destroyedMushroom === true) {
+            //GameEnv.playMessage = true;
+        //}
+         
+
         if (this.collisionData.touchPoints.other.id === "jumpPlatform") {
             if (this.collisionData.touchPoints.other.left) {
                 this.movement.right = false;
@@ -360,8 +375,10 @@ export class Player extends Character {
                 this.isIdle = false;
                 GameEnv.transitionHide = true;
             }
+
             // dash action on
             if (this.isKeyActionDash(key)) {
+                GameEnv.dash = true;
                 this.canvas.style.filter = 'invert(1)';
             }
             // parallax background speed starts on player movement
@@ -400,6 +417,7 @@ export class Player extends Character {
             // dash action off
             if (this.isKeyActionDash(key)) {
                 this.canvas.style.filter = 'invert(0)';
+                GameEnv.dash = false;
             } 
             // parallax background speed halts on key up
             if (this.isKeyActionLeft(key) || this.isKeyActionRight(key) || this.isKeyActionDash(key)) {

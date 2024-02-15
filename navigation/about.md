@@ -21,7 +21,7 @@ permalink: /about/
                 <td><a href="https://gabriel-gravin.github.io/Gabbb/">Gabriel</a></td>
                 <td>Daniel</td>
                 <td><a href = "https://maryamabdul-aziz.github.io/student2/">Maryam</a></td>
-                <td>Trystan</td>
+                <td><a style="background-image: linear-gradient(to right, red,orange,yellow,green,blue,indigo,violet); -webkit-background-clip: text; -webkit-text-fill-color: transparent;" href = "https://trystan-schmits.github.io/game_levels_mp">Trystan</a></td>
             </tr>
             <tr>
                 <td><a href="https://gavincopley.github.io/testing/">Gavin C</a></td>
@@ -41,7 +41,7 @@ permalink: /about/
                 <td><a href="https://deanphillips24.github.io/csse2_individual/">Dean</a></td>
                 <td><a href="https://whoskaden.github.io/Kaddd/">Kaden</a></td>
                 <td>Abigail</td>
-                <td>Zafeer</td>
+                <td><a href="https://zafeera123.github.io/Personal2/">Zafeer</
                 <td>Gavin I</td>
             </tr>
             <tr>
