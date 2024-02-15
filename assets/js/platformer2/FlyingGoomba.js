@@ -88,6 +88,13 @@ export class FlyingGoomba extends Character {
                 this.speed = -this.speed;            
             }
         }
+
+        if (this.collisionData.touchPoints.other.id === "jumpPlatform") {
+            if (this.collisionData.touchPoints.other.left || this.collisionData.touchPoints.other.right) {
+            this.speed = -this.speed;            
+            }
+        }
+
         if (this.collisionData.touchPoints.other.id === "player") {
             // Collision: Top of Goomba with Bottom of Player
             console.log(this.collisionData.touchPoints.other.bottom + 'bottom')
@@ -110,11 +117,7 @@ export class FlyingGoomba extends Character {
             }
         }
 
-        if (this.collisionData.touchPoints.other.id === "jumpPlatform") {
-            if (this.collisionData.touchPoints.other.left || this.collisionData.touchPoints.other.right) {
-                this.speed = -this.speed;            
-            }
-        }
+        
     }
 }
 
