@@ -36,7 +36,6 @@ export class Coin extends GameObject {
         const scaledWidth = this.image.width * 0.2;
         const scaledHeight = this.image.height * 0.169;
 
-
         const coinX = this.coinX;
         const coinY = (GameEnv.bottom - scaledHeight) * this.coinY;
 
@@ -59,6 +58,14 @@ export class Coin extends GameObject {
         }
     }
 
+    collisionAction() {
+        // check player collision
+        if (this.collisionData.touchPoints.other.id === "player") {
+            this.destroy();
+            coinSound();
+        }
+    }
+    
     // Method to hide the coin
     hide() {
         this.canvas.style.display = 'none';
