@@ -32,7 +32,7 @@ permalink: /about/
             </tr>
             <tr>
                 <td>Nathan</td>
-                <td>Katie</td>
+                <td><a href="https://katiek27.github.io/finaltwo/">Katie</a></td>
                 <td>Justin</td>
                 <td>Zidane</td>
                 <td>Ian</td>
