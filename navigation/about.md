@@ -41,7 +41,7 @@ permalink: /about/
                 <td><a href="https://deanphillips24.github.io/csse2_individual/">Dean</a></td>
                 <td>Kaden</td>
                 <td>Abigail</td>
-                <td><a href="https://zafeera123.github.io/Personal2/">Zafeer</
+                <td><a href="https://zafeera123.github.io/Personal2/">Zafeer</a></td>
                 <td>Gavin I</td>
             </tr>
             <tr>
