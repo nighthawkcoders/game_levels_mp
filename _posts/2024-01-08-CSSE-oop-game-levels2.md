@@ -29,6 +29,9 @@ image: /images/platformer/backgrounds/home.png
 <!--Audio for death of player -->
 <audio id ="PlayerDeath" src="{{site.baseurl}}/assets/audio/MarioDeath.mp3" preload="auto"></audio>
 
+<!--Audio for coin collection -->
+<audio id ="coin" src="{{site.baseurl}}/assets/audio/coin.mp3" preload="auto"></audio>
+
 
 <!-- Wrap both the controls and gameplay in a container div -->
 <div id="canvasContainer">
