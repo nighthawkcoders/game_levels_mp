@@ -83,7 +83,7 @@ const GameControl = {
             localStorage.setItem('timeScores', JSON.stringify(existingTimeScores));
             localStorage.setItem('GtimeScores', JSON.stringify(existingTimeScores2));
 
-            Socket.sendData("leaderboard",elapsedTime.toFixed(2));
+            Socket.sendData("leaderboard",elapsedTimeNum.toFixed(2));
         
         }
     
