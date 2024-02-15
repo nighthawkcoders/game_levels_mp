@@ -311,7 +311,12 @@ export class Player extends Character {
                 this.canvas.style.filter = 'invert(0)';
             }, 2000); // 2000 milliseconds = 2 seconds
         }
- 
+
+        //if (GameEnv.destroyedMushroom === true) {
+            //GameEnv.playMessage = true;
+        //}
+         
+
         if (this.collisionData.touchPoints.other.id === "jumpPlatform") {
             if (this.collisionData.touchPoints.other.left) {
                 this.movement.right = false;
