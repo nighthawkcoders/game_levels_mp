@@ -130,7 +130,7 @@ image: /images/mario_animation.png
   ////////// event control /////////
 
   window.addEventListener("keydown", (event) => {
-    if (event.key === "ArrowRight"||event.key==="D") {
+    if (event.key === "ArrowRight"||event.key==="d") {
       event.preventDefault();
       if (event.repeat) {
         mario.startCheering();
@@ -145,14 +145,14 @@ image: /images/mario_animation.png
           mario.startWalking();
         }
       }
-    } else if (event.key === "e"||event.key==="ArrowDown") {
+    } else if (event.key === "s"||event.key==="ArrowDown") {
       event.preventDefault();
       if (event.repeat) {
         mario.stopAnimate();
       } else {
         mario.startPuffing();
       }
-    } else if (event.key === "ArrowLeft"||event.key==="A") {
+    } else if (event.key === "ArrowLeft"||event.key==="a") {
       event.preventDefault();
       if (event.repeat) {
         mario.startCheering();
