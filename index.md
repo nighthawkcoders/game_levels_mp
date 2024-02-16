@@ -121,7 +121,7 @@ image: /images/mario_animation.png
   ////////// event control /////////
 
   window.addEventListener("keydown", (event) => {
-    if (event.key === "ArrowRight") {
+    if (event.code === "ArrowRight" || event.code === "KeyD") {
       event.preventDefault();
       if (event.repeat) {
         mario.startCheering();
@@ -132,7 +132,7 @@ image: /images/mario_animation.png
           mario.startRunning();
         }
       }
-    } else if (event.key === "ArrowLeft") {
+    } else if (event.code === "ArrowLeft" || event.code === "KeyA") {
       event.preventDefault();
       if (event.repeat) {
         mario.stopAnimate();
