@@ -170,7 +170,7 @@ const GameSetup = {
       obstacles: {
         tube: { src: "/images/platformer/obstacles/tube.png" },
         coin: { src: "/images/platformer/obstacles/coin.png"},
-        tree: { src: "/images/platformer/obstacles/tree.png"}
+        tree: { src: "/images/platformer/obstacles/tree.png"},
       },
       platforms: {
         grass: { src: "/images/platformer/platforms/grass.png" },
@@ -380,7 +380,9 @@ const GameSetup = {
         { name: 'flyingGoomba', id: 'flyingGoomba', class: FlyingGoomba, data: this.assets.enemies.flyingGoomba, xPercentage:  0.5, minPosition:  0.05},
         { name: 'flyingGoomba', id: 'flyingGoomba', class: FlyingGoomba, data: this.assets.enemies.flyingGoomba, xPercentage:  0.9, minPosition: 0.5},
         { name: 'lopez', id: 'player', class: Player, data: this.assets.players.lopez },
+        { name: 'coin', id: 'coin', class: Coin, data: this.assets.obstacles.coin },
         { name: 'tube', id: 'tube', class: Tube, data: this.assets.obstacles.tube },
+      
         { name: 'complete', id: 'background', class: BackgroundTransitions,  data: this.assets.backgrounds.complete },
         ];
         // Avenida Game Level added to the GameEnv ...
