@@ -43,7 +43,7 @@ var groups = [new Group];
  * Maximum number of users per group.
  * @type {number}
  */
-var maxUsers = 5;
+var maxUsers = 10;
 
 /**
  * Assign a user to an existing group or create a new group.
@@ -96,10 +96,11 @@ io.on("connection", (socket) => {
    * The unique ID of the connected socket.
    * @type {string}
    */
-  const id = uuidv4();
+  const id = uuidv4();// assign id
   socket.emit("id", id);
-  var g = connectionFunc(id, true);
-  socket.join(g.name);
+  var g = connectionFunc(id, true); //assign group
+  socket.join(g.name);//join room
+  io.in(g.name).emit("playerCount",g.ids.length);//update player count
   console.log("a player joined with id: " + id + " and added to group: " + g.name);
   var name = "";
 
@@ -112,6 +113,7 @@ io.on("connection", (socket) => {
     // Logs the socket's ID
     console.log("fired for:" +id);
     data.id = id;
+    data.name = name;
     // Broadcasts to all clients within a room
     socket.to(g.name).emit("stateUpdate", data);
   });
@@ -154,6 +156,11 @@ io.on("connection", (socket) => {
   socket.on("name",(n)=>{
     name = n;
   })
+
+  socket.on("checkPlayers", () => {
+    io.in(g.name).emit("playerCount",g.ids.length);
+  });
+
   /**
    * Listen for "disconnect" events and handle user disconnections.
    * @event
