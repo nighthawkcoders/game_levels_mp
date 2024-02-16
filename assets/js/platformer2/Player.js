@@ -380,9 +380,11 @@ export class Player extends Character{
             // parallax background speed starts on player movement
             if (this.isKeyActionLeft(key) && this.x > 2) {
                 GameEnv.backgroundHillsSpeed = -0.4;
+                GameEnv.backgroundHeckSpeed = -0.4;
                 GameEnv.backgroundMountainsSpeed = -0.1;
             } else if (this.isKeyActionRight(key)) {
                 GameEnv.backgroundHillsSpeed = 0.4;
+                GameEnv.backgroundHeckSpeed = 0.4;
                 GameEnv.backgroundMountainsSpeed = 0.1;
             } 
             /* else if (this.isKeyActionDash(key) && this.directionKey === "a") {
@@ -417,6 +419,7 @@ export class Player extends Character{
             // parallax background speed halts on key up
             if (this.isKeyActionLeft(key) || this.isKeyActionRight(key) || this.isKeyActionDash(key)) {
                 GameEnv.backgroundHillsSpeed = 0;
+                GameEnv.backgroundHeckSpeed = 0;
                 GameEnv.backgroundMountainsSpeed = 0;
             }
         }

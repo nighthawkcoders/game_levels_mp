@@ -35,7 +35,7 @@ permalink: /about/
                 <td>Katie</td>
                 <td>Justin</td>
                 <td>Zidane</td>
-                <td>Ian</td>
+                <td><a href="https://im2008.github.io/student2.0/">Ian</a></td>
             </tr>
             <tr>
                 <td><a href="https://deanphillips24.github.io/csse2_individual/">Dean</a></td>

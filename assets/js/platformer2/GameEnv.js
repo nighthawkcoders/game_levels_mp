@@ -37,6 +37,7 @@ export class GameEnv {
      * @property {number} backgroundHillsSpeed - used by background objects
      * @property {number} backgroundMountainsSpeed - used by background objects
      * @property {number} backgroundCloudsSpeed - used by background objects
+     * @property {number} backgroundHeckSpeed - used by background objects
      * @property {boolean} transitionHide - used to hide the transition screen
      * @property {number} gravity - localstorage key, used by platformer objects
      * @property {Object} difficulty - localstorage key, used by GameControl
@@ -59,6 +60,7 @@ export class GameEnv {
     static backgroundHillsSpeed = 0;
     static backgroundMountainsSpeed = 0;
     static backgroundCloudsSpeed = 2;
+    static backgroundHeckSpeed = 2;
     static transitionHide = false;
     static gravity = 3;
     static difficulty = "normal";
