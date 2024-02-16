@@ -121,12 +121,6 @@ export class SettingsControl extends LocalStorage{
         // 'difficulty', the value is parsed to a floating point number
         GameEnv.difficulty = handleKey('difficulty', GameEnv.difficulty);
 
-        if (GameEnv.true && GameEnv.true1 === true) {
-            // 
-            GameEnv.gravity = GameEnv.gravity * 2;
-            GameEnv.gameSpeed = GameEnv.gameSpeed * 2;
-        }
-
 
         // List for th 'userID' update event
         window.addEventListener("userID", (e)=>{

@@ -104,6 +104,7 @@ export class FlyingGoomba extends Character {
 
         // Player collission code
         if (this.collisionData.touchPoints.other.id === "player") {
+            this.speed = 0;
             // Collision: Top of Goomba with Bottom of Player
             console.log(this.collisionData.touchPoints.other.bottom + 'bottom')
             console.log(this.collisionData.touchPoints.other.top + "top")
@@ -112,9 +113,6 @@ export class FlyingGoomba extends Character {
             
             if (this.collisionData.touchPoints.other.bottom && this.immune == 0) {
                 GameEnv.invincible = true;
-                this.canvas.style.transition = "transform 2s, opacity 1s";
-                this.canvas.style.transformOrigin = "bottom"; // Set the transform origin to the bottom
-                this.canvas.style.transform = "scaleY(0)"; // Make the Goomba flat
                 this.speed = 0;
                 playGoombaDeath.playGoombaDeath();
 
@@ -122,6 +120,7 @@ export class FlyingGoomba extends Character {
                     GameEnv.invincible = false;
                     this.destroy();
                 }).bind(this), 1500);
+
             }
         }
 

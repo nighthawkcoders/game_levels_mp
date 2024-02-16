@@ -118,7 +118,6 @@ export class Goomba extends Character {
                 setTimeout((function() {
                     GameEnv.invincible = false;
                     this.destroy();
-                    GameEnv.true1;
                 }).bind(this), 1500);
 
     
