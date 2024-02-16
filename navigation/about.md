@@ -18,15 +18,25 @@ permalink: /about/
         <tbody>
             <tr>
                 <td><a href="https://ryann96.github.io/NewRepository2/">Ryan</a></td>
+
+                <td>Gabriel</td>
+                <td><a href = "https://danielfitzwilliam.github.io/student/">Daniel</a></td>
+
                 <td><a href="https://gabriel-gravin.github.io/Gabbb/">Gabriel</a></td>
                 <td>Daniel</td>
+
                 <td><a href = "https://maryamabdul-aziz.github.io/student2/">Maryam</a></td>
                 <td><a style="background-image: linear-gradient(to right, red,orange,yellow,green,blue,indigo,violet); -webkit-background-clip: text; -webkit-text-fill-color: transparent;" href = "https://trystan-schmits.github.io/game_levels_mp/index">Trystan</a></td>
             </tr>
             <tr>
                 <td><a href="https://gavincopley.github.io/testing/">Gavin C</a></td>
+
+                <td>Nora</td>
+                <td>Xavier<a href="https://xaviertho.github.io/xavier/"></td>
+
                 <td><a href="https://noratheturtle.github.io/code/">Nora</a></td>
                 <td>Xavier</td>
+
                 <td>Daisy</td>
                 <td><a href="https://matthewborabo.github.io/student2.0/">Matthew</a></td>
             </tr>

@@ -170,7 +170,7 @@ const GameSetup = {
       obstacles: {
         tube: { src: "/images/platformer/obstacles/tube.png" },
         coin: { src: "/images/platformer/obstacles/coin.png"},
-        tree: { src: "/images/platformer/obstacles/tree.png"}
+        tree: { src: "/images/platformer/obstacles/tree.png"},
       },
       platforms: {
         grass: { src: "/images/platformer/platforms/grass.png" },
@@ -385,7 +385,9 @@ const GameSetup = {
         { name: 'flyingGoomba', id: 'flyingGoomba', class: FlyingGoomba, data: this.assets.enemies.flyingGoomba, xPercentage:  0.5, minPosition:  0.05},
         { name: 'flyingGoomba', id: 'flyingGoomba', class: FlyingGoomba, data: this.assets.enemies.flyingGoomba, xPercentage:  0.9, minPosition: 0.5},
         { name: 'lopez', id: 'player', class: Player, data: this.assets.players.lopez },
+        { name: 'coin', id: 'coin', class: Coin, data: this.assets.obstacles.coin },
         { name: 'tube', id: 'tube', class: Tube, data: this.assets.obstacles.tube },
+      
         { name: 'complete', id: 'background', class: BackgroundTransitions,  data: this.assets.backgrounds.complete },
         ];
         // Avenida Game Level added to the GameEnv ...
@@ -407,7 +409,7 @@ const GameSetup = {
           { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: this.assets.platforms.alien, xPercentage: 0.4, yPercentage: 0.6 },
           { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage: 0.3, minPosition: 0.05},
           { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage:  0.5, minPosition: 0.3 },
-          { name: 'goombaSpecial', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage:  0.75, minPosition: 0.5 }, //this special name is used for random event 2 to make sure that only one of the Goombas ends the random event
+          { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage:  0.75, minPosition: 0.5 },
           { name: 'flyingGoomba', id: 'flyingGoomba', class: FlyingGoomba, data: this.assets.enemies.flyingGoomba, xPercentage:  0.5, minPosition:  0.05},
           { name: 'flyingGoomba', id: 'flyingGoomba', class: FlyingGoomba, data: this.assets.enemies.flyingGoomba, xPercentage:  0.9, minPosition: 0.5},
           { name: 'monkey', id: 'player', class: Player, data: this.assets.players.monkey },
