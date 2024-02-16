@@ -3,7 +3,6 @@ layout: home
 search_exclude: true
 image: /images/mario_animation.png
 ---
-
 {% assign sprite_file = site.baseurl | append: page.image %}  <!--- Liquid concatentation --->
 {% assign hash = site.data.mario_metadata %}  <!--- Liquid list variable created from a file containing mario metatdata for sprite --->
 {% assign pixels = 256 %} <!--- Liquid integer assignment --->
@@ -86,9 +85,19 @@ image: /images/mario_animation.png
       this.animate(this.obj["Walk"], 3);
     }
 
+    startWalkingLeft() {
+      this.stopAnimate();
+      this.animate(this.obj["WalkL"], -3);
+    }
+
     startRunning() {
       this.stopAnimate();
       this.animate(this.obj["Run1"], 6);
+    }
+
+    startRunningLeft() {
+      this.stopAnimate();
+      this.animate(this.obj["Run1L"], -6);
     }
 
     startPuffing() {
@@ -121,7 +130,7 @@ image: /images/mario_animation.png
   ////////// event control /////////
 
   window.addEventListener("keydown", (event) => {
-    if (event.code === "ArrowRight" || event.code === "KeyD") {
+    if (event.key === "ArrowRight"||event.key==="D") {
       event.preventDefault();
       if (event.repeat) {
         mario.startCheering();
@@ -130,14 +139,33 @@ image: /images/mario_animation.png
           mario.startWalking();
         } else if (mario.currentSpeed === 3) {
           mario.startRunning();
+        }  else if (mario.currentSpeed === -3) {
+          mario.startWalking();
+        } else if (mario.currentSpeed === -6) {
+          mario.startWalking();
         }
       }
-    } else if (event.code === "ArrowLeft" || event.code === "KeyA") {
+    } else if (event.key === "e"||event.key==="ArrowDown") {
       event.preventDefault();
       if (event.repeat) {
         mario.stopAnimate();
       } else {
         mario.startPuffing();
+      }
+    } else if (event.key === "ArrowLeft"||event.key==="A") {
+      event.preventDefault();
+      if (event.repeat) {
+        mario.startCheering();
+      } else {
+        if (mario.currentSpeed === 0) {
+          mario.startWalkingLeft();
+        } else if (mario.currentSpeed === -3) {
+          mario.startRunningLeft();
+        } else if (mario.currentSpeed === 3) {
+          mario.startWalkingLeft();
+        } else if (mario.currentSpeed === 6) {
+          mario.startWalkingLeft();
+        }
       }
     }
   });
@@ -173,8 +201,6 @@ image: /images/mario_animation.png
     // adjust sprite size for high pixel density devices
     const scale = window.devicePixelRatio;
     const sprite = document.querySelector(".sprite");
-    sprite.style.transform = `scale(${0.2 * scale})`;
+    sprite.style.transform = `scale(${2*scale})`;
     mario.startResting();
   });
-
-</script>
