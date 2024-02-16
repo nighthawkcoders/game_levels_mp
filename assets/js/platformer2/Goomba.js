@@ -113,7 +113,7 @@ export class Goomba extends Character {
                 this.canvas.style.transformOrigin = "bottom"; // Set the transform origin to the bottom
                 this.canvas.style.transform = "scaleY(0)"; // Make the Goomba flat
                 this.speed = 0;
-                playGoombaDeath();
+                playGoombaDeath.playGoombaDeath();
 
                 setTimeout((function() {
                     GameEnv.invincible = false;
