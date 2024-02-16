@@ -231,6 +231,7 @@ export class Player extends Character {
      * @override
      */
     collisionAction() {
+        // Tube collision check
         if (this.collisionData.touchPoints.other.id === "tube") {
             // Collision with the left side of the Tube
             if (this.collisionData.touchPoints.other.left) {
@@ -258,6 +259,7 @@ export class Player extends Character {
             this.movement.right = true;
         }
 
+        // Tree collision check
         if (this.collisionData.touchPoints.other.id === "tree") {
             // Collision with the left side of the tree
             if (this.collisionData.touchPoints.other.left) {
@@ -285,6 +287,7 @@ export class Player extends Character {
             this.movement.right = true;
         }
 
+        // Goomba collision check
         // Checks if collision touchpoint id is either "goomba" or "flyingGoomba"
         if (this.collisionData.touchPoints.other.id === "goomba" || this.collisionData.touchPoints.other.id === "flyingGoomba") {
             if (GameEnv.invincible === false) {
@@ -334,17 +337,14 @@ export class Player extends Character {
                 this.movement.down = false; // enable movement down without gravity
                 this.gravityEnabled = false;
                 this.setAnimation(this.directionKey); // set animation to direction
-            }}
-        
+            }
+        }
         // Fall Off edge of Jump platform
         else if (this.movement.down === false) {
             this.movement.down = true;          
             this.gravityEnabled = true;
         }
     }
-    
-    
-    
 
     /**
      * Handles the keydown event.

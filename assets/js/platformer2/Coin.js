@@ -33,7 +33,6 @@ export class Coin extends GameObject {
 
     // Center and set Coin position with adjustable height and width
     size() {
-        // Make the image 10 times smaller
         const scaledWidth = this.image.width * 0.2;
         const scaledHeight = this.image.height * 0.169;
 
@@ -51,7 +50,6 @@ export class Coin extends GameObject {
         this.canvas.style.left = `${coinX}px`;
         this.canvas.style.top = `${coinY}px`;
     }
-
     collisionAction() {
         // check player collision
         if (this.collisionData.touchPoints.other.id === "player") {
