@@ -57,14 +57,6 @@ export class Coin extends GameObject {
             coinSound();
         }
     }
-
-    collisionAction() {
-        // check player collision
-        if (this.collisionData.touchPoints.other.id === "player") {
-            this.destroy();
-            coinSound();
-        }
-    }
     
     // Method to hide the coin
     hide() {
